@@ -180,6 +180,21 @@ legend("topright",
        bty="n")
 
 ```
+La distribución hipergeométrica (verde) presenta un comportamiento escalonado debido a su naturaleza discreta y al tamaño finito del lote. Dado que 
+𝑁
+=
+100
+N=100, los cambios en el número de defectuosos 
+𝐷
+=
+𝑁
+𝑝
+D=Np ocurren en valores enteros, generando variaciones abruptas en la probabilidad de aceptación.
+
+Además, esta distribución describe con mayor precisión el riesgo real del plan de muestreo, ya que considera el agotamiento de la población durante el muestreo (sin reemplazo).
+
+Por el contrario, las aproximaciones binomial y Poisson asumen poblaciones infinitas o muestreo con reemplazo, lo que genera ligeras sobreestimaciones en la probabilidad de aceptación.
+
 b. ¿Que sucede si el tamaño del lote es de 2000 unidades?
 
 ```{r plan24}
@@ -210,7 +225,7 @@ par(bg="white")  # fondo blanco
 plot(P, Pa_hiper, type="l", lwd=3, col="darkgreen",
      ylab="Probabilidad de aceptación (Pa)",
      xlab="Proporción defectuosa (p)",
-     main="Curva Característica de Operación\nN=100, n=50, c=2",
+     main="Curva Característica de Operación\nN=2000, n=50, c=2",
      ylim=c(0,1))
 
 grid(col="gray85")

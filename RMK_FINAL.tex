@@ -1,0 +1,403 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+  12pt,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Taller 2 -- Curva CO en planes de muestreo},
+  pdfauthor={Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez 2417038},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Taller 2 -- Curva CO en planes de muestreo}
+\author{Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez
+2417038}
+\date{02 de marzo de 2026}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\section{Punto 1}\label{punto-1}
+
+\subsection{Enunciado}\label{enunciado}
+
+Suponga que usted tiene a su cargo la responsabilidad de recepción de
+materia prima en una prestigiosa empresa de la región. En un acuerdo al
+que se ha llegado con uno de sus proveedores, quien envía la materia
+prima en lotes de 150 unidades, se estableció como un lote de muy buena
+calidad aquel que presente un porcentaje de unidades defectuosas cercano
+al 5\%.
+
+Por otro lado el departamento de producción no está dispuesto a tolerar
+ningún lote con más del 10\% de unidades defectuosas.
+
+Como un lote se considera bueno si tiene menos del 5\%, se tomará un
+tamaño de muestra \(n\) y se aceptará el lote si tiene menos del 5\% de
+unidades defectuosas, por ejemplo:
+
+\begin{itemize}
+\tightlist
+\item
+  \((n=100, c=5)\)\\
+\item
+  \((n=80, c=4)\)\\
+\item
+  \((n=40, c=2)\)
+\end{itemize}
+
+\#\#Preguntas
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  Evalué en cada caso los riesgos del productor y consumidor.
+\item
+  ¿Se puede pensar entonces que un plan de muestreo con la condición de
+  proporcionalidad en AQL es equivalente, sin importar el tamaño de
+  muestra?.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggthemes)}
+\CommentTok{\# Definir los argumentos de LOS planes del muestreo }
+\CommentTok{\#Fijos para los 3 planes}
+\NormalTok{N}\OtherTok{=}\DecValTok{150}
+\NormalTok{P }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.000}\NormalTok{ , }\FloatTok{0.140}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
+
+\CommentTok{\#PLAN 1}
+
+\NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{150}
+\NormalTok{n1 }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{c1 }\OtherTok{\textless{}{-}} \DecValTok{5}
+
+\CommentTok{\# Funcion para seleccionar la distribucion en cada uno de los planes }
+
+\NormalTok{distribucion }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(n, N)\{}
+\NormalTok{  r }\OtherTok{\textless{}{-}}\NormalTok{ n}\SpecialCharTok{/}\NormalTok{N}
+  
+  \ControlFlowTok{if}\NormalTok{(r }\SpecialCharTok{\textgreater{}} \FloatTok{0.1}\NormalTok{)\{}
+    \FunctionTok{return}\NormalTok{(}\StringTok{"Hipergeométrica"}\NormalTok{)}
+\NormalTok{  \}}
+  
+  \ControlFlowTok{if}\NormalTok{(r }\SpecialCharTok{\textless{}=} \FloatTok{0.1} \SpecialCharTok{\&\&}\NormalTok{ n}\SpecialCharTok{*}\NormalTok{r }\SpecialCharTok{\textgreater{}} \DecValTok{1}\NormalTok{)\{}
+    \FunctionTok{return}\NormalTok{(}\StringTok{"Poisson"}\NormalTok{)}
+\NormalTok{  \}}
+  
+  \ControlFlowTok{if}\NormalTok{(r }\SpecialCharTok{\textless{}=} \FloatTok{0.1}\NormalTok{)\{}
+    \FunctionTok{return}\NormalTok{(}\StringTok{"Binomial"}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\CommentTok{\# Prueba distribución}
+\FunctionTok{distribucion}\NormalTok{(n1, N)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Hipergeométrica"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Vector p}
+\NormalTok{P }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.000}\NormalTok{ , }\FloatTok{0.140}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
+
+\CommentTok{\# Número de defectuosos en el lote}
+\NormalTok{m }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(P }\SpecialCharTok{*}\NormalTok{ N)}
+
+\CommentTok{\# Probabilidad de aceptación}
+\NormalTok{Pa1 }\OtherTok{\textless{}{-}} \FunctionTok{phyper}\NormalTok{(c1, m, N}\SpecialCharTok{{-}}\NormalTok{m, n1)}
+
+\CommentTok{\# Riesgos}
+\NormalTok{AQL }\OtherTok{\textless{}{-}} \FloatTok{0.05}
+\NormalTok{LTPD }\OtherTok{\textless{}{-}} \FloatTok{0.10}
+\NormalTok{mAQL }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(AQL}\SpecialCharTok{*}\NormalTok{N)}
+\NormalTok{mLTPD }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(LTPD}\SpecialCharTok{*}\NormalTok{N)}
+
+\CommentTok{\# Riesgo productor}
+\NormalTok{alpha1 }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{phyper}\NormalTok{(c1, mAQL, N}\SpecialCharTok{{-}}\NormalTok{mAQL, n1)}
+\NormalTok{alpha1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4654046
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Riesgo consumidor}
+\NormalTok{beta1 }\OtherTok{\textless{}{-}} \FunctionTok{phyper}\NormalTok{(c1, mLTPD, N}\SpecialCharTok{{-}}\NormalTok{mLTPD, n1)}
+\NormalTok{beta1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.005796643
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#CO1}
+\FunctionTok{plot}\NormalTok{(P, Pa1, }\AttributeTok{type=}\StringTok{"l"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{3}\NormalTok{, }\AttributeTok{col=}\StringTok{"blue"}\NormalTok{,}
+     \AttributeTok{xlab=}\StringTok{"Proporción defectuosa (p)"}\NormalTok{,}
+     \AttributeTok{ylab=}\StringTok{"Probabilidad de aceptación (Pa)"}\NormalTok{,}
+     \AttributeTok{main=}\StringTok{"Curva CO {-} Plan 1 (n=100, c=5)"}\NormalTok{,}
+     \AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\FunctionTok{grid}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{RMK_FINAL_files/figure-latex/plan-1} \end{center}
+
+\section{Punto 2}\label{punto-2}
+
+\subsection{Enunciado}\label{enunciado-1}
+
+Construya una Curva característica de operación para un plan de muestreo
+simple en el cual el tamaño del lote es de 100 unidades, tamaño de
+muestra 50, y numero de aceptación 2. Utilice las tres distribuciones de
+probabilidad.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  ¿Se presentan discrepancias entre las curvas?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Parámetros}
+\NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{50}
+\NormalTok{c }\OtherTok{\textless{}{-}} \DecValTok{2}
+
+\CommentTok{\# Vector de proporciones defectuosas}
+\NormalTok{P }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.001}\NormalTok{, }\FloatTok{0.20}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
+
+\CommentTok{\# 1. Binomial}
+\NormalTok{Pa\_bin }\OtherTok{\textless{}{-}} \FunctionTok{pbinom}\NormalTok{(c, n, P)}
+
+\CommentTok{\# 2. Poisson}
+\NormalTok{Pa\_pois }\OtherTok{\textless{}{-}} \FunctionTok{ppois}\NormalTok{(c, n}\SpecialCharTok{*}\NormalTok{P)}
+
+\CommentTok{\# 3. Hipergeométrica}
+\NormalTok{Pa\_hiper }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(P, }\ControlFlowTok{function}\NormalTok{(p)\{}
+\NormalTok{  D }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(N}\SpecialCharTok{*}\NormalTok{p)}
+  \FunctionTok{phyper}\NormalTok{(c, D, N}\SpecialCharTok{{-}}\NormalTok{D, n)}
+\NormalTok{\})}
+
+\CommentTok{\# {-}{-}{-} GRÁFICA MEJORADA {-}{-}{-}}
+
+\FunctionTok{par}\NormalTok{(}\AttributeTok{bg=}\StringTok{"white"}\NormalTok{)  }\CommentTok{\# fondo blanco}
+
+\FunctionTok{plot}\NormalTok{(P, Pa\_hiper, }\AttributeTok{type=}\StringTok{"l"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{3}\NormalTok{, }\AttributeTok{col=}\StringTok{"darkgreen"}\NormalTok{,}
+     \AttributeTok{ylab=}\StringTok{"Probabilidad de aceptación (Pa)"}\NormalTok{,}
+     \AttributeTok{xlab=}\StringTok{"Proporción defectuosa (p)"}\NormalTok{,}
+     \AttributeTok{main=}\StringTok{"Curva Característica de Operación}\SpecialCharTok{\textbackslash{}n}\StringTok{N=100, n=50, c=2"}\NormalTok{,}
+     \AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+
+\FunctionTok{grid}\NormalTok{(}\AttributeTok{col=}\StringTok{"gray85"}\NormalTok{)}
+
+\FunctionTok{lines}\NormalTok{(P, Pa\_bin, }\AttributeTok{lwd=}\DecValTok{3}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{"blue"}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(P, Pa\_pois, }\AttributeTok{lwd=}\DecValTok{3}\NormalTok{, }\AttributeTok{lty=}\DecValTok{3}\NormalTok{, }\AttributeTok{col=}\StringTok{"red"}\NormalTok{)}
+
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{,}
+       \AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Hipergeométrica"}\NormalTok{,}\StringTok{"Binomial"}\NormalTok{,}\StringTok{"Poisson"}\NormalTok{),}
+       \AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\StringTok{"darkgreen"}\NormalTok{,}\StringTok{"blue"}\NormalTok{,}\StringTok{"red"}\NormalTok{),}
+       \AttributeTok{lwd=}\DecValTok{3}\NormalTok{,}
+       \AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{),}
+       \AttributeTok{bty=}\StringTok{"n"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{RMK_FINAL_files/figure-latex/plan23-1} \end{center}
+
+La distribución hipergeométrica (verde) presenta un comportamiento
+escalonado debido a su naturaleza discreta y al tamaño finito del lote.
+Dado que 𝑁 = 100 N=100, los cambios en el número de defectuosos 𝐷 = 𝑁 𝑝
+D=Np ocurren en valores enteros, generando variaciones abruptas en la
+probabilidad de aceptación.
+
+Además, esta distribución describe con mayor precisión el riesgo real
+del plan de muestreo, ya que considera el agotamiento de la población
+durante el muestreo (sin reemplazo).
+
+Por el contrario, las aproximaciones binomial y Poisson asumen
+poblaciones infinitas o muestreo con reemplazo, lo que genera ligeras
+sobreestimaciones en la probabilidad de aceptación.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  ¿Que sucede si el tamaño del lote es de 2000 unidades?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Parámetros}
+\NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{2000}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{50}
+\NormalTok{c }\OtherTok{\textless{}{-}} \DecValTok{2}
+
+\CommentTok{\# Vector de proporciones defectuosas}
+\NormalTok{P }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.001}\NormalTok{, }\FloatTok{0.20}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
+
+\CommentTok{\# 1. Binomial}
+\NormalTok{Pa\_bin }\OtherTok{\textless{}{-}} \FunctionTok{pbinom}\NormalTok{(c, n, P)}
+
+\CommentTok{\# 2. Poisson}
+\NormalTok{Pa\_pois }\OtherTok{\textless{}{-}} \FunctionTok{ppois}\NormalTok{(c, n}\SpecialCharTok{*}\NormalTok{P)}
+
+\CommentTok{\# 3. Hipergeométrica}
+\NormalTok{Pa\_hiper }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(P, }\ControlFlowTok{function}\NormalTok{(p)\{}
+\NormalTok{  D }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(N}\SpecialCharTok{*}\NormalTok{p)}
+  \FunctionTok{phyper}\NormalTok{(c, D, N}\SpecialCharTok{{-}}\NormalTok{D, n)}
+\NormalTok{\})}
+
+\CommentTok{\# {-}{-}{-} GRÁFICA MEJORADA {-}{-}{-}}
+
+\FunctionTok{par}\NormalTok{(}\AttributeTok{bg=}\StringTok{"white"}\NormalTok{)  }\CommentTok{\# fondo blanco}
+
+\FunctionTok{plot}\NormalTok{(P, Pa\_hiper, }\AttributeTok{type=}\StringTok{"l"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{3}\NormalTok{, }\AttributeTok{col=}\StringTok{"darkgreen"}\NormalTok{,}
+     \AttributeTok{ylab=}\StringTok{"Probabilidad de aceptación (Pa)"}\NormalTok{,}
+     \AttributeTok{xlab=}\StringTok{"Proporción defectuosa (p)"}\NormalTok{,}
+     \AttributeTok{main=}\StringTok{"Curva Característica de Operación}\SpecialCharTok{\textbackslash{}n}\StringTok{N=2000, n=50, c=2"}\NormalTok{,}
+     \AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+
+\FunctionTok{grid}\NormalTok{(}\AttributeTok{col=}\StringTok{"gray85"}\NormalTok{)}
+
+\FunctionTok{lines}\NormalTok{(P, Pa\_bin, }\AttributeTok{lwd=}\DecValTok{3}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{"blue"}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(P, Pa\_pois, }\AttributeTok{lwd=}\DecValTok{3}\NormalTok{, }\AttributeTok{lty=}\DecValTok{3}\NormalTok{, }\AttributeTok{col=}\StringTok{"red"}\NormalTok{)}
+
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{,}
+       \AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"Hipergeométrica"}\NormalTok{,}\StringTok{"Binomial"}\NormalTok{,}\StringTok{"Poisson"}\NormalTok{),}
+       \AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\StringTok{"darkgreen"}\NormalTok{,}\StringTok{"blue"}\NormalTok{,}\StringTok{"red"}\NormalTok{),}
+       \AttributeTok{lwd=}\DecValTok{3}\NormalTok{,}
+       \AttributeTok{lty=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{),}
+       \AttributeTok{bty=}\StringTok{"n"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{RMK_FINAL_files/figure-latex/plan24-1} \end{center}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\end{document}
