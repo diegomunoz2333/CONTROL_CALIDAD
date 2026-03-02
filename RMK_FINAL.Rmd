@@ -1,16 +1,14 @@
 ---
-title: "Título del Documento"
-author: "Diego Fernando Muñoz Portela, Valery Rivera Lopez"
+title: "Taller 2 – Curva CO en planes de muestreo"
+author: "Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez 2417038"
 date: "`r format(Sys.Date(), '%d de %B de %Y')`"
 output:
   pdf_document:
     toc: true
+    toc_depth: 3
     number_sections: true
-    latex_engine: xelatex
-    highlight: tango
 fontsize: 12pt
 geometry: margin=2.5cm
-mainfont: "Times New Roman"
 header-includes:
   - \usepackage{amsmath}
   - \usepackage{amssymb}
@@ -21,6 +19,7 @@ header-includes:
   - \onehalfspacing
 ---
 
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   echo = TRUE,
   warning = FALSE,
@@ -29,3 +28,39 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.height = 4
 )
+```
+
+# Punto 1
+
+## Enunciado
+
+Suponga que usted tiene a su cargo la responsabilidad de recepción de materia prima en una prestigiosa empresa de la región. En un acuerdo al que se ha llegado con uno de sus proveedores, quien envía la materia prima en lotes de 150 unidades, se estableció como un lote de muy buena calidad aquel que presente un porcentaje de unidades defectuosas cercano al 5%.  
+
+Por otro lado el departamento de producción no está dispuesto a tolerar ningún lote con más del 10% de unidades defectuosas.  
+
+Como un lote se considera bueno si tiene menos del 5%, se tomará un tamaño de muestra $n$ y se aceptará el lote si tiene menos del 5% de unidades defectuosas, por ejemplo:
+
+- $(n=100, c=5)$  
+- $(n=80, c=4)$  
+- $(n=40, c=2)$  
+
+a. Evalué en cada caso los riesgos del productor y consumidor.
+
+b. ¿Se puede pensar entonces que un plan de muestreo con la condición de proporcionalidad
+en AQL es equivalente, sin importar el tamaño de muestra?. 
+
+
+# Punto 2
+
+## Enunciado
+Construya una Curva característica de operación para un plan de muestreo simple en el cual el
+tamaño del lote es de 100 unidades, tamaño de muestra 50, y numero de aceptación 2. Utilice las
+tres distribuciones de probabilidad.
+
+a. ¿Se presentan discrepancias entre las curvas?
+
+b. ¿Que sucede si el tamaño del lote es de 2000 unidades?
+
+---
+
+
