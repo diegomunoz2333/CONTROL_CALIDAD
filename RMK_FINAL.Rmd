@@ -44,10 +44,88 @@ Como un lote se considera bueno si tiene menos del 5%, se tomará un tamaño de 
 - $(n=80, c=4)$  
 - $(n=40, c=2)$  
 
+##Preguntas
+
 a. Evalué en cada caso los riesgos del productor y consumidor.
 
 b. ¿Se puede pensar entonces que un plan de muestreo con la condición de proporcionalidad
 en AQL es equivalente, sin importar el tamaño de muestra?. 
+
+```{Librerias}
+#librerias
+library(tidyverse)
+```
+
+
+```{Plan 1}
+library(ggthemes)
+# Definir los argumentos de LOS planes del muestreo 
+#Fijos para los 3 planes
+N=150
+P <- seq(0.000 , 0.140, 0.001)
+
+#PLAN 1
+
+N <- 150
+n1 <- 100
+c1 <- 5
+
+# Funcion para seleccionar la distribucion en cada uno de los planes 
+
+distribucion <- function(n, N){
+  r <- n/N
+  
+  if(r > 0.1){
+    return("Hipergeométrica")
+  }
+  
+  if(r <= 0.1 && n*r > 1){
+    return("Poisson")
+  }
+  
+  if(r <= 0.1){
+    return("Binomial")
+  }
+}
+
+# Prueba distribución
+distribucion(n1, N)
+
+# Vector p
+P <- seq(0.000 , 0.140, 0.001)
+
+# Número de defectuosos en el lote
+m <- round(P * N)
+
+# Probabilidad de aceptación
+Pa1 <- phyper(c1, m, N-m, n1)
+
+# Riesgos
+AQL <- 0.05
+LTPD <- 0.10
+mAQL <- round(AQL*N)
+mLTPD <- round(LTPD*N)
+
+# Riesgo productor
+alpha1 <- 1 - phyper(c1, mAQL, N-mAQL, n1)
+alpha1
+
+# Riesgo consumidor
+beta1 <- phyper(c1, mLTPD, N-mLTPD, n1)
+beta1
+```
+
+
+```{Plan 1 grafico}
+#CO1
+plot(P, Pa1, type="l", lwd=3, col="blue",
+     xlab="Proporción defectuosa (p)",
+     ylab="Probabilidad de aceptación (Pa)",
+     main="Curva CO - Plan 1 (n=100, c=5)",
+     ylim=c(0,1))
+grid()
+
+```
 
 
 # Punto 2
