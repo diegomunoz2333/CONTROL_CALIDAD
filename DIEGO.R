@@ -45,8 +45,6 @@ plot(P, Pa_hiper2, type="l", lwd=2,
 lines(P, Pa_bin, lwd=2, lty=2)
 lines(P, Pa_pois, lwd=2, lty=3)
 
-legend("top right",
-       legend=c("Hipergeométrica","Binomial","Poisson"),
-       lwd=2, lty=c(1,2,3))
-install.packages("tinytex")
-tinytex::install_tinytex()
+legend("topright",
+       legend=c("Binomial","Poisson","Hipergeométrica"),
+       lty=1)

@@ -51,13 +51,12 @@ a. Evalué en cada caso los riesgos del productor y consumidor.
 b. ¿Se puede pensar entonces que un plan de muestreo con la condición de proporcionalidad
 en AQL es equivalente, sin importar el tamaño de muestra?. 
 
-```{Librerias}
-#librerias
+```{r Librerias}
 library(tidyverse)
 ```
 
 
-```{Plan 1}
+```{r Plan 1}
 library(ggthemes)
 # Definir los argumentos de LOS planes del muestreo 
 #Fijos para los 3 planes
@@ -116,7 +115,7 @@ beta1
 ```
 
 
-```{Plan 1 grafico}
+```{r plan}
 #CO1
 plot(P, Pa1, type="l", lwd=3, col="blue",
      xlab="Proporción defectuosa (p)",
@@ -137,8 +136,96 @@ tres distribuciones de probabilidad.
 
 a. ¿Se presentan discrepancias entre las curvas?
 
+```{r plan23}
+# Parámetros
+N <- 100
+n <- 50
+c <- 2
+
+# Vector de proporciones defectuosas
+P <- seq(0.001, 0.20, 0.001)
+
+# 1. Binomial
+Pa_bin <- pbinom(c, n, P)
+
+# 2. Poisson
+Pa_pois <- ppois(c, n*P)
+
+# 3. Hipergeométrica
+Pa_hiper <- sapply(P, function(p){
+  D <- round(N*p)
+  phyper(c, D, N-D, n)
+})
+
+# --- GRÁFICA MEJORADA ---
+
+par(bg="white")  # fondo blanco
+
+plot(P, Pa_hiper, type="l", lwd=3, col="darkgreen",
+     ylab="Probabilidad de aceptación (Pa)",
+     xlab="Proporción defectuosa (p)",
+     main="Curva Característica de Operación\nN=100, n=50, c=2",
+     ylim=c(0,1))
+
+grid(col="gray85")
+
+lines(P, Pa_bin, lwd=3, lty=2, col="blue")
+lines(P, Pa_pois, lwd=3, lty=3, col="red")
+
+legend("topright",
+       legend=c("Hipergeométrica","Binomial","Poisson"),
+       col=c("darkgreen","blue","red"),
+       lwd=3,
+       lty=c(1,2,3),
+       bty="n")
+
+```
 b. ¿Que sucede si el tamaño del lote es de 2000 unidades?
 
+```{r plan24}
+# Parámetros
+N <- 2000
+n <- 50
+c <- 2
+
+# Vector de proporciones defectuosas
+P <- seq(0.001, 0.20, 0.001)
+
+# 1. Binomial
+Pa_bin <- pbinom(c, n, P)
+
+# 2. Poisson
+Pa_pois <- ppois(c, n*P)
+
+# 3. Hipergeométrica
+Pa_hiper <- sapply(P, function(p){
+  D <- round(N*p)
+  phyper(c, D, N-D, n)
+})
+
+# --- GRÁFICA MEJORADA ---
+
+par(bg="white")  # fondo blanco
+
+plot(P, Pa_hiper, type="l", lwd=3, col="darkgreen",
+     ylab="Probabilidad de aceptación (Pa)",
+     xlab="Proporción defectuosa (p)",
+     main="Curva Característica de Operación\nN=100, n=50, c=2",
+     ylim=c(0,1))
+
+grid(col="gray85")
+
+lines(P, Pa_bin, lwd=3, lty=2, col="blue")
+lines(P, Pa_pois, lwd=3, lty=3, col="red")
+
+legend("topright",
+       legend=c("Hipergeométrica","Binomial","Poisson"),
+       col=c("darkgreen","blue","red"),
+       lwd=3,
+       lty=c(1,2,3),
+       bty="n")
+
+```
 ---
 
 
