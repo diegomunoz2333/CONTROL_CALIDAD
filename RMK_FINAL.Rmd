@@ -180,16 +180,7 @@ legend("topright",
        bty="n")
 
 ```
-La distribución hipergeométrica (verde) presenta un comportamiento escalonado debido a su naturaleza discreta y al tamaño finito del lote. Dado que 
-𝑁
-=
-100
-N=100, los cambios en el número de defectuosos 
-𝐷
-=
-𝑁
-𝑝
-D=Np ocurren en valores enteros, generando variaciones abruptas en la probabilidad de aceptación.
+La distribución hipergeométrica (verde) presenta un comportamiento escalonado debido a su naturaleza discreta y al tamaño finito del lote. Dado que N=100, los cambios en los numeros de defectuosos ocurren en valores enteros, generando variaciones abruptas en la probabilidad de aceptación.
 
 Además, esta distribución describe con mayor precisión el riesgo real del plan de muestreo, ya que considera el agotamiento de la población durante el muestreo (sin reemplazo).
 
@@ -241,6 +232,13 @@ legend("topright",
        bty="n")
 
 ```
+
+La distribución hipergeométrica ya no presenta un comportamiento escalonado visible, debido a que el tamaño del lote es grande N = 2000. En este caso, los cambios en el número de defectuosos afectan muy poco la probabilidad de aceptación, haciendo que la curva sea prácticamente continua.
+
+Además, dado que la fracción de muestreo es pequeña, el efecto de agotamiento de la población es mínimo. Por esta razón, las distribuciones binomial y Poisson se aproximan muy bien a la hipergeométrica.
+
+Se observa que las tres curvas prácticamente coinciden, lo que indica que para lotes grandes, las aproximaciones binomial y Poisson describen adecuadamente el comportamiento real del plan de muestreo.
+
 ---
 
 
