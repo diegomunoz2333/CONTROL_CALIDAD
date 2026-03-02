@@ -1,47 +1,52 @@
-N <- 100 ; n <- 50 ; c <- 2
-P <- seq(0.000 , 0.200, 0.001)
-Pa_binom <- pbinom(c, n, P, lower.tail=T)
-Pa_poisson <- ppois(c, lambda = n*P)
-Pa_hiper <- numeric(length(P))
+# Parámetros
+N <- 100
+n <- 50
+c <- 2
 
-for(i in 1:length(P)){
-  D <- round(N * P[i])
-  Pa_hiper[i] <- phyper(c, D, N-D, n)
-}
+# Vector de proporciones defectuosas
+P <- seq(0.001, 0.20, 0.001)
+
+# 1. Binomial
+Pa_bin <- pbinom(c, n, P)
+
+# 2. Poisson
+Pa_pois <- ppois(c, n*P)
+
+# 3. Hipergeométrica
+Pa_hiper <- sapply(P, function(p){
+  D <- round(N*p)
+  phyper(c, D, N-D, n)
+})
+
+# Gráfica
 plot(P, Pa_hiper, type="l", lwd=2,
-     xlab="Proporción de defectos (Calidad de entrada)",
-     ylab="Pa",
-     main="Curva CO - Comparación")
+     ylab="Pa", xlab="Proporción defectuosa",
+     main="Curva CO - N=100")
 
-lines(P, Pa_binom, col="blue", lwd=2)
-lines(P, Pa_poisson, col="red", lwd=2)
+lines(P, Pa_bin, lwd=2, lty=2)
+lines(P, Pa_pois, lwd=2, lty=3)
 
-legend("topright",
+legend("top right",
        legend=c("Hipergeométrica","Binomial","Poisson"),
-       col=c("black","blue","red"),
-       lwd=2)
+       lwd=2, lty=c(1,2,3))
 
-N <- 2000 ; n <- 50 ; c <- 2
-P <- seq(0.000 , 0.200, 0.001)
-Pa_binom <- pbinom(c, n, P, lower.tail=T)
-Pa_poisson <- ppois(c, lambda = n*P)
-Pa_hiper <- numeric(length(P))
 
-for(i in 1:length(P)){
-  D <- round(N * P[i])
-  Pa_hiper[i] <- phyper(c, D, N-D, n)
-}
-plot(P, Pa_hiper, type="l", lwd=2,
-     xlab="Proporción de defectos (Calidad de entrada)",
-     ylab="Pa",
-     main="Curva CO - Comparación")
+N <- 2000
 
-lines(P, Pa_binom, col="blue", lwd=2)
-lines(P, Pa_poisson, col="red", lwd=2)
+Pa_hiper2 <- sapply(P, function(p){
+  D <- round(N*p)
+  phyper(c, D, N-D, n)
+})
 
-legend("topright",
+plot(P, Pa_hiper2, type="l", lwd=2,
+     ylab="Pa", xlab="Proporción defectuosa",
+     main="Curva CO - N=2000")
+
+lines(P, Pa_bin, lwd=2, lty=2)
+lines(P, Pa_pois, lwd=2, lty=3)
+
+legend("top right",
        legend=c("Hipergeométrica","Binomial","Poisson"),
-       col=c("black","blue","red"),
-       lwd=2)
-
-
+       lwd=2, lty=c(1,2,3))
+install.packages("tinytex")
+tinytex::install_tinytex()
