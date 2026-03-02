@@ -1,0 +1,122 @@
+\documentclass[11pt,a4paper,]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=2cm]{geometry}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Untitled},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+
+\title{
+\noindent
+\large\textbf{Untitled} \hfill \textbf{FirstName LastName} \\
+\normalsize Module: ModuleNumber \hfill Team members: student1, student2 \\
+Module Lead: Prof.~Smith \hfill Lab Date: XX/XX/XX \\
+Lab Lead: John Smith \hfill Due Date: XX/XX/XX
+}
+\date{\vspace{-5ex}}
+
+
+\begin{document}
+
+\maketitle
+
+
+
+
+
+\section{About}\label{about}
+
+This template is similar to the
+\texttt{03:\ My\ Template\ (HTML\ edit)}, but instead applies a custom
+LaTeX template. This is used to build the final output.
+
+\subsection{Alteration to the
+template}\label{alteration-to-the-template}
+
+You will notice that there are many additional YAML options than usual.
+At line 153, the template has been altered to include a lot of extra
+fields, which are enclosed by the dollar signs:
+
+\begin{verbatim}
+\title{
+\noindent
+\large\textbf{$title$} \hfill \textbf{$first-name$ $last-name$} \\
+\normalsize Module: $module$ \hfill Team members: $for(teammates)$$teammates$$sep$, $endfor$ \\
+Module Lead: $module-lead$ \hfill Lab Date: $lab-date$ \\
+Lab Lead: $TA$ \hfill Due Date: $due-date$
+}
+\date{\vspace{-5ex}}
+\end{verbatim}
+
+\section{Example feature.}\label{example-feature.}
+
+This template also includes a bibliography file, containing a single
+reference for R Markdown (Allaire et al. 2018). The bibliography will be
+added to the end of the output document.
+
+\subsection{Customisation}\label{customisation}
+
+If you want to create your own LaTeX template, you will have to be at
+least partly familiar with LaTeX. But this example highlights how the
+title section can be customised to include additional fields beyond the
+typical \texttt{title}, \texttt{date} and \texttt{authors} etc.
+
+\section*{References}\label{references}
+\addcontentsline{toc}{section}{References}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-R-rmarkdown}
+Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin
+Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, and Winston Chang. 2018.
+\emph{Rmarkdown: Dynamic Documents for r}.
+\url{https://CRAN.R-project.org/package=rmarkdown}.
+
+\end{CSLReferences}
+
+\end{document}
