@@ -56,6 +56,38 @@ Como un lote se considera bueno si tiene menos del 5%, se tomará un tamaño de 
 Dado que el tamaño del lote es pequeño ($N=150$) y la muestra ($n$) representa una parte significativa del lote, podemos suponer el uso de una **Distribución Hipergeométrica**.
 Sin embargo, aplicaremos las respectivas pruebas de distribucion en cada uno de los planes para asegurarnos de usar la indicada para cada una de las probabilidades de aceptación ($P_a$).
 
+```{r sasa}
+# Funcion para seleccionar la distribucion en cada uno de los planes 
+# Definimos los argumentos de LOS planes del muestreo fijos para los 3 planes
+N=150
+P <- seq(0.000 , 0.140, 0.001)
+
+#PLAN 1
+
+N <- 150
+n1 <- 100
+c1 <- 5
+distribucion <- function(n, N){
+  r <- n/N
+  
+  if(r > 0.1){
+    return("Hipergeométrica")
+  }
+  
+  if(r <= 0.1 && n*r > 1){
+    return("Poisson")
+  }
+  
+  if(r <= 0.1){
+    return("Binomial")
+  }
+}
+
+# Prueba distribución
+distribucion(n1, N)
+
+```
+
 Para evaluar los riesgos en un lote de tamaño finito ($N=150$).
 La probabilidad de aceptación ($P_a$) se calcula mediante la siguiente sumatoria:
 
@@ -171,7 +203,7 @@ Esto indica que el plan tiene una alta capacidad para discriminar entre lotes bu
 Cuando la proporción defectuosa se encuentra alrededor del AQL (5%), la probabilidad de aceptación todavía es considerable; sin embargo, al acercarse al 10% la probabilidad disminuye de manera significante nos permite ver tener una fuerte restricción hacia lotes de mala calidad.
 El riesgo del productor obtenido es relativamente alto, lo que implica que existe una probabilidad significativa de rechazar un lote que en realidad cumple con el nivel aceptable de calidad.
 Por otro lado, el riesgo del consumidor es extremadamente bajo con ($\beta1$) de 0.57% , lo que significa que es muy poco probable que se acepte un lote con un nivel de defectos inaceptable.
-Si se busca proteger principalmente al consumidor, este será un plan adecuado a elegir ya que es el más estricto de los tres y el que presenta mayor poder discriminante debido a su tamaño de muestra elevado.
+**Si se busca proteger principalmente al consumidor, este será un plan adecuado** a elegir ya que es el más estricto de los tres y el que presenta mayor poder discriminante debido a su tamaño de muestra elevado.
 
 #### Plan 2: $n = 80$, $c = 4$
 
@@ -221,8 +253,8 @@ grid()
 En el grafico del Plan 2, la curva CO mantiene una tendencia decreciente clara, aunque su pendiente es ligeramente menos pronunciada que la del plan anterior.
 El plan 2 continúa diferenciando adecuadamente entre niveles de calidad aceptables e inaceptables, pero con menor rigor.
 El riesgo del productor ($\alpha2$) sigue siendo alto con un 43,6% de rechazar un lote bueno, aunque sea ligeramente menor que en el Plan 1, lo que indica que todavía existe una probabilidad considerable de rechazar lotes que cumplen el AQL.
-Por otro lado, el riesgo del consumidor ($\beta2$) con un porcentaje de 2,74% Esto significa que el riesgo de aceptar un lote de mala calidad (con 10% de defectos) aumentó en **2.18 puntos porcentuales** respecto al plan anterior.
-Esta nueva CO representa una situación intermedia, donde se busca cierto equilibrio entre la protección del productor y la protección del consumidor, aunque todavía mantiene un nivel de exigencia considerable.
+Por otro lado, el riesgo del consumidor ($\beta2$) con un porcentaje de 2,74% Esto significa que **el riesgo de aceptar un lote de mala calidad (con 10% de defectos) aumentó en 2.18 puntos porcentuales** respecto al plan anterior.
+Esta nueva CO representa una situación intermedia, donde se busca cierto **equilibrio entre la protección del productor y la protección del consumidor,** aunque todavía mantiene un nivel de exigencia considerable.
 
 #### Plan 3: $n = 40$, $c = 2$
 
@@ -271,7 +303,7 @@ Esto indica que este tiene menor capacidad para distinguir entre lotes buenos y 
 A medida que aumenta la proporción defectuosa, la probabilidad de aceptación disminuye de forma más gradual, lo que implica que aún con niveles relativamente altos de defectos existe una probabilidad importante de aceptar el lote.
 El riesgo del productor ($\alpha3$) es el más bajo de los tres planes con un 36,21% lo que significa que es menos probable rechazar un lote que cumple con el AQL.
 Sin embargo, el riesgo del consumidor es mayor con un ($\beta3$) del 17,98% lo que evidencia una menor protección frente a lotes de mala calidad.
-En consecuencia, este plan favorece más al proveedor que al cliente y resulta el menos estricto de los tres debido a su menor tamaño de muestra.
+**En consecuencia, este plan favorece más al proveedor que al cliente** y resulta el menos estricto de los tres debido a su menor tamaño de muestra.
 
 ### b. ¿Se puede pensar entonces que un plan de muestreo con la condición de proporcionalidad en AQL es equivalente, sin importar el tamaño de muestra?.
 
@@ -297,31 +329,37 @@ grid()
 
 ```
 
-**No,** a pesar de que en los tres planes propuestos se mantiene una relación proporcional del 5% entre el número de aceptación ($c$) y el tamaño de la muestra ($n$), los planes **no son equivalentes** desde el punto de vista del control estadístico y la gestión del riesgo.
+No, a pesar de que en los tres planes propuestos se mantiene una relación proporcional del 5% entre el número de aceptación ($c$) y el tamaño de la muestra ($n$), los planes **no son equivalentes** desde el punto de vista del control estadístico y la gestión del riesgo.
 La equivalencia de un plan de muestreo no está determinada por la proporción $c/n$, sino por la **pendiente de su Curva Característica de Operación (CO)**, la cual depende directamente del tamaño absoluto de la muestra ($n$).
 
 El Plan 1 ($n=100$) posee la curva más vertical, lo que le otorga un alto poder discriminante para separar lotes de buena calidad de los de mala calidad.
 A medida que $n$ disminuye (Plan 2 y Plan 3), la curva se vuelve más "suave" o plana, perdiendo su capacidad de castigar los lotes que superan el nivel de defectos tolerado.
-Es importante tener en cuenta la **Vulnerabilidad del Consumidor (Riesgo** $\beta$): Este es el factor que más evidencia la falta de equivalencia.
+Es importante tener en cuenta la vulnerabilidad del consumidor (Riesgo $\beta$): Este es el factor que más evidencia la falta de equivalencia.
 Mientras que en el Plan 1 el riesgo del consumidor es extremadamente bajo ($\beta_1 = 0.57\%$), en el Plan 3, con la misma proporción del 5%, el riesgo se dispara hasta un **17.98%**.
 Esto significa que el cliente tiene casi **30 veces más probabilidad** de aceptar un lote malo en el Plan 3 que en el Plan 1.
 
-1.  **Relación de Riesgos:** \* Los planes con muestras grandes (Plan 1) son **estrictos**: protegen mucho al consumidor pero aumentan el riesgo del productor ($\alpha$), ya que el rigor del plan puede rechazar lotes que están apenas en el límite del AQL.
-
-    -   Los planes con muestras pequeñas (Plan 3) son **indulgentes**: favorecen al productor al reducir el riesgo de rechazo injusto, pero dejan al consumidor con una protección insuficiente.
-
-**Conclusión final:**
-
 Mantener la proporcionalidad solo asegura una relación matemática superficial.
 En la práctica, reducir el tamaño de la muestra debilita la protección del sistema de calidad.
-Por lo tanto, un plan de muestreo debe elegirse basándose en el **balance de riesgos (**$\alpha$ y $\beta$) que la empresa esté dispuesta a asumir, y no simplemente en una regla de tres simple sobre el nivel de aceptación.
+Por lo tanto, un plan de muestreo debe elegirse basándose en el **balance de riesgos (**$\alpha$ **y** $\beta$**) que la empresa esté dispuesta a asumir, y no simplemente en una regla de tres simple sobre el nivel de aceptación.**
 
-# Punto 2
+# **Punto 2**
 
 ## Enunciado
 
 Construya una Curva característica de operación para un plan de muestreo simple en el cual el tamaño del lote es de 100 unidades, tamaño de muestra 50, y numero de aceptación 2.
 Utilice las tres distribuciones de probabilidad.
+
+**Hipergeométrica (Exacta para lotes pequeños):** Es la que ya definimos, donde el tamaño del lote $N=100$ influye directamente.
+
+**Distribución Binomial (Aproximación):** Se utiliza como una aproximación de la hipergeométrica cuando el tamaño del lote $N$ es muy grande en relación al tamaño de la muestra $n$ (típicamente cuando $n/N < 0.1$).
+La fórmula es:
+
+$$P_a = \sum_{x=0}^{c} \binom{n}{x} p^x (1-p)^{n-x}$$
+
+**Distribución Poisson (Aproximación de la Binomial):** Se emplea como aproximación de la binomial cuando la probabilidad de éxito $p$ es muy pequeña y el tamaño de la muestra $n$ es grande.
+La fórmula está dada por:
+
+$$P_a = \sum_{x=0}^{c} \frac{e^{-\lambda} \lambda^x}{x!}$$
 
 ## Preguntas
 
