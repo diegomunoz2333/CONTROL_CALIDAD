@@ -44,18 +44,41 @@ Como un lote se considera bueno si tiene menos del 5%, se tomará un tamaño de 
 -   $(n=80, c=4)$\
 -   $(n=40, c=2)$
 
-##Preguntas
+## Preguntas
 
-a.  Evalué en cada caso los riesgos del productor y consumidor.
+### a. Evalué en cada caso los riesgos del productor y consumidor.
 
-    Dado que el tamaño del lote es pequeño ($N=150$) y la muestra ($n$) representa una parte significativa del lote, podemos suponer el uso de una **Distribución Hipergeométrica**. Sin embargo, aplicaremos las respectivas pruebas de distribucion en cada uno de los planes para asegurarnos de usar la indicada para cada una de las probabilidades de aceptación ($P_a$).
+Dado que el tamaño del lote es pequeño ($N=150$) y la muestra ($n$) representa una parte significativa del lote, podemos suponer el uso de una **Distribución Hipergeométrica**. Sin embargo, aplicaremos las respectivas pruebas de distribucion en cada uno de los planes para asegurarnos de usar la indicada para cada una de las probabilidades de aceptación ($P_a$).
+
+Para evaluar los riesgos del productor ($\alpha$) y del consumidor ($\beta$) en cada plan de muestreo, se utiliza la *distribución hipergeométrica*, dado que el lote es finito ($N = 150$) y la fracción de muestreo $n/N$ supera el 10% en todos los casos. La probabilidad de aceptación de un lote con proporción defectuosa $p$ es:
+
+$$ P_a(p) = \sum_{x=0}^{c} \frac{\binom{D}{x} \binom{N-D}{n-x}}{\binom{N}{n}}, $$
+
+donde $D = \text{round}(p \cdot N)$ es el número de unidades defectuosas en el lote, $n$ el tamaño de muestra y $c$ e l número de aceptación.
+
+Los riesgos se definen a partir de dos calidades de referencia:
+
+-   *AQL* (Nivel de Calidad Aceptable): $p_0 = 0.05$ (5% de defectuosos). Corresponde a la calidad que el productor considera buena.
+-   *LTPD* (Porcentaje de Defectuosos Tolerable en el Lote): $p_1 = 0.10$ (10% de defectuosos). Corresponde a la calidad que el consumidor considera rechazable.
+
+El riesgo del productor es la probabilidad de rechazar un lote con calidad AQL:
+
+$$ \alpha = 1 - P_a(p_0). $$
+
+El riesgo del consumidor es la probabilidad de aceptar un lote con calidad LTPD:
+
+$$ \beta = P_a(p_1). $$
+
+A continuación se analizan los tres planes propuestos, todos con la relación $c/n = 0.05$.
 
 ```{r Librerias, include=FALSE}
 library(tidyverse)
 library(ggthemes)
 ```
 
-```{r Plan 1, echo=FALSE}
+#### Plan 1: $n = 100$, $c = 5$
+
+```{r Plan 1, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Definimos los argumentos de LOS planes del muestreo fijos para los 3 planes
 N=150
@@ -123,7 +146,9 @@ grid()
 
 La curva característica de operación del *Plan 1* presenta una caída pronunciada a medida que aumenta la proporción defectuosa del lote. Esto indica que el plan tiene una alta capacidad para discriminar entre lotes buenos y lotes malos. Cuando la proporción defectuosa se encuentra alrededor del AQL (5%), la probabilidad de aceptación todavía es considerable; sin embargo, al acercarse al 10% la probabilidad disminuye de manera significante nos permite ver tener una fuerte restricción hacia lotes de mala calidad. El riesgo del productor obtenido es relativamente alto, lo que implica que existe una probabilidad significativa de rechazar un lote que en realidad cumple con el nivel aceptable de calidad. Por otro lado, el riesgo del consumidor es extremadamente bajo con ($\beta1$) de 0.57% , lo que significa que es muy poco probable que se acepte un lote con un nivel de defectos inaceptable. Si se busca proteger principalmente al consumidor, este será un plan adecuado a elegir ya que es el más estricto de los tres y el que presenta mayor poder discriminante debido a su tamaño de muestra elevado.
 
-```{r PLAN 2, echo=FALSE}
+#### Plan 2: $n = 80$, $c = 4$
+
+```{r PLAN 2, echo=FALSE, message=FALSE, warning=FALSE}
 #PLAN 2
 
 N <- 150
@@ -161,7 +186,9 @@ grid()
 
 En el grafico del Plan 2, la curva CO mantiene una tendencia decreciente clara, aunque su pendiente es ligeramente menos pronunciada que la del plan anterior. El plan 2 continúa diferenciando adecuadamente entre niveles de calidad aceptables e inaceptables, pero con menor rigor. El riesgo del productor ($\alpha2$) sigue siendo alto con un 43,6% de rechazar un lote bueno, aunque sea ligeramente menor que en el Plan 1, lo que indica que todavía existe una probabilidad considerable de rechazar lotes que cumplen el AQL. Por otro lado, el riesgo del consumidor ($\beta2$) con un porcentaje de 2,74% Esto significa que el riesgo de aceptar un lote de mala calidad (con 10% de defectos) aumentó en **2.18 puntos porcentuales** respecto al plan anterior. Esta nueva CO representa una situación intermedia, donde se busca cierto equilibrio entre la protección del productor y la protección del consumidor, aunque todavía mantiene un nivel de exigencia considerable.
 
-```{r PLAN 3, echo=FALSE}
+#### Plan 3: $n = 40$, $c = 2$
+
+```{r PLAN 3, echo=FALSE, message=FALSE, warning=FALSE}
 
 
 #PLAN 3
@@ -199,7 +226,7 @@ grid()
 
 La curva correspondiente al Plan 3 es notablemente más suave y presenta una pendiente menos pronunciada. Esto indica que este tiene menor capacidad para distinguir entre lotes buenos y malos en comparación con los planes anteriores. A medida que aumenta la proporción defectuosa, la probabilidad de aceptación disminuye de forma más gradual, lo que implica que aún con niveles relativamente altos de defectos existe una probabilidad importante de aceptar el lote. El riesgo del productor ($\alpha3$) es el más bajo de los tres planes con un 36,21% lo que significa que es menos probable rechazar un lote que cumple con el AQL. Sin embargo, el riesgo del consumidor es mayor con un ($\beta3$) del 17,98% lo que evidencia una menor protección frente a lotes de mala calidad. En consecuencia, este plan favorece más al proveedor que al cliente y resulta el menos estricto de los tres debido a su menor tamaño de muestra.
 
-b.  ¿Se puede pensar entonces que un plan de muestreo con la condición de proporcionalidad en AQL es equivalente, sin importar el tamaño de muestra?.
+### b. ¿Se puede pensar entonces que un plan de muestreo con la condición de proporcionalidad en AQL es equivalente, sin importar el tamaño de muestra?.
 
 ```{r Grafico_1b, echo=FALSE}
 
@@ -231,9 +258,11 @@ Aunque en los tres casos la relación $c/n = 5\%$, no son planes equivalentes. E
 
 Construya una Curva característica de operación para un plan de muestreo simple en el cual el tamaño del lote es de 100 unidades, tamaño de muestra 50, y numero de aceptación 2. Utilice las tres distribuciones de probabilidad.
 
-a.  ¿Se presentan discrepancias entre las curvas?
+## Preguntas
 
-```{r plan23}
+### a. ¿Se presentan discrepancias entre las curvas?
+
+```{r plan23, echo=FALSE, message=FALSE, warning=FALSE}
 # Parámetros
 N <- 100
 n <- 50
@@ -284,9 +313,9 @@ Además, esta distribución describe con mayor precisión el riesgo real del pla
 
 Por el contrario, las aproximaciones binomial y Poisson asumen poblaciones infinitas o muestreo con reemplazo, lo que genera ligeras sobreestimaciones en la probabilidad de aceptación.
 
-b.  ¿Que sucede si el tamaño del lote es de 2000 unidades?
+### b. ¿Que sucede si el tamaño del lote es de 2000 unidades?
 
-```{r plan24}
+```{r plan24, echo=FALSE, message=FALSE, warning=FALSE}
 # Parámetros
 N <- 2000
 n <- 50
