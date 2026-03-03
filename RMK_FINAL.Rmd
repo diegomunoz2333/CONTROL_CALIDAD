@@ -34,32 +34,29 @@ knitr::opts_chunk$set(
 
 ## Enunciado
 
-Suponga que usted tiene a su cargo la responsabilidad de recepción de materia prima en una prestigiosa empresa de la región. En un acuerdo al que se ha llegado con uno de sus proveedores, quien envía la materia prima en lotes de 150 unidades, se estableció como un lote de muy buena calidad aquel que presente un porcentaje de unidades defectuosas cercano al 5%.  
+Suponga que usted tiene a su cargo la responsabilidad de recepción de materia prima en una prestigiosa empresa de la región. En un acuerdo al que se ha llegado con uno de sus proveedores, quien envía la materia prima en lotes de 150 unidades, se estableció como un lote de muy buena calidad aquel que presente un porcentaje de unidades defectuosas cercano al 5%.
 
-Por otro lado el departamento de producción no está dispuesto a tolerar ningún lote con más del 10% de unidades defectuosas.  
+Por otro lado el departamento de producción no está dispuesto a tolerar ningún lote con más del 10% de unidades defectuosas.
 
 Como un lote se considera bueno si tiene menos del 5%, se tomará un tamaño de muestra $n$ y se aceptará el lote si tiene menos del 5% de unidades defectuosas, por ejemplo:
 
-- $(n=100, c=5)$  
-- $(n=80, c=4)$  
-- $(n=40, c=2)$  
+-   $(n=100, c=5)$\
+-   $(n=80, c=4)$\
+-   $(n=40, c=2)$
 
 ##Preguntas
 
-a. Evalué en cada caso los riesgos del productor y consumidor.
+a.  Evalué en cada caso los riesgos del productor y consumidor.
 
-b. ¿Se puede pensar entonces que un plan de muestreo con la condición de proporcionalidad
-en AQL es equivalente, sin importar el tamaño de muestra?. 
 
-```{r Librerias}
+```{r Librerias, include=FALSE}
 library(tidyverse)
+library(ggthemes)
 ```
 
+```{r Plan 1, echo=FALSE}
 
-```{r Plan 1}
-library(ggthemes)
-# Definir los argumentos de LOS planes del muestreo 
-#Fijos para los 3 planes
+# Definimos los argumentos de LOS planes del muestreo fijos para los 3 planes
 N=150
 P <- seq(0.000 , 0.140, 0.001)
 
@@ -112,10 +109,7 @@ alpha1
 # Riesgo consumidor
 beta1 <- phyper(c1, mLTPD, N-mLTPD, n1)
 beta1
-```
 
-
-```{r plan}
 #CO1
 plot(P, Pa1, type="l", lwd=3, col="blue",
      xlab="Proporción defectuosa (p)",
@@ -126,15 +120,116 @@ grid()
 
 ```
 
+lalalalallalalala
+
+```{r PLAN 2, echo=FALSE}
+#PLAN 2
+
+N <- 150
+n2 <- 80
+c2 <- 4
+
+distribucion(n2, N)
+
+P <- seq(0.000 , 0.140, 0.001)
+m <- round(P * N)
+Pa2 <- phyper(c2, m, N-m, n2)
+
+# Riesgos
+AQL <- 0.05
+LTPD <- 0.10
+mAQL <- round(AQL*N)
+mLTPD <- round(LTPD*N)
+
+# Riesgo productor
+alpha2 <- 1 - phyper(c2, mAQL, N-mAQL, n2)
+alpha2
+
+# Riesgo consumidor
+beta2 <- phyper(c2, mLTPD, N-mLTPD, n2)
+beta2
+
+plot(P, Pa2, type="l", lwd=3, col="red",
+     xlab="Proporción defectuosa (p)",
+     ylab="Probabilidad de aceptación (Pa)",
+     main="Curva CO - Plan 2 (n=80, c=4)",
+     ylim=c(0,1))
+grid()
+
+```
+
+JKAJSAJAJK
+
+```{r PLAN 3, echo=FALSE}
+
+
+#PLAN 3
+
+N <- 150
+n3 <- 40
+c3 <- 2
+
+distribucion(n3, N)
+
+P <- seq(0.000 , 0.140, 0.001)
+m <- round(P * N)
+Pa3 <- phyper(c3, m, N-m, n3)
+# Riesgos
+AQL <- 0.05
+LTPD <- 0.10
+mAQL <- round(AQL*N)
+mLTPD <- round(LTPD*N)
+
+# Riesgo productor
+alpha3 <- 1 - phyper(c3, mAQL, N-mAQL, n3)
+alpha3
+
+# Riesgo consumidor
+beta3 <- phyper(c3, mLTPD, N-mLTPD, n3)
+beta3
+
+plot(P, Pa3, type="l", lwd=3, col="darkgreen",
+     xlab="Proporción defectuosa (p)",
+     ylab="Probabilidad de aceptación (Pa)",
+     main="Curva CO - Plan 3 (n=40, c=2)",
+     ylim=c(0,1))
+grid()
+
+```
+
+
+b.  ¿Se puede pensar entonces que un plan de muestreo con la condición de proporcionalidad en AQL es equivalente, sin importar el tamaño de muestra?.
+
+```{r Grafico_1b, echo=FALSE}
+
+plot(P, Pa1, type="l", lwd=3, col="blue",
+     xlab="Proporción defectuosa (p)",
+     ylab="Probabilidad de aceptación (Pa)",
+     main="Curvas CO Comparadas",
+     ylim=c(0,1))
+
+lines(P, Pa2, col="red", lwd=3)
+lines(P, Pa3, col="darkgreen", lwd=3)
+
+legend("topright",
+       legend=c("Plan 1 (100,5)",
+                "Plan 2 (80,4)",
+                "Plan 3 (40,2)"),
+       col=c("blue","red","darkgreen"),
+       lwd=3)
+
+grid()
+
+```
+
 
 # Punto 2
 
 ## Enunciado
-Construya una Curva característica de operación para un plan de muestreo simple en el cual el
-tamaño del lote es de 100 unidades, tamaño de muestra 50, y numero de aceptación 2. Utilice las
-tres distribuciones de probabilidad.
 
-a. ¿Se presentan discrepancias entre las curvas?
+Construya una Curva característica de operación para un plan de muestreo simple en el cual el tamaño del lote es de 100 unidades, tamaño de muestra 50, y numero de aceptación 2. Utilice las tres distribuciones de probabilidad.
+
+a.  ¿Se presentan discrepancias entre las curvas?
 
 ```{r plan23}
 # Parámetros
@@ -180,13 +275,14 @@ legend("topright",
        bty="n")
 
 ```
+
 La distribución hipergeométrica (verde) presenta un comportamiento escalonado debido a su naturaleza discreta y al tamaño finito del lote. Dado que N=100, los cambios en los numeros de defectuosos ocurren en valores enteros, generando variaciones abruptas en la probabilidad de aceptación.
 
 Además, esta distribución describe con mayor precisión el riesgo real del plan de muestreo, ya que considera el agotamiento de la población durante el muestreo (sin reemplazo).
 
 Por el contrario, las aproximaciones binomial y Poisson asumen poblaciones infinitas o muestreo con reemplazo, lo que genera ligeras sobreestimaciones en la probabilidad de aceptación.
 
-b. ¿Que sucede si el tamaño del lote es de 2000 unidades?
+b.  ¿Que sucede si el tamaño del lote es de 2000 unidades?
 
 ```{r plan24}
 # Parámetros
@@ -239,6 +335,4 @@ Además, dado que la fracción de muestreo es pequeña, el efecto de agotamiento
 
 Se observa que las tres curvas prácticamente coinciden, lo que indica que para lotes grandes, las aproximaciones binomial y Poisson describen adecuadamente el comportamiento real del plan de muestreo.
 
----
-
-
+------------------------------------------------------------------------
