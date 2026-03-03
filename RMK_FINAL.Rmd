@@ -411,14 +411,14 @@ tabla_N100 %>%
 
 La tabla confirma que sí existen discrepancias entre las distribuciones cuando el tamaño del lote es N = 100.
 Se observa que la distribución hipergeométrica presenta valores que difieren de manera apreciable frente a las aproximaciones, especialmente cuando la proporción defectuosa aumenta.
-Por ejemplo, para p = 0.08, la probabilidad de aceptación exacta es 0.1343, mientras que la binomial arroja 0.2260 y la Poisson 0.2381, lo que evidencia una diferencia considerable.
+Por ejemplo, para p = 0.08, **la probabilidad de aceptación exacta es 0.1343**, mientras que la binomial arroja 0.2260 y la Poisson 0.2381, lo que evidencia **una diferencia considerable**.
 En valores pequeños como p = 0.01, las diferencias son mínimas (alrededor de 0.014), lo que indica que las aproximaciones funcionan razonablemente bien cuando la calidad es alta.
 Sin embargo, a medida que la proporción defectuosa crece, las discrepancias se hacen más notorias.
 En p = 0.10, por ejemplo, la binomial difiere en 0.0659 y la Poisson en 0.0788 respecto a la hipergeométrica.
 Este comportamiento se explica porque la distribución hipergeométrica considera el muestreo sin reemplazo, modelando correctamente el agotamiento del lote.
 Dado que la fracción de muestreo es alta (n/N = 0.5), el efecto del tamaño finito del lote es significativo.
 Además, su naturaleza discreta genera el comportamiento escalonado observado en la gráfica, ya que los cambios en el número de defectuosos ocurren en valores enteros.
-Por el contrario, las distribuciones binomial y Poisson suponen poblaciones infinitas o muestreo con reemplazo, produciendo curvas más suaves y una tendencia a sobreestimar la probabilidad de aceptación, especialmente en niveles de calidad intermedios y bajos.
+Por el contrario, las distribuciones binomial y Poisson suponen poblaciones infinitas o muestreo con reemplazo, produciendo curvas **más suaves** y una tendencia a sobreestimar la probabilidad de aceptación, especialmente en niveles de calidad intermedios y bajos.
 En conclusión, cuando el lote es pequeño y la fracción de muestreo es grande, la distribución hipergeométrica es la que describe con mayor precisión el desempeño real del plan de muestreo, mientras que las aproximaciones pueden generar errores relevantes en la estimación del riesgo.
 
 ### b. ¿Que sucede si el tamaño del lote es de 2000 unidades?

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.2)  3 MAR 2026 16:27
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.2)  3 MAR 2026 16:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -597,7 +597,8 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 ) (c:/Users/rmmol/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bookmark/bkm-dvipdfm.def
 File: bkm-dvipdfm.def 2023-12-10 v1.31 bookmark driver for dvipdfm (HO)
 \BKM@id=\count347
-)) (./RMK_FINAL.aux)
+))
+No file RMK_FINAL.aux.
 \openout1 = `RMK_FINAL.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 94.
@@ -879,6 +880,9 @@ LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/lmex/m/n --> TU/latinmodern-math.otf(3)/b/n on input line 94.
 Package hyperref Info: Link coloring OFF on input line 94.
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 (Font)              scaled to size 14.4pt on input line 96.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
@@ -908,30 +912,28 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Trying to load font information for U+msb on input line 96.
 (c:/Users/rmmol/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (./RMK_FINAL.toc
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.4pt on input line 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.0011pt on input line 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.40076pt on input line 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.00055pt on input line 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.99872pt on input line 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.3991pt on input line 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.99936pt on input line 2.
 )
+No file RMK_FINAL.toc.
 \tf@toc=\write3
 \openout3 = `RMK_FINAL.toc'.
 
-[1
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 8.4pt on input line 116.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 6.0pt on input line 116.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 12.0011pt on input line 116.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 8.40076pt on input line 116.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 6.00055pt on input line 116.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 11.99872pt on input line 116.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 8.3991pt on input line 116.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 5.99936pt on input line 116.
 
-]
 Underfull \hbox (badness 10000) in paragraph at lines 122--124
 
  []
@@ -941,47 +943,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 124--126
 
  []
 
-[2]
-File: RMK_FINAL_files/figure-latex/plan1-1.pdf Graphic file (type pdf)
-<use RMK_FINAL_files/figure-latex/plan1-1.pdf>
-[3]
-File: RMK_FINAL_files/figure-latex/plan323-1.pdf Graphic file (type pdf)
-<use RMK_FINAL_files/figure-latex/plan323-1.pdf>
-[4]
-File: RMK_FINAL_files/figure-latex/plan33-1.pdf Graphic file (type pdf)
-<use RMK_FINAL_files/figure-latex/plan33-1.pdf>
-[5]
-File: RMK_FINAL_files/figure-latex/Grafico_1b-1.pdf Graphic file (type pdf)
-<use RMK_FINAL_files/figure-latex/Grafico_1b-1.pdf>
-[6]
-File: RMK_FINAL_files/figure-latex/plan23-1.pdf Graphic file (type pdf)
-<use RMK_FINAL_files/figure-latex/plan23-1.pdf>
-[7]
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 348.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 348.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 348.
-[8]
-File: RMK_FINAL_files/figure-latex/plan24-1.pdf Graphic file (type pdf)
-<use RMK_FINAL_files/figure-latex/plan24-1.pdf>
+[1
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+] [2
 
-[9] [10] [11] (./RMK_FINAL.aux)
- ***********
-LaTeX2e <2025-11-01>
-L3 programming layer <2026-01-19>
- ***********
- ) 
-Here is how much of TeX's memory you used:
- 18473 strings out of 470191
- 338765 string characters out of 5477145
- 899837 words of memory out of 5000000
- 46792 multiletter control sequences out of 15000+600000
- 635223 words of font info for 98 fonts, out of 8000000 for 9000
- 14 hyphenation exceptions out of 8191
- 90i,10n,114p,533b,410s stack positions out of 10000i,1000n,20000p,200000b,200000s
+! xdvipdfmx:fatal: Unable to open "RMK_FINAL.pdf".
 
-Output written on RMK_FINAL.pdf (11 pages).
+! No output PDF file written.
+! xelatex.exe: fwrite: Broken pipe
