@@ -349,6 +349,8 @@ Por lo tanto, un plan de muestreo debe elegirse basándose en el **balance de ri
 Construya una Curva característica de operación para un plan de muestreo simple en el cual el tamaño del lote es de 100 unidades, tamaño de muestra 50, y numero de aceptación 2.
 Utilice las tres distribuciones de probabilidad.
 
+Para construir la curva, debemos calcular la Probabilidad de Aceptación ($P_a$) para diferentes niveles de proporción defectuosa ($p$), desde 0.01 hasta 0.15, usando las tres fórmulas vistas en clase:
+
 **Hipergeométrica (Exacta para lotes pequeños):** Es la que ya definimos, donde el tamaño del lote $N=100$ influye directamente.
 
 **Distribución Binomial (Aproximación):** Se utiliza como una aproximación de la hipergeométrica cuando el tamaño del lote $N$ es muy grande en relación al tamaño de la muestra $n$ (típicamente cuando $n/N < 0.1$).
@@ -447,9 +449,9 @@ tabla_N100 %>%
 
 ```
 
-La tabla confirma que sí existen discrepancias entre las distribuciones cuando el tamaño del lote es N = 100.
-Se observa que la distribución hipergeométrica presenta valores que difieren de manera apreciable frente a las aproximaciones, especialmente cuando la proporción defectuosa aumenta.
-Por ejemplo, para p = 0.08, **la probabilidad de aceptación exacta es 0.1343**, mientras que la binomial arroja 0.2260 y la Poisson 0.2381, lo que evidencia **una diferencia considerable**.
+En la grafica podemos ver diferencias en las tres distribuciones por eso ocupamos una tabla numérica para poder observar mejor los cambios, la tabla confirma que sí **existen discrepancias** entre las distribuciones cuando el tamaño del lote es N = 100.
+Se observa que la distribución hipergeométrica presenta valores que difieren de manera apreciable frente a las aproximaciones, especialmente cuando la proporción **defectuosa aumenta**.
+Por ejemplo, para p = 0.08, la probabilidad de aceptación exacta es 0.1343, mientras que la binomial arroja 0.2260 y la Poisson 0.2381, lo que evidencia **una diferencia considerable**.
 En valores pequeños como p = 0.01, las diferencias son mínimas (alrededor de 0.014), lo que indica que las aproximaciones funcionan razonablemente bien cuando la calidad es alta.
 Sin embargo, a medida que la proporción defectuosa crece, las discrepancias se hacen más notorias.
 En p = 0.10, por ejemplo, la binomial difiere en 0.0659 y la Poisson en 0.0788 respecto a la hipergeométrica.
@@ -457,7 +459,7 @@ Este comportamiento se explica porque la distribución hipergeométrica consider
 Dado que la fracción de muestreo es alta (n/N = 0.5), el efecto del tamaño finito del lote es significativo.
 Además, su naturaleza discreta genera el comportamiento escalonado observado en la gráfica, ya que los cambios en el número de defectuosos ocurren en valores enteros.
 Por el contrario, las distribuciones binomial y Poisson suponen poblaciones infinitas o muestreo con reemplazo, produciendo curvas **más suaves** y una tendencia a sobreestimar la probabilidad de aceptación, especialmente en niveles de calidad intermedios y bajos.
-En conclusión, cuando el lote es pequeño y la fracción de muestreo es grande, la distribución hipergeométrica es la que describe con mayor precisión el desempeño real del plan de muestreo, mientras que las aproximaciones pueden generar errores relevantes en la estimación del riesgo.
+En conclusión, **cuando** **el lote es pequeño y la fracción de muestreo es grande, la distribución hipergeométrica es la que describe con mayor precisión el desempeño real del plan de muestreo**, **mientras que las aproximaciones pueden generar errores relevantes en la estimación del riesgo.**
 
 ### b. ¿Que sucede si el tamaño del lote es de 2000 unidades?
 
@@ -552,24 +554,11 @@ A diferencia del caso anterior con N = 100, las diferencias numéricas entre la 
 
 Por ejemplo, para p = 0.01, la diferencia entre la binomial y la hipergeométrica es de apenas −0.0014, mientras que para la Poisson es de −0.0020.
 Incluso en valores mayores como p = 0.08 o p = 0.10, las diferencias no superan 0.016, lo cual resulta poco significativo en comparación con las discrepancias observadas cuando el lote era pequeño.
-Estos resultados se explican porque la fracción de muestreo es ahora reducida (n/N = 50/2000 = 0.025), lo que hace que el efecto del agotamiento de la población sea prácticamente despreciable.
+**Estos resultados se explican porque la fracción de muestreo es ahora reducida** (n/N = 50/2000 = 0.025), lo que hace que el efecto del agotamiento de la población sea prácticamente despreciable.
 En consecuencia, el muestreo sin reemplazo (hipergeométrica) se comporta casi igual que el muestreo con reemplazo (binomial), y la aproximación de Poisson también resulta adecuada.
 
-En conclusión, la tabla confirma que cuando el tamaño del lote es grande y la fracción de muestreo es pequeña, las tres distribuciones producen resultados prácticamente equivalentes.
-Por tanto, en estos casos, las aproximaciones binomial y Poisson describen adecuadamente el comportamiento real del plan de muestreo sin generar errores relevantes en la estimación del riesgo.
+**En conclusión, la tabla confirma que cuando el tamaño del lote es grande y la fracción de muestreo es pequeña, las tres distribuciones producen resultados prácticamente equivalentes.** Por tanto, en estos casos, las aproximaciones binomial y Poisson describen adecuadamente el comportamiento real del plan de muestreo sin generar errores relevantes en la estimación del riesgo como sucedía en el plan anterior.
 
-CONCLUSIÓN
-
-El análisis comparativo de las curvas características de operación para los dos tamaños de lote permite evidenciar el impacto que tiene la fracción de muestreo en el comportamiento del plan.
-
-Cuando el tamaño del lote es N = 100 y la muestra representa el 50% del lote (n/N = 0.5), se observan discrepancias claras entre la distribución hipergeométrica y las aproximaciones binomial y Poisson.
-En este caso, el efecto del tamaño finito del lote es significativo, ya que el muestreo se realiza sin reemplazo y el agotamiento de la población influye directamente en la probabilidad de aceptación.
-Por esta razón, la distribución hipergeométrica describe con mayor precisión el desempeño real del plan, mientras que las aproximaciones tienden a sobreestimar la probabilidad de aceptación, especialmente en niveles de calidad intermedios.
-
-En contraste, cuando el tamaño del lote aumenta a N = 2000 y la fracción de muestreo se reduce considerablemente (n/N = 0.025), las discrepancias entre las distribuciones prácticamente desaparecen.
-En este escenario, el efecto del agotamiento del lote es despreciable, por lo que el muestreo sin reemplazo se comporta casi igual que el muestreo con reemplazo.
-Como resultado, las distribuciones binomial y Poisson se convierten en aproximaciones adecuadas del modelo hipergeométrico.
-
-En términos generales, este ejercicio demuestra que la elección de la distribución depende fundamentalmente de la fracción de muestreo.
+Como conclusión, en términos generales este ejercicio demuestra que la elección de la distribución depende fundamentalmente de la fracción de muestreo.
 Cuando el tamaño del lote es pequeño y la muestra representa una proporción considerable del mismo, debe utilizarse la distribución hipergeométrica para evitar errores en la estimación del riesgo.
 Sin embargo, cuando el lote es grande y la fracción de muestreo es reducida, las aproximaciones binomial y Poisson resultan suficientemente precisas y simplifican el análisis sin afectar significativamente la exactitud de los resultados.
