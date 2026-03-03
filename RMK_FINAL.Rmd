@@ -92,6 +92,7 @@ Buscamos realizar los tres planes propuestos, todos con la relación $c/n = 0.05
 ```{r Librerias, include=FALSE}
 library(tidyverse)
 library(ggthemes)
+library(kableExtra)
 ```
 
 #### Plan 1: $n = 100$, $c = 5$
@@ -301,6 +302,11 @@ Mantener la proporcionalidad solo asegura una relación matemática superficial.
 En la práctica, reducir el tamaño de la muestra debilita la protección del sistema de calidad.
 Por lo tanto, un plan de muestreo debe elegirse basándose en el **balance de riesgos (**$\alpha$ y $\beta$) que la empresa esté dispuesta a asumir, y no simplemente en una regla de tres simple sobre el nivel de aceptación.
 
+
+
+
+
+
 # Punto 2
 
 ## Enunciado
@@ -365,6 +371,7 @@ Pa_hiper <- sapply(p_tabla, function(p){
   phyper(c, D, N-D, n)
 })
 
+# Crear tabla comparativa correctamente
 tabla_N100 <- data.frame(
   p = p_tabla,
   Hipergeométrica = round(Pa_hiper,4),
@@ -373,7 +380,23 @@ tabla_N100 <- data.frame(
   Dif_Bin_vs_Hiper = round(Pa_bin - Pa_hiper,4),
   Dif_Pois_vs_Hiper = round(Pa_pois - Pa_hiper,4)
 )
-tabla_N100
+
+# Tabla elegante
+tabla_N100 %>%
+  kbl(
+    caption = "Comparación de probabilidades de aceptación (N = 100, n = 50, c = 2)",
+    booktabs = TRUE,
+    align = "c"
+  ) %>%
+  kable_styling(
+    latex_options = c("striped", "hold_position", "scale_down"),
+    font_size = 10
+  ) %>%
+  row_spec(0, bold = TRUE) %>%
+  column_spec(1, bold = TRUE) %>%
+  add_header_above(c(" " = 1, 
+                     "Probabilidad de Aceptación" = 3, 
+                     "Diferencias vs Hipergeométrica" = 2))
 
 ```
 
@@ -436,31 +459,44 @@ legend("topright",
 # ==============================
 # TABLA COMPARATIVA - N = 2000
 # ==============================
-
-N <- 2000
-n <- 50
-c <- 2
+# Tabla elegante (MISMO ESTILO QUE N=100)
+# ==============================
+# TABLA COMPARATIVA - N = 2000
+# ==============================
 
 p_tabla <- c(0.01, 0.03, 0.05, 0.08, 0.10, 0.15)
 
 Pa_bin  <- pbinom(c, n, p_tabla)
 Pa_pois <- ppois(c, n*p_tabla)
-
-Pa_hiper <- sapply(p_tabla, function(p){
+Pa_hiper_tabla <- sapply(p_tabla, function(p){
   D <- round(N*p)
   phyper(c, D, N-D, n)
 })
 
 tabla_N2000 <- data.frame(
   p = p_tabla,
-  Hipergeométrica = round(Pa_hiper,4),
+  Hipergeométrica = round(Pa_hiper_tabla,4),
   Binomial = round(Pa_bin,4),
   Poisson = round(Pa_pois,4),
-  Dif_Bin_vs_Hiper = round(Pa_bin - Pa_hiper,4),
-  Dif_Pois_vs_Hiper = round(Pa_pois - Pa_hiper,4)
+  Dif_Bin_vs_Hiper = round(Pa_bin - Pa_hiper_tabla,4),
+  Dif_Pois_vs_Hiper = round(Pa_pois - Pa_hiper_tabla,4)
 )
 
-tabla_N2000
+tabla_N2000 %>%
+  kbl(
+    caption = "Comparación de probabilidades de aceptación (N = 2000, n = 50, c = 2)",
+    booktabs = TRUE,
+    align = "c"
+  ) %>%
+  kable_styling(
+    latex_options = c("striped", "hold_position", "scale_down"),
+    font_size = 10
+  ) %>%
+  row_spec(0, bold = TRUE) %>%
+  column_spec(1, bold = TRUE) %>%
+  add_header_above(c(" " = 1, 
+                     "Probabilidad de Aceptación" = 3, 
+                     "Diferencias vs Hipergeométrica" = 2))
 
 ```
 
@@ -487,4 +523,4 @@ En contraste, cuando el tamaño del lote aumenta a N = 2000 y la fracción de mu
 En este escenario, el efecto del agotamiento del lote es despreciable, por lo que el muestreo sin reemplazo se comporta casi igual que el muestreo con reemplazo.
 Como resultado, las distribuciones binomial y Poisson se convierten en aproximaciones adecuadas del modelo hipergeométrico.
 
-## En términos generales, este ejercicio demuestra que la elección de la distribución depende fundamentalmente de la fracción de muestreo. Cuando el tamaño del lote es pequeño y la muestra representa una proporción considerable del mismo, debe utilizarse la distribución hipergeométrica para evitar errores en la estimación del riesgo. Sin embargo, cuando el lote es grande y la fracción de muestreo es reducida, las aproximaciones binomial y Poisson resultan suficientemente precisas y simplifican el análisis sin afectar significativamente la exactitud de los resultados.
+En términos generales, este ejercicio demuestra que la elección de la distribución depende fundamentalmente de la fracción de muestreo. Cuando el tamaño del lote es pequeño y la muestra representa una proporción considerable del mismo, debe utilizarse la distribución hipergeométrica para evitar errores en la estimación del riesgo. Sin embargo, cuando el lote es grande y la fracción de muestreo es reducida, las aproximaciones binomial y Poisson resultan suficientemente precisas y simplifican el análisis sin afectar significativamente la exactitud de los resultados.
