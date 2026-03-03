@@ -1,0 +1,548 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+U--- title: "Taller 2. Muestreo de aceptacion" author: "Potosi Lopez
+Sofia, Posada Sanchez Santiago, Portilla Aguirre Johan Camilo (2422468),
+Aguirre Aldana Joan Sebastian (2419550)" date: "2026-02-26" output:
+html_document ---
+
+# Punto 1 enunciado
+
+Suponga que usted tiene a su cargo la responsabilidad de recepción de
+materia prima en una prestigiosa empresa de la región. En un acuerdo al
+que se ha llegado con uno de sus proveedores, quien envía la materia
+prima en lotes de 150 unidades, se estableció como un lote de muy buena
+calidad aquel que presente un porcentaje de unidades defectuosas cercano
+al 5%. Por otro lado el departamento de producción no está dispuesto a
+tolerar ningún lote con más del 10% de unidades defectuosas. Por tanto,
+usted ha decidido trabajar bajo el siguiente esquema:
+
+-   Plan 1: $n = 100$, $c = 5$
+-   Plan 2: $n = 80$, $c = 4$
+-   Plan 3: $n = 40$, $c = 2$
+
+## Punto 1.a – Evaluación de los riesgos del productor y consumidor
+
+Para evaluar los riesgos del productor ($\alpha$) y del consumidor
+($\beta$) en cada plan de muestreo, se utiliza la *distribución
+hipergeométrica*, dado que el lote es finito ($N = 150$) y la fracción
+de muestreo $n/N$ supera el 10% en todos los casos. La probabilidad de
+aceptación de un lote con proporción defectuosa $p$ es:
+
+$$
+P_a(p) = \sum_{x=0}^{c} \frac{\binom{D}{x} \binom{N-D}{n-x}}{\binom{N}{n}},
+$$
+
+donde $D = \text{round}(p \cdot N)$ es el número de unidades defectuosas
+en el lote, $n$ el tamaño de muestra y $c$ e l número de aceptación.
+
+Los riesgos se definen a partir de dos calidades de referencia:
+
+-   *AQL* (Nivel de Calidad Aceptable): $p_0 = 0.05$ (5% de
+    defectuosos). Corresponde a la calidad que el productor considera
+    buena.
+-   *LTPD* (Porcentaje de Defectuosos Tolerable en el Lote):
+    $p_1 = 0.10$ (10% de defectuosos). Corresponde a la calidad que el
+    consumidor considera rechazable.
+
+El riesgo del productor es la probabilidad de rechazar un lote con
+calidad AQL:
+
+$$
+\alpha = 1 - P_a(p_0).
+$$
+
+El riesgo del consumidor es la probabilidad de aceptar un lote con
+calidad LTPD:
+
+$$
+\beta = P_a(p_1).
+$$
+
+A continuación se analizan los tres planes propuestos, todos con la
+relación $c/n = 0.05$.
+
+------------------------------------------------------------------------
+
+### Caso 1: $n = 100$, $c = 5$
+
+```{r}
+
+```
+
+{r Argumentos caso 1} #Argumentos de muestreo de aceptación simple N=
+150 n1 = 100 c1 = 5
+
+# Función para seleccionar la distribución de probabilidad
+
+seleccionar_distribucion \<- function(n, N) { r \<- n / N \# 1)
+Hipergeométrica: si n/N \> 0.1 if (r \> 0.1) { return("Hipergeométrica")
+} \# 2) Poisson: si n/N \<= 0.1 y n*(n/N) \> 1 \# (esta regla se evalúa
+antes que la binomial, porque es un caso especial) if (r \<= 0.1 && n* r
+\> 1) { return("Poisson") } \# 3) Binomial: si n/N \<= 0.1 if (r \<=
+0.1) { return("Binomial") } }
+
+print(seleccionar_distribucion(n1,N))
+
+### Curca CO caso 1
+
+{r Curva CO 1} #en este caso la distribucion es Hipergeometrica
+
+#Eje x: Creando un vector para la proporción de articulos defectuosos
+(p)
+
+P \<- seq(0.000 , 0.140, 0.001)
+
+#Vector eje y
+
+m\<- round(P \* N)
+
+Pa1 \<- phyper(c1, m, N - m, n1, lower.tail=T, log.p = F)
+
+plot(P, Pa1, type = "l", lwd = 3, col = "steelblue", xlab = "Proporción
+defectuosa en el lote (p)", ylab = "Probabilidad de aceptación (Pa)",
+main = "Curva CO - Muestreo de Aceptación", sub = paste0("Distribución
+Hipergeométrica: N = ", N, ", n = ", n1, ", c = ", c1), ylim = c(0, 1),
+xlim = c(0, 0.20), panel.first = grid())
+
+### Riesgo del productor y consumidor caso 1
+
+{r Riesgos Caso 1} #Indicadores de riesgo \# Calidades de referencia AQL
+\<- 0.05 LTPD \<- 0.10
+
+# Número de defectuosos (enteros) en el lote para cada calidad
+
+m_AQL \<- round(AQL \* N) \# 8 m_LTPD \<- round(LTPD \* N) \# 15
+
+# Riesgos
+
+alpha1 \<- 1 - phyper(c1, m_AQL, N - m_AQL, n1) \# productor beta1 \<-
+phyper(c1, m_LTPD, N - m_LTPD, n1) \# consumidor
+
+plot(P, Pa1, type = "l", lwd = 3, col = "steelblue", xlab = "Proporción
+de artículos defectuosos (p)", ylab = "Probabilidad de aceptación (Pa)",
+main = paste0("Plan: n = ", n1, ", c = ", c1), ylim = c(0, 1), xlim =
+c(0, 0.2), xaxt = "n", panel.first = grid()) axis(1, at = seq(0, 0.2, by
+= 0.01), labels = sprintf("%.2f", seq(0, 0.2, by = 0.01)))
+
+# Punto NCA (AQL)
+
+points(AQL, 1 - alpha1, pch = 19, cex = 1.5, col = "darkgreen")
+text(AQL, 1 - alpha1, labels = "1-α", pos = 3, col = "darkgreen")
+abline(v = AQL, lty = 2, col = "darkgreen")
+
+# Punto NCL (LTPD)
+
+points(LTPD, beta1, pch = 19, cex = 1.5, col = "darkred") text(LTPD,
+beta1, labels = "β", pos = 1, col = "darkred") abline(v = LTPD, lty = 2,
+col = "darkred")
+
+# Texto con valores de NCA, NCL y riesgos
+
+text(0.15, 0.25, paste0("AQL = ", AQL*100, "%"), col = "darkgreen", cex
+= 0.9) text(0.15, 0.20, paste0("LQL = ", LTPD*100, "%"), col =
+"darkred", cex = 0.9) text(0.15, 0.15, paste0("α = ", round(alpha1, 4)),
+col = "darkgreen", cex = 0.9) text(0.15, 0.10, paste0("β = ",
+round(beta1, 4)), col = "darkred", cex = 0.9)
+
+Para el primer caso con $n=100$ y $c=5$, el riesgo del productor resulta
+$\alpha\ = 46.5\%\$, considerado deficiente pues rechaza casi la mitad
+de los lotes de buena calidad $AQL=5\%$. El riesgo del consumidor
+$\beta\ = 0.6\%\$es excelente, ofreciendo máxima protección contra lotes
+de calidad no tolerable (LTPD=10%). Esto ocurre porque el tamaño de
+muestra grande proporciona estimaciones precisas que distinguen
+efectivamente los lotes malos, aunque penaliza excesivamente los lotes
+buenos.
+
+------------------------------------------------------------------------
+
+### Caso 2: $n = 80$, $c = 4$
+
+{r Caso 2} #argumentos (2 caso) n2 = 80 c2 = 4
+
+print(seleccionar_distribucion(n2,N))
+
+#en este caso la distribucion es Hipergeometrica
+
+### Curca CO caso 2
+
+{r Curva CO caso 2} m\<- round(P \* N)
+
+Pa2 \<- phyper(c2, m, N - m, n2, lower.tail=T, log.p = F)
+
+plot(P, Pa2, type = "l", lwd = 3, col = "steelblue", xlab = "Proporción
+defectuosa en el lote (p)", ylab = "Probabilidad de aceptación (Pa)",
+main = "Curva CO - Muestreo de Aceptación", sub = paste0("Distribución
+Hipergeométrica: N = ", N, ", n = ", n2, ", c = ", c2), ylim = c(0, 1),
+xlim = c(0, 0.20), panel.first = grid())
+
+### Riesgo del productor y consumidor caso 2
+
+{r Riesgos caso 2}
+
+#Indicadores de riesgo caso 2 \# Calidades de referencia AQL = 0.05 LTPD
+= 0.1
+
+# Número de defectuosos (enteros) en el lote para cada calidad
+
+m_AQL \<- round(AQL \* N)\
+m_LTPD \<- round(LTPD \* N)
+
+# Riesgos
+
+alpha2 \<- 1 - phyper(c2, m_AQL, N - m_AQL, n2) \# productor beta2 \<-
+phyper(c2, m_LTPD, N - m_LTPD, n2) \# consumidor
+
+print(paste("Riesgo del productor (α) =", round(alpha2, 4)))
+print(paste("Riesgo del consumidor (β) =", round(beta2, 4)))
+
+plot(P, Pa2, type = "l", lwd = 3, col = "forestgreen", xlab =
+"Proporción de artículos defectuosos (p)", ylab = "Probabilidad de
+aceptación (Pa)", main = paste0("Plan: n = ", n2, ", c = ", c2), ylim =
+c(0, 1), xlim = c(0, 0.2), xaxt = "n", panel.first = grid()) axis(1, at
+= seq(0, 0.2, by = 0.01), labels = sprintf("%.2f", seq(0, 0.2, by =
+0.01)))
+
+points(AQL, 1 - alpha2, pch = 19, cex = 1.5, col = "darkgreen")
+text(AQL, 1 - alpha2, labels = "1-α", pos = 3, col = "darkgreen")
+abline(v = AQL, lty = 2, col = "darkgreen")
+
+points(LTPD, beta2, pch = 19, cex = 1.5, col = "darkred") text(LTPD,
+beta2, labels = "β", pos = 1, col = "darkred") abline(v = LTPD, lty = 2,
+col = "darkred")
+
+text(0.15, 0.25, paste0("AQL = ", AQL*100, "%"), col = "darkgreen", cex
+= 0.9) text(0.15, 0.20, paste0("LQL = ", LTPD*100, "%"), col =
+"darkred", cex = 0.9) text(0.15, 0.15, paste0("α = ", round(alpha2, 4)),
+col = "darkgreen", cex = 0.9) text(0.15, 0.10, paste0("β = ",
+round(beta2, 4)), col = "darkred", cex = 0.9)
+
+En el caso $n=80$ y $c=4$, se obtiene $\alpha\ = 43.6\%$ (deficiente)
+con ligera mejora respecto al caso anterior, y $\beta\ = 2.7\%$
+(excelente). La reducción moderada del tamaño de muestra mantiene alta
+precisión en la discriminación al conservar la proporcionalidad entre el
+tamaño de la muestra y el número de aceptación de la muestra.
+
+------------------------------------------------------------------------
+
+### Caso 3: $n = 40$, $c = 2$
+
+{r Argumentos caso 3} \# argumentos (3 caso)
+
+n3 = 40 c3 = 2
+
+print(seleccionar_distribucion(n3,N))
+
+### Curca CO caso 3
+
+{r Curva CO caso 3} m\<- round(P \* N)
+
+Pa3 \<- phyper(c3, m, N - m, n3, lower.tail=T, log.p = F)
+
+plot(P, Pa3, type = "l", lwd = 3, col = "steelblue", xlab = "Proporción
+defectuosa en el lote (p)", ylab = "Probabilidad de aceptación (Pa)",
+main = "Curva CO - Muestreo de Aceptación", sub = paste0("Distribución
+Hipergeométrica: N = ", N, ", n = ", n3, ", c = ", c3), ylim = c(0, 1),
+xlim = c(0, 0.20), panel.first = grid())
+
+### Riesgo del productor y consumidor caso 3
+
+{r Riesgo caso 3}
+
+#Indicadores de riesgo caso 3 \# Calidades de referencia AQL = 0.05 LTPD
+= 0.1
+
+# Número de defectuosos (enteros) en el lote para cada calidad
+
+m_AQL \<- round(AQL \* N)\
+m_LTPD \<- round(LTPD \* N)
+
+# Riesgos
+
+alpha3 \<- 1 - phyper(c3, m_AQL, N - m_AQL, n3) \# productor beta3 \<-
+phyper(c3, m_LTPD, N - m_LTPD, n3) \# consumidor
+
+print(paste("Riesgo del productor (α) =", round(alpha3, 4)))
+print(paste("Riesgo del consumidor (β) =", round(beta3, 4)))
+
+plot(P, Pa3, type = "l", lwd = 3, col = "firebrick", xlab = "Proporción
+de artículos defectuosos (p)", ylab = "Probabilidad de aceptación (Pa)",
+main = paste0("Plan: n = ", n3, ", c = ", c3), ylim = c(0, 1), xlim =
+c(0, 0.2), xaxt = "n", panel.first = grid()) axis(1, at = seq(0, 0.2, by
+= 0.01), labels = sprintf("%.2f", seq(0, 0.2, by = 0.01)))
+
+points(AQL, 1 - alpha3, pch = 19, cex = 1.5, col = "darkgreen")
+text(AQL, 1 - alpha3, labels = "1-α", pos = 3, col = "darkgreen")
+abline(v = AQL, lty = 2, col = "darkgreen")
+
+points(LTPD, beta3, pch = 19, cex = 1.5, col = "darkred") text(LTPD,
+beta3, labels = "β", pos = 1, col = "darkred") abline(v = LTPD, lty = 2,
+col = "darkred")
+
+text(0.15, 0.25, paste0("NCA = ", AQL*100, "%"), col = "darkgreen", cex
+= 0.9) text(0.15, 0.20, paste0("NCL = ", LTPD*100, "%"), col =
+"darkred", cex = 0.9) text(0.15, 0.15, paste0("α = ", round(alpha3, 4)),
+col = "darkgreen", cex = 0.9) text(0.15, 0.10, paste0("β = ",
+round(beta3, 4)), col = "darkred", cex = 0.9)
+
+En el tercer caso $n=40$ y $c=2$, se mejora el riesgo del productor a
+$\alpha\ = 36.2\%$ (igualmente deficiente), sin embargo el riesgo del
+consumidor aumenta significativamente a $\beta\ = 18.0\%$ (aceptable).
+La muestra pequeña genera alta variabilidad, permitiendo que lotes malos
+frecuentemente caigan en $≤2$ defectuosos por azar y así "parezcan"
+buenos.
+
+## Conclusion punto 1.a
+
+El patrón observado donde ($\alpha$) disminuye y ($\beta$) aumenta al
+reducir n se explica por la naturaleza probabilística del muestreo de
+aceptación. Muestras grandes generan curvas CO empinadas con excelente
+discriminación entre lotes buenos y malos, mientras que muestras
+pequeñas producen curvas anchas con pobre separación. Aunque todos
+mantienen c/n = 0.05, el efecto discreto de los números enteros de
+defectuosos es más pronunciado con c pequeño, amplificando el riesgo
+($\beta$). Esto confirma la imposibilidad de satisfacer simultáneamente
+los intereses del productor y consumidor.
+
+{r Conclusiones finales punto 1a} plot(P, Pa1, type = "l", lwd = 3, col
+= "steelblue", xlab = "Proporción defectuosa en el lote (p)", ylab =
+"Probabilidad de aceptación (Pa)", main = "Curvas CO - Planes de
+muestreo", ylim = c(0, 1), xlim = c(0, 0.2), panel.first = grid())
+lines(P, Pa2, lwd = 3, col = "forestgreen") lines(P, Pa3, lwd = 3, col =
+"firebrick")
+
+# Leyenda
+
+legend("topright", legend = c(paste0("n = ", n1, ", c = ", c1),
+paste0("n = ", n2, ", c = ", c2), paste0("n = ", n3, ", c = ", c3)), col
+= c("steelblue", "forestgreen", "firebrick"), lwd = 3, bty = "n")
+
+resultados \<- data.frame(
+
+"Tamaño muestra (n)" = c(100, 80, 40), "N° aceptación (c)" = c(5, 4, 2),
+"Riesgo productor (α)" = round(c(alpha1, alpha2, alpha3), 4), "Riesgo
+consumidor (β)" = round(c(beta1, beta2, beta3), 4), check.names = FALSE
+)
+
+resultados$`Evaluación α` <- ifelse(resultados$`Riesgo productor (α)` \<
+0.05, "Excelente",
+ifelse(resultados$`Riesgo productor (α)` < 0.10, "Aceptable", "Deficiente"))
+resultados$`Evaluación β` \<-
+ifelse(resultados$`Riesgo consumidor (β)` < 0.10, "Excelente",
+                                    ifelse(resultados$`Riesgo consumidor (β)`
+\< 0.20, "Aceptable", "Deficiente")) library(DT)
+
+# Crear tabla interactiva con formato profesional
+
+tabla \<- datatable( resultados, options = list( pageLength = 5, dom =
+'Bfrtip', buttons = c('copy', 'csv', 'excel', 'pdf'), initComplete = JS(
+"function(settings, json) {",
+"$(this.api().table().header()).css({'background-color': '#2c3e50', 'color': '#ecf0f1', 'font-weight': 'bold'});",
+      "}"
+    ),
+    columnDefs = list(
+      list(className = 'dt-center', targets = '_all')
+    )
+  ),
+  rownames = FALSE,
+  caption = htmltools::tags$caption( style = 'caption-side: top;
+text-align: center; color: #2c3e50; font-size: 18px; font-weight: bold;
+margin-bottom: 10px;', 'Tabla 1: Comparación de Riesgos del Productor
+(α) y Consumidor (β)' ) ) %\>% formatStyle( "Evaluación α",
+backgroundColor = styleEqual( c("Excelente", "Aceptable", "Deficiente"),
+c("#27ae60", "#f39c12", "#c0392b") ), color = "white", fontWeight =
+"bold" ) %\>% formatStyle( "Evaluación β", backgroundColor = styleEqual(
+c("Excelente", "Aceptable", "Deficiente"), c("#27ae60", "#f39c12",
+"#c0392b") ), color = "white", fontWeight = "bold" ) %\>%
+formatRound(columns = c("Riesgo productor (α)", "Riesgo consumidor
+(β)"), digits = 4)
+
+# Mostrar la tabla
+
+tabla
+
+El plan con n=100 y c=5 presenta la curva más empinada, lo que indica
+una alta capacidad de discriminación: la probabilidad de aceptación cae
+abruptamente alrededor del AQL (5%). Esto se traduce en un riesgo del
+consumidor excelente (β=0.6%), pero a costa de un riesgo del productor
+muy elevado (α=46.5%), ya que incluso lotes buenos son rechazados con
+frecuencia.
+
+El plan con n=80 y c=4 muestra una curva ligeramente menos pronunciada,
+pero aún muy cercana a la anterior. Su comportamiento es similar:β sigue
+siendo excelente (2.7%) y α mejora solo marginalmente (43.6%). Esto
+sugiere que reducir la muestra en un 20% no compromete la protección al
+consumidor, pero tampoco alivia sustancialmente al productor.
+
+El plan con n=40 y c=2 presenta una curva notablemente más plana, con
+una transición suave. Esta forma indica una menor capacidad de
+discriminación: el riesgo del consumidor aumenta a un nivel aceptable
+pero mucho más alto (β=18.0%), mientras que el riesgo del productor
+disminuye al valor más bajo de los tres (α=36.2%), aunque sigue siendo
+deficiente.
+
+En síntesis, la gráfica evidencia que, a pesar de la proporcionalidad en
+c/n, el tamaño de muestra determina el equilibrio de riesgos: a mayor n,
+la curva se empina, mejorando β pero empeorando α; a menor n, la curva
+se aplana, reduciendo ligeramente α pero aumentando β drásticamente.
+Esto confirma el inevitable trade-off en el muestreo de aceptación y la
+necesidad de elegir el plan según las prioridades: máxima protección al
+consumidor (con muestras grandes) o un equilibrio más favorable al
+productor (con muestras pequeñas), asumiendo que ningún plan satisface
+plenamente a ambas partes.
+
+## 1.b) Equivalencia de los planes con proporcionalidad en AQL
+
+Los tres planes analizados mantienen la relación c/n=0.05, es decir, el
+número de aceptación es proporcional al tamaño de muestra. Esta
+condición suele asociarse a un mismo nivel de calidad aceptable (AQL) en
+términos de la proporción de defectuosos. Sin embargo, los planes no son
+equivalentes en cuanto a los riesgos reales que implican para el
+productor y el consumidor.
+
+Las diferencias observadas en los valores de α y β (ver Tabla 1)
+evidencian que el tamaño de muestra influye de manera determinante en el
+desempeño del plan:
+
+Al reducir n de 100 a 40, el riesgo del productor (α) disminuye de 46.5%
+a 36.2%, una mejora relativa para el productor, aunque todavía en
+niveles inaceptables.
+
+En contraste, el riesgo del consumidor (β) aumenta drásticamente de 0.6%
+a 18.0%, pasando de una protección excelente a una apenas aceptable.
+
+Esta variación se explica por el efecto del tamaño de muestra sobre la
+forma de la curva CO. Muestras grandes producen curvas más empinadas,
+con una caída abrupta de la probabilidad de aceptación en torno al AQL,
+lo que permite discriminar eficazmente entre lotes buenos y malos.
+Muestras pequeñas generan curvas más planas, con una zona de transición
+más amplia, donde la probabilidad de aceptar un lote malo (β) es mayor.
+
+Además, el carácter discreto del número de aceptación c juega un papel
+importante: con c pequeños (como en el caso n=40,c=2), cada unidad
+defectuosa adicional en la muestra tiene un impacto relativo mayor, pero
+al mismo tiempo la variabilidad muestral aumenta, haciendo más probable
+que por azar se acepten lotes con calidad deficiente.
+
+En conclusión, la proporcionalidad en AQL no garantiza la equivalencia
+de los planes de muestreo. El tamaño de muestra es un factor crítico que
+determina el equilibrio entre los riesgos del productor y del
+consumidor. Por lo tanto, al seleccionar un plan, no basta con mantener
+constante la relación c/n; es necesario evaluar explícitamente los
+riesgos para cada combinación de n y c, considerando el contexto del
+lote y las tolerancias de las partes involucradas.
+
+# Punto 2
+
+## Punto 2.a
+
+{r Binomial} #2.
+
+#Argumentos N2=100 n_2=50 c_2=2
+
+#BINOMIAL
+
+Pab \<- pbinom(c_2, n_2, P, lower.tail=T, log.p = F)
+
+plot(P, Pab, type = "l", lwd = 3, col = "steelblue", xlab = "Proporción
+defectuosa en el lote (p)", ylab = "Probabilidad de aceptación (Pa)",
+main = "Curva CO - Muestreo de Aceptación", sub = paste0("Distribución
+Binomial: N = ", N2, ", n = ", n_2, ", c = ", c_2), ylim = c(0, 1), xlim
+= c(0, 0.20), panel.first = grid())
+
+{r #HIPERGEOMETRICA} m_2\<- round(P \* N2) PaH \<- phyper(c_2, m_2, N2 -
+m_2, n_2, lower.tail=T, log.p = F)
+
+plot(P, PaH, type = "l", lwd = 3, col = "steelblue", xlab = "Proporción
+defectuosa en el lote (p)", ylab = "Probabilidad de aceptación (Pa)",
+main = "Curva CO - Muestreo de Aceptación", sub = paste0("Distribución
+Hipergeométrica: N = ", N2, ", n = ", n_2, ", c = ", c_2), ylim = c(0,
+1), xlim = c(0, 0.20), panel.first = grid())
+
+{r poisson} lambda \<- n_2 \* P Pa_poisson \<- ppois(c_2, lambda)
+
+plot(P, Pa_poisson, type = "l", lwd = 3, col = "#2E86AB", xlab =
+"Proporción defectuosa en el lote (p)", ylab = "Probabilidad de
+aceptación (Pa)", main = "Curva Característica de Operación (CO)", sub =
+expression("Distribución Poisson: P(X ≤ c) con X \~ Poisson(λ = n·p)"),
+ylim = c(0, 1), xlim = c(0, 0.20), cex.main = 1.2, cex.lab = 1.1,
+cex.axis = 0.9)
+
+{r Comparacion} Pa_binom \<- pbinom(c2, n2, P) \# Binomial m \<- round(P
+\* N2) \# N° defectuosos (entero) Pa_hyper \<- phyper(c2, m, N2 - m, n2)
+\# Hipergeométrica Pa_pois \<- ppois(c2, n2 \* P) \# Poisson
+
+# Gráfica comparativa
+
+plot(P, Pa_hyper, type = "l", lwd = 3, col = "black", xlab = "Proporción
+defectuosa en el lote (p)", ylab = "Probabilidad de aceptación (Pa)",
+main = paste0("Curvas CO para plan: N = ", N2, ", n = ", n2, ", c = ",
+c2), ylim = c(0, 1), xlim = c(0, 0.3), panel.first = grid()) lines(P,
+Pa_binom, lwd = 3, col = "blue", lty = 2) lines(P, Pa_pois, lwd = 3, col
+= "red", lty = 3) legend("topright", legend = c("Hipergeométrica",
+"Binomial", "Poisson"), col = c("black", "blue", "red"), lwd = 3, lty =
+c(1, 2, 3), bty = "n")
+
+a.  Discrepancias entre las curvas Hipergeométrica (exacta): Es la curva
+    de referencia, ya que considera el muestreo sin reemplazo y el
+    tamaño finito del lote. Para valores pequeños de p (proporción
+    defectuosa), la probabilidad de aceptación es alta, pero desciende
+    rápidamente al aumentar pdebido a que c es pequeño (2) y n es la
+    mitad del lote.
+
+Binomial (aproximación): Al suponer muestreo con reemplazo (o población
+infinita), la curva binomial se aproxima a la hipergeométrica, pero no
+es idéntica. La razón principal es que la fracción de muestreo n/N=0.5
+es muy alta (supera el 10%), condición bajo la cual la aproximación
+binomial pierde precisión. En este caso, la binomial tiende a dar
+probabilidades de aceptación ligeramente mayores que la hipergeométrica
+para un mismo p, porque no descuenta la reducción de la población al
+extraer sin reemplazo.
+
+Poisson (aproximación): La distribución de Poisson (λ=np) es una
+aproximación de la binomial cuando n es grande y p pequeño. Para este
+plan, la aproximación es razonable solo para p muy bajos (por ejemplo,
+p\<0.05). A medida que p aumenta, la curva de Poisson se separa
+notablemente de las otras dos, subestimando la probabilidad de
+aceptación (es decir, da valores más bajos). Esto se debe a que la
+condición de "p pequeño" no se cumple para todo el rango.
+
+Conclusión: Sí se presentan discrepancias apreciables entre las tres
+curvas, especialmente entre la hipergeométrica y la Poisson para p\>0.1.
+La binomial se mantiene más cercana a la hipergeométrica, aunque con
+diferencias visibles.
+
+## Punto 2.b
+
+{r 2.b} \# Parámetros para N = 2000 N_grande \<- 2000 n \<- 50 c \<- 2 p
+\<- seq(0, 0.2, by = 0.001) \# Proporciones de defectuosos
+
+# Cálculo de probabilidades de aceptación
+
+binom \<- pbinom(c, n, p) \# Binomial m \<- round(p \* N_grande) \# N°
+defectuosos en el lote (entero) hyper \<- phyper(c, m, N_grande - m, n)
+\# Hipergeométrica pois \<- ppois(c, n \* p) \# Poisson
+
+# Gráfica comparativa
+
+plot(p, hyper, type = "l", lwd = 3, col = "black", xlab = "Proporción
+defectuosa (p)", ylab = "Probabilidad de aceptación (Pa)", main =
+paste0("Curvas CO para N = ", N_grande, ", n = ", n, ", c = ", c), ylim
+= c(0, 1), xlim = c(0, 0.2), panel.first = grid()) lines(p, binom, lwd =
+3, col = "blue", lty = 2) lines(p, pois, lwd = 3, col = "red", lty = 3)
+legend("topright", legend = c("Hipergeométrica", "Binomial", "Poisson"),
+col = c("black", "blue", "red"), lwd = 3, lty = c(1, 2, 3), bty = "n")
+
+Cuando el tamaño del lote aumenta a N = 2000 unidades (manteniendo n =
+50 y c = 2), la fracción de muestreo se reduce a n/N = 0.025 (2.5%), muy
+por debajo del 10%. En estas condiciones:
+
+-   Las curvas de la distribución hipergeométrica (exacta) y la binomial
+    son prácticamente indistinguibles, ya que el muestreo sin reemplazo
+    sobre un lote grande equivale a un muestreo con reemplazo.
+-   La aproximación de Poisson también mejora notablemente,
+    especialmente para valores pequeños de p, siendo casi coincidente
+    con las otras dos en el rango de interés (p ≤ 0.20).
