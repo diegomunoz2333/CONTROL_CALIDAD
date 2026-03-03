@@ -1,0 +1,392 @@
+---
+title: "Taller 2 – Curva CO en planes de muestreo"
+author: "Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez 2417038"
+date: "`r format(Sys.Date(), '%d de %B de %Y')`"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+fontsize: 12pt
+geometry: margin=2.5cm
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage{amssymb}
+  - \usepackage{booktabs}
+  - \usepackage{graphicx}
+  - \usepackage{float}
+  - \usepackage{setspace}
+  - \onehalfspacing
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center",
+  fig.width = 6,
+  fig.height = 4
+)
+```
+
+# Punto 1
+
+## Enunciado
+
+Suponga que usted tiene a su cargo la responsabilidad de recepción de materia prima en una prestigiosa empresa de la región. En un acuerdo al que se ha llegado con uno de sus proveedores, quien envía la materia prima en lotes de 150 unidades, se estableció como un lote de muy buena calidad aquel que presente un porcentaje de unidades defectuosas cercano al 5%.
+
+Por otro lado el departamento de producción no está dispuesto a tolerar ningún lote con más del 10% de unidades defectuosas.
+
+Como un lote se considera bueno si tiene menos del 5%, se tomará un tamaño de muestra $n$ y se aceptará el lote si tiene menos del 5% de unidades defectuosas, por ejemplo:
+
+-   $(n=100, c=5)$\
+-   $(n=80, c=4)$\
+-   $(n=40, c=2)$
+
+## Preguntas
+
+### a. Evalué en cada caso los riesgos del productor y consumidor.
+
+Dado que el tamaño del lote es pequeño ($N=150$) y la muestra ($n$) representa una parte significativa del lote, podemos suponer el uso de una **Distribución Hipergeométrica**. Sin embargo, aplicaremos las respectivas pruebas de distribucion en cada uno de los planes para asegurarnos de usar la indicada para cada una de las probabilidades de aceptación ($P_a$).
+
+Para evaluar los riesgos en un lote de tamaño finito ($N=150$). La probabilidad de aceptación ($P_a$) se calcula mediante la siguiente sumatoria:
+
+$$
+P_a(p) = \sum_{x=0}^{c} \frac{\binom{D}{x} \binom{N-D}{n-x}}{\binom{N}{n}},
+$$
+
+### Definición de variables:
+
+-   $N$: Tamaño del lote ($150$ unidades).
+
+-   $n$: Tamaño de la muestra tomada del lote.
+
+-   $c$: Número máximo de unidades defectuosas permitidas para aceptar el lote.
+
+-   $D$: Número total de unidades defectuosas existentes en el lote ($D = p \cdot N$).
+
+### Evaluación de Riesgos ($\alpha$ y $\beta$)
+
+Basándonos en los niveles de calidad acordados, los riesgos se definen de la siguiente manera:
+
+1.  **Riesgo del Productor (**$\alpha$): Es la probabilidad de rechazar un lote que cumple con el Nivel de Calidad Aceptable (**AQL**). Se calcula cuando la proporción de defectos es $p_0 = 0.05$.
+
+    $$\alpha = 1 - P_a(p_0)$$
+
+2.  **Riesgo del Consumidor (**$\beta$): Es la probabilidad de aceptar un lote que tiene un Nivel de Calidad Límite (**LTPD**), es decir, mala calidad. Se calcula cuando la proporción de defectos es $p_1 = 0.10$.
+
+    $$\beta = P_a(p_1)$$
+
+Buscamos realizar los tres planes propuestos, todos con la relación $c/n = 0.05$.
+
+```{r Librerias, include=FALSE}
+library(tidyverse)
+library(ggthemes)
+```
+
+#### Plan 1: $n = 100$, $c = 5$
+
+```{r Plan 1, echo=FALSE, message=FALSE, warning=FALSE}
+
+# Definimos los argumentos de LOS planes del muestreo fijos para los 3 planes
+N=150
+P <- seq(0.000 , 0.140, 0.001)
+
+#PLAN 1
+
+N <- 150
+n1 <- 100
+c1 <- 5
+
+# Funcion para seleccionar la distribucion en cada uno de los planes 
+
+distribucion <- function(n, N){
+  r <- n/N
+  
+  if(r > 0.1){
+    return("Hipergeométrica")
+  }
+  
+  if(r <= 0.1 && n*r > 1){
+    return("Poisson")
+  }
+  
+  if(r <= 0.1){
+    return("Binomial")
+  }
+}
+
+# Prueba distribución
+distribucion(n1, N)
+
+# Vector p
+P <- seq(0.000 , 0.140, 0.001)
+
+# Número de defectuosos en el lote
+m <- round(P * N)
+
+# Probabilidad de aceptación
+Pa1 <- phyper(c1, m, N-m, n1)
+
+# Riesgos
+AQL <- 0.05
+LTPD <- 0.10
+mAQL <- round(AQL*N)
+mLTPD <- round(LTPD*N)
+
+# Riesgo productor
+alpha1 <- 1 - phyper(c1, mAQL, N-mAQL, n1)
+alpha1
+
+# Riesgo consumidor
+beta1 <- phyper(c1, mLTPD, N-mLTPD, n1)
+beta1
+
+#CO1
+plot(P, Pa1, type="l", lwd=3, col="blue",
+     xlab="Proporción defectuosa (p)",
+     ylab="Probabilidad de aceptación (Pa)",
+     main="Curva CO - Plan 1 (n=100, c=5)",
+     ylim=c(0,1))
+grid()
+
+```
+
+La curva característica de operación del Plan 1 presenta una caída pronunciada a medida que aumenta la proporción defectuosa del lote. Esto indica que el plan tiene una alta capacidad para discriminar entre lotes buenos y malos. Cuando la proporción defectuosa se encuentra alrededor del AQL (5%), la probabilidad de aceptación todavía es considerable; sin embargo, al acercarse al 10%**,** la probabilidad disminuye de manera **significativa, lo que** nos permite **tener** una fuerte restricción hacia lotes de mala calidad. El riesgo del productor obtenido es relativamente alto, lo que implica que existe una probabilidad significativa de rechazar un lote que en realidad cumple con el nivel aceptable de calidad. Por otro lado, el riesgo del consumidor es extremadamente bajo, con un $\beta_1$ del 0.57%, lo que significa que es muy poco probable que se acepte un lote con un nivel de defectos inaceptable. Si se busca proteger principalmente al consumidor, este será el plan adecuado ya que es el más estricto de los tres y el que presenta mayor poder discriminante debido a su **elevado** tamaño de muestra.
+
+#### Plan 2: $n = 80$, $c = 4$
+
+```{r PLAN 2, echo=FALSE, message=FALSE, warning=FALSE}
+#PLAN 2
+
+N <- 150
+n2 <- 80
+c2 <- 4
+
+distribucion(n2, N)
+
+P <- seq(0.000 , 0.140, 0.001)
+m <- round(P * N)
+Pa2 <- phyper(c2, m, N-m, n2)
+
+# Riesgos
+AQL <- 0.05
+LTPD <- 0.10
+mAQL <- round(AQL*N)
+mLTPD <- round(LTPD*N)
+
+# Riesgo productor
+alpha2 <- 1 - phyper(c2, mAQL, N-mAQL, n2)
+alpha2
+
+# Riesgo consumidor
+beta2 <- phyper(c2, mLTPD, N-mLTPD, n2)
+beta2
+
+plot(P, Pa2, type="l", lwd=3, col="red",
+     xlab="Proporción defectuosa (p)",
+     ylab="Probabilidad de aceptación (Pa)",
+     main="Curva CO - Plan 2 (n=80, c=4)",
+     ylim=c(0,1))
+grid()
+
+```
+
+En el gráfico del Plan 2, la curva CO mantiene una tendencia decreciente clara, aunque su **pendiente es ligeramente menos pronunciada** (menos vertical) que la del plan anterior. Esto indica que el Plan 2 continúa diferenciando adecuadamente entre niveles de calidad aceptables e inaceptables, pero con un menor **poder de discriminación**. El riesgo del productor ($\alpha_2$) sigue siendo elevado, con un **43.6%** de probabilidad de rechazar un lote de buena calidad; aunque este valor es ligeramente menor al del Plan 1, aún representa una carga considerable para el proveedor. Por otro lado, el riesgo del consumidor ($\beta_2$) **alcanza un 2.74%**, lo que representa un incremento de **2.18 puntos porcentuales** respecto al plan anterior. Esta nueva curva CO refleja una situación intermedia: se busca un mayor equilibrio entre la protección del productor y la del consumidor, aunque el plan todavía mantiene un nivel de exigencia importante debido a que el tamaño de muestra sigue siendo representativo.
+
+#### Plan 3: $n = 40$, $c = 2$
+
+```{r PLAN 3, echo=FALSE, message=FALSE, warning=FALSE}
+
+
+#PLAN 3
+
+N <- 150
+n3 <- 40
+c3 <- 2
+
+distribucion(n3, N)
+
+P <- seq(0.000 , 0.140, 0.001)
+m <- round(P * N)
+Pa3 <- phyper(c3, m, N-m, n3)
+# Riesgos
+AQL <- 0.05
+LTPD <- 0.10
+mAQL <- round(AQL*N)
+mLTPD <- round(LTPD*N)
+
+# Riesgo productor
+alpha3 <- 1 - phyper(c3, mAQL, N-mAQL, n3)
+alpha3
+
+# Riesgo consumidor
+beta3 <- phyper(c3, mLTPD, N-mLTPD, n3)
+beta3
+
+plot(P, Pa3, type="l", lwd=3, col="darkgreen",
+     xlab="Proporción defectuosa (p)",
+     ylab="Probabilidad de aceptación (Pa)",
+     main="Curva CO - Plan 3 (n=40, c=2)",
+     ylim=c(0,1))
+grid()
+```
+
+La curva correspondiente al Plan 3 es notablemente más plana y presenta la pendiente menos pronunciada de los tres casos. Esto indica que este plan tiene la **menor capacidad de discriminación** entre lotes buenos y malos. A medida que aumenta la proporción defectuosa, la probabilidad de aceptación disminuye de forma muy gradual, lo que implica que, incluso con niveles de defectos inaceptables, existe una probabilidad considerable de admitir el lote. El riesgo del productor ($\alpha_3$) es el más bajo de los tres planes, situándose en un **36.21%**; esto significa que es el plan que menos castiga al proveedor por lotes que cumplen con el AQL. Sin embargo, el **riesgo del consumidor (**$\beta_3$) se dispara hasta un 17.98%, lo que evidencia una vulnerabilidad crítica frente a lotes de mala calidad. En consecuencia, este plan favorece claramente al proveedor sobre el cliente, resultando el menos estricto de los tres debido a su reducido tamaño de muestra
+
+### b. ¿Se puede pensar entonces que un plan de muestreo con la condición de proporcionalidad en AQL es equivalente, sin importar el tamaño de muestra?.
+
+```{r Grafico_1b, echo=FALSE}
+
+plot(P, Pa1, type="l", lwd=3, col="blue",
+     xlab="Proporción defectuosa (p)",
+     ylab="Probabilidad de aceptación (Pa)",
+     main="Curvas CO Comparadas",
+     ylim=c(0,1))
+
+lines(P, Pa2, col="red", lwd=3)
+lines(P, Pa3, col="darkgreen", lwd=3)
+
+legend("topright",
+       legend=c("Plan 1 (100,5)",
+                "Plan 2 (80,4)",
+                "Plan 3 (40,2)"),
+       col=c("blue","red","darkgreen"),
+       lwd=3)
+
+grid()
+
+```
+
+**No.** A pesar de que en los tres planes propuestos se mantiene una relación proporcional del 5% entre el número de aceptación ($c$) y el tamaño de la muestra ($n$), los planes **no son equivalentes** desde el punto de vista del control estadístico y la gestión del riesgo.
+
+La equivalencia de un plan de muestreo no está determinada por la proporción $c/n$, sino por la **pendiente de su Curva Característica de Operación (CO)**, la cual depende directamente del tamaño absoluto de la muestra ($n$). A continuación, se fundamenta esta conclusión basándose en el comportamiento de los riesgos en cada escenario:
+
+1.  **Poder de Discriminación:** El Plan 1 ($n=100$) posee la curva más vertical, lo que le otorga un alto poder discriminante para separar lotes de buena calidad de los de mala calidad. A medida que $n$ disminuye (Plan 2 y Plan 3), la curva se vuelve más "suave" o plana, perdiendo su capacidad de castigar los lotes que superan el nivel de defectos tolerado.
+
+2.  **Vulnerabilidad del Consumidor (Riesgo** $\beta$): Este es el factor que más evidencia la falta de equivalencia. Mientras que en el Plan 1 el riesgo del consumidor es extremadamente bajo ($\beta_1 = 0.57\%$), en el Plan 3, con la misma proporción del 5%, el riesgo se dispara hasta un **17.98%**. Esto significa que el cliente tiene casi **30 veces más probabilidad** de aceptar un lote malo en el Plan 3 que en el Plan 1.
+
+3.  **Relación de Riesgos:** \* Los planes con muestras grandes (Plan 1) son **estrictos**: protegen mucho al consumidor pero aumentan el riesgo del productor ($\alpha$), ya que el rigor del plan puede rechazar lotes que están apenas en el límite del AQL.
+
+    -   Los planes con muestras pequeñas (Plan 3) son **indulgentes**: favorecen al productor al reducir el riesgo de rechazo injusto, pero dejan al consumidor con una protección insuficiente.
+
+**Conclusión final:**
+
+Mantener la proporcionalidad solo asegura una relación matemática superficial. En la práctica, reducir el tamaño de la muestra debilita la protección del sistema de calidad. Por lo tanto, un plan de muestreo debe elegirse basándose en el **balance de riesgos (**$\alpha$ y $\beta$) que la empresa esté dispuesta a asumir, y no simplemente en una regla de tres simple sobre el nivel de aceptación.
+
+# Punto 2
+
+## Enunciado
+
+Construya una Curva característica de operación para un plan de muestreo simple en el cual el tamaño del lote es de 100 unidades, tamaño de muestra 50, y numero de aceptación 2. Utilice las tres distribuciones de probabilidad.
+
+## Preguntas
+
+### a. ¿Se presentan discrepancias entre las curvas?
+
+```{r plan23, echo=FALSE, message=FALSE, warning=FALSE}
+# Parámetros
+N <- 100
+n <- 50
+c <- 2
+
+# Vector de proporciones defectuosas
+P <- seq(0.001, 0.20, 0.001)
+
+# 1. Binomial
+Pa_bin <- pbinom(c, n, P)
+
+# 2. Poisson
+Pa_pois <- ppois(c, n*P)
+
+# 3. Hipergeométrica
+Pa_hiper <- sapply(P, function(p){
+  D <- round(N*p)
+  phyper(c, D, N-D, n)
+})
+
+# --- GRÁFICA MEJORADA ---
+
+par(bg="white")  # fondo blanco
+
+plot(P, Pa_hiper, type="l", lwd=3, col="darkgreen",
+     ylab="Probabilidad de aceptación (Pa)",
+     xlab="Proporción defectuosa (p)",
+     main="Curva Característica de Operación\nN=100, n=50, c=2",
+     ylim=c(0,1))
+
+grid(col="gray85")
+
+lines(P, Pa_bin, lwd=3, lty=2, col="blue")
+lines(P, Pa_pois, lwd=3, lty=3, col="red")
+
+legend("topright",
+       legend=c("Hipergeométrica","Binomial","Poisson"),
+       col=c("darkgreen","blue","red"),
+       lwd=3,
+       lty=c(1,2,3),
+       bty="n")
+
+```
+
+La distribución hipergeométrica (verde) presenta un comportamiento escalonado debido a su naturaleza discreta y al tamaño finito del lote. Dado que N=100, los cambios en los numeros de defectuosos ocurren en valores enteros, generando variaciones abruptas en la probabilidad de aceptación.
+
+Además, esta distribución describe con mayor precisión el riesgo real del plan de muestreo, ya que considera el agotamiento de la población durante el muestreo (sin reemplazo).
+
+Por el contrario, las aproximaciones binomial y Poisson asumen poblaciones infinitas o muestreo con reemplazo, lo que genera ligeras sobreestimaciones en la probabilidad de aceptación.
+
+### b. ¿Que sucede si el tamaño del lote es de 2000 unidades?
+
+```{r plan24, echo=FALSE, message=FALSE, warning=FALSE}
+# Parámetros
+N <- 2000
+n <- 50
+c <- 2
+
+# Vector de proporciones defectuosas
+P <- seq(0.001, 0.20, 0.001)
+
+# 1. Binomial
+Pa_bin <- pbinom(c, n, P)
+
+# 2. Poisson
+Pa_pois <- ppois(c, n*P)
+
+# 3. Hipergeométrica
+Pa_hiper <- sapply(P, function(p){
+  D <- round(N*p)
+  phyper(c, D, N-D, n)
+})
+
+# --- GRÁFICA MEJORADA ---
+
+par(bg="white")  # fondo blanco
+
+plot(P, Pa_hiper, type="l", lwd=3, col="darkgreen",
+     ylab="Probabilidad de aceptación (Pa)",
+     xlab="Proporción defectuosa (p)",
+     main="Curva Característica de Operación\nN=2000, n=50, c=2",
+     ylim=c(0,1))
+
+grid(col="gray85")
+
+lines(P, Pa_bin, lwd=3, lty=2, col="blue")
+lines(P, Pa_pois, lwd=3, lty=3, col="red")
+
+legend("topright",
+       legend=c("Hipergeométrica","Binomial","Poisson"),
+       col=c("darkgreen","blue","red"),
+       lwd=3,
+       lty=c(1,2,3),
+       bty="n")
+
+```
+
+La distribución hipergeométrica ya no presenta un comportamiento escalonado visible, debido a que el tamaño del lote es grande N = 2000. En este caso, los cambios en el número de defectuosos afectan muy poco la probabilidad de aceptación, haciendo que la curva sea prácticamente continua.
+
+Además, dado que la fracción de muestreo es pequeña, el efecto de agotamiento de la población es mínimo. Por esta razón, las distribuciones binomial y Poisson se aproximan muy bien a la hipergeométrica.
+
+Se observa que las tres curvas prácticamente coinciden, lo que indica que para lotes grandes, las aproximaciones binomial y Poisson describen adecuadamente el comportamiento real del plan de muestreo.
+
+------------------------------------------------------------------------
