@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.2)  3 MAR 2026 16:06
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.2)  3 MAR 2026 16:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -942,46 +942,46 @@ Underfull \hbox (badness 10000) in paragraph at lines 124--126
  []
 
 [2]
-File: RMK_FINAL_files/figure-latex/Plan 1-1.pdf Graphic file (type pdf)
-<use RMK_FINAL_files/figure-latex/Plan 1-1.pdf>
+File: RMK_FINAL_files/figure-latex/plan1-1.pdf Graphic file (type pdf)
+<use RMK_FINAL_files/figure-latex/plan1-1.pdf>
 [3]
-File: RMK_FINAL_files/figure-latex/PLAN 2-1.pdf Graphic file (type pdf)
-<use RMK_FINAL_files/figure-latex/PLAN 2-1.pdf>
+File: RMK_FINAL_files/figure-latex/plan323-1.pdf Graphic file (type pdf)
+<use RMK_FINAL_files/figure-latex/plan323-1.pdf>
 [4]
-File: RMK_FINAL_files/figure-latex/PLAN 3-1.pdf Graphic file (type pdf)
-<use RMK_FINAL_files/figure-latex/PLAN 3-1.pdf>
+File: RMK_FINAL_files/figure-latex/plan33-1.pdf Graphic file (type pdf)
+<use RMK_FINAL_files/figure-latex/plan33-1.pdf>
 [5]
 File: RMK_FINAL_files/figure-latex/Grafico_1b-1.pdf Graphic file (type pdf)
 <use RMK_FINAL_files/figure-latex/Grafico_1b-1.pdf>
-[6] [7]
+[6]
 File: RMK_FINAL_files/figure-latex/plan23-1.pdf Graphic file (type pdf)
 <use RMK_FINAL_files/figure-latex/plan23-1.pdf>
-[8]
+[7]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 382.
+(Font)              scaled to size 5.0pt on input line 348.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 382.
+(Font)              scaled to size 5.00046pt on input line 348.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 382.
-[9]
+(Font)              scaled to size 4.99947pt on input line 348.
+[8]
 File: RMK_FINAL_files/figure-latex/plan24-1.pdf Graphic file (type pdf)
 <use RMK_FINAL_files/figure-latex/plan24-1.pdf>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[10] [11] [12] (./RMK_FINAL.aux)
+[9] [10] [11] (./RMK_FINAL.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 18477 strings out of 470191
- 338844 string characters out of 5477145
- 900012 words of memory out of 5000000
- 46796 multiletter control sequences out of 15000+600000
+ 18473 strings out of 470191
+ 338765 string characters out of 5477145
+ 899837 words of memory out of 5000000
+ 46792 multiletter control sequences out of 15000+600000
  635223 words of font info for 98 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 90i,10n,114p,533b,422s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,10n,114p,533b,410s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on RMK_FINAL.pdf (12 pages).
+Output written on RMK_FINAL.pdf (11 pages).
