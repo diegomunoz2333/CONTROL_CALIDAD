@@ -48,6 +48,7 @@ Como un lote se considera bueno si tiene menos del 5%, se tomará un tamaño de 
 
 a.  Evalué en cada caso los riesgos del productor y consumidor.
 
+    Dado que el tamaño del lote es pequeño ($N=150$) y la muestra ($n$) representa una parte significativa del lote, podemos suponer el uso de una **Distribución Hipergeométrica**. Sin embargo, aplicaremos las respectivas pruebas de distribucion en cada uno de los planes para asegurarnos de usar la indicada para cada una de las probabilidades de aceptación ($P_a$).
 
 ```{r Librerias, include=FALSE}
 library(tidyverse)
@@ -120,7 +121,7 @@ grid()
 
 ```
 
-lalalalallalalala
+La curva característica de operación del *Plan 1* presenta una caída pronunciada a medida que aumenta la proporción defectuosa del lote. Esto indica que el plan tiene una alta capacidad para discriminar entre lotes buenos y lotes malos. Cuando la proporción defectuosa se encuentra alrededor del AQL (5%), la probabilidad de aceptación todavía es considerable; sin embargo, al acercarse al 10% la probabilidad disminuye de manera significante nos permite ver tener una fuerte restricción hacia lotes de mala calidad. El riesgo del productor obtenido es relativamente alto, lo que implica que existe una probabilidad significativa de rechazar un lote que en realidad cumple con el nivel aceptable de calidad. En contraste, el riesgo del consumidor es extremadamente bajo, lo que significa que es muy poco probable que se acepte un lote con un nivel de defectos inaceptable. En términos prácticos, este plan protege principalmente al consumidor, ya que es el más estricto de los tres y el que presenta mayor poder discriminante debido a su tamaño de muestra elevado.
 
 ```{r PLAN 2, echo=FALSE}
 #PLAN 2
@@ -197,7 +198,6 @@ grid()
 
 ```
 
-
 b.  ¿Se puede pensar entonces que un plan de muestreo con la condición de proporcionalidad en AQL es equivalente, sin importar el tamaño de muestra?.
 
 ```{r Grafico_1b, echo=FALSE}
@@ -221,7 +221,6 @@ legend("topright",
 grid()
 
 ```
-
 
 # Punto 2
 
