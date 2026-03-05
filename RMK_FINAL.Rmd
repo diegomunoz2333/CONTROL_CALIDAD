@@ -129,7 +129,7 @@ library(kableExtra)
 
 #### Plan 1: $n = 100$, $c = 5$
 
-```{r Plan 1, include=FALSE}
+```{r Plan 1}
 
 # Definimos los argumentos de LOS planes del muestreo fijos para los 3 planes
 N=150
@@ -188,7 +188,7 @@ beta1
 
 ```
 
-```{r plan1, echo=FALSE, message=FALSE, warning=FALSE}
+```{r plan1}
 #CO1
 plot(P, Pa1, type="l", lwd=3, col="blue",
      xlab="Proporción defectuosa (p)",
@@ -207,9 +207,7 @@ Por otro lado, el riesgo del consumidor es extremadamente bajo con ($\beta1$) de
 
 #### Plan 2: $n = 80$, $c = 4$
 
-```{r PLAN 2, include=FALSE}
-#PLAN 2
-
+```{r PLAN 2}
 N <- 150
 n2 <- 80
 c2 <- 4
@@ -220,26 +218,23 @@ P <- seq(0.000 , 0.140, 0.001)
 m <- round(P * N)
 Pa2 <- phyper(c2, m, N-m, n2)
 
-# Riesgos
 AQL <- 0.05
 LTPD <- 0.10
 mAQL <- round(AQL*N)
 mLTPD <- round(LTPD*N)
 
-# Riesgo productor
 alpha2 <- 1 - phyper(c2, mAQL, N-mAQL, n2)
 alpha2
 
-# Riesgo consumidor
 beta2 <- phyper(c2, mLTPD, N-mLTPD, n2)
 beta2
 
 ```
 
-```{}
+```         
 ```
 
-```{r plan323, echo=FALSE, message=FALSE, warning=FALSE}
+```{r plan323}
 
 plot(P, Pa2, type="l", lwd=3, col="red",
      xlab="Proporción defectuosa (p)",
@@ -258,10 +253,7 @@ Esta nueva CO representa una situación intermedia, donde se busca cierto **equi
 
 #### Plan 3: $n = 40$, $c = 2$
 
-```{r PLAN 3, include=FALSE}
-
-
-#PLAN 3
+```{r PLAN 3}
 
 N <- 150
 n3 <- 40
@@ -272,23 +264,20 @@ distribucion(n3, N)
 P <- seq(0.000 , 0.140, 0.001)
 m <- round(P * N)
 Pa3 <- phyper(c3, m, N-m, n3)
-# Riesgos
 AQL <- 0.05
 LTPD <- 0.10
 mAQL <- round(AQL*N)
 mLTPD <- round(LTPD*N)
 
-# Riesgo productor
 alpha3 <- 1 - phyper(c3, mAQL, N-mAQL, n3)
 alpha3
 
-# Riesgo consumidor
 beta3 <- phyper(c3, mLTPD, N-mLTPD, n3)
 beta3
 
 ```
 
-```{r plan33, echo=FALSE, message=FALSE, warning=FALSE}
+```{r plan33}
 
 plot(P, Pa3, type="l", lwd=3, col="darkgreen",
      xlab="Proporción defectuosa (p)",
@@ -307,7 +296,7 @@ Sin embargo, el riesgo del consumidor es mayor con un ($\beta3$) del 17,98% lo q
 
 ### b. ¿Se puede pensar entonces que un plan de muestreo con la condición de proporcionalidad en AQL es equivalente, sin importar el tamaño de muestra?.
 
-```{r Grafico_1b, echo=FALSE}
+```{r Grafico_1b}
 
 plot(P, Pa1, type="l", lwd=3, col="blue",
      xlab="Proporción defectuosa (p)",
@@ -367,30 +356,19 @@ $$P_a = \sum_{x=0}^{c} \frac{e^{-\lambda} \lambda^x}{x!}$$
 
 ### a. ¿Se presentan discrepancias entre las curvas?
 
-```{r plan23, echo=FALSE, message=FALSE, warning=FALSE}
-# Parámetros
+```{r plan23}
 N <- 100
 n <- 50
 c <- 2
-
-# Vector de proporciones defectuosas
 P <- seq(0.001, 0.20, 0.001)
-
-# 1. Binomial
 Pa_bin <- pbinom(c, n, P)
-
-# 2. Poisson
 Pa_pois <- ppois(c, n*P)
-
-# 3. Hipergeométrica
 Pa_hiper <- sapply(P, function(p){
   D <- round(N*p)
   phyper(c, D, N-D, n)
 })
 
-# --- GRÁFICA MEJORADA ---
-
-par(bg="white")  # fondo blanco
+par(bg="white")  
 
 plot(P, Pa_hiper, type="l", lwd=3, col="darkgreen",
      ylab="Probabilidad de aceptación (Pa)",
@@ -420,7 +398,6 @@ Pa_hiper <- sapply(p_tabla, function(p){
   phyper(c, D, N-D, n)
 })
 
-# Crear tabla comparativa correctamente
 tabla_N100 <- data.frame(
   p = p_tabla,
   Hipergeométrica = round(Pa_hiper,4),
@@ -430,7 +407,6 @@ tabla_N100 <- data.frame(
   Dif_Pois_vs_Hiper = round(Pa_pois - Pa_hiper,4)
 )
 
-# Tabla elegante
 tabla_N100 %>%
   kbl(
     caption = "Comparación de probabilidades de aceptación (N = 100, n = 50, c = 2)",
@@ -466,30 +442,20 @@ En conclusión, **cuando** **el lote es pequeño y la fracción de muestreo es g
 
 ### b. ¿Que sucede si el tamaño del lote es de 2000 unidades?
 
-```{r plan24, echo=FALSE, message=FALSE, warning=FALSE}
-# Parámetros
+```{r plan24}
 N <- 2000
 n <- 50
 c <- 2
 
-# Vector de proporciones defectuosas
 P <- seq(0.001, 0.20, 0.001)
-
-# 1. Binomial
 Pa_bin <- pbinom(c, n, P)
-
-# 2. Poisson
 Pa_pois <- ppois(c, n*P)
-
-# 3. Hipergeométrica
 Pa_hiper <- sapply(P, function(p){
   D <- round(N*p)
   phyper(c, D, N-D, n)
 })
 
-# --- GRÁFICA MEJORADA ---
-
-par(bg="white")  # fondo blanco
+par(bg="white")  
 
 plot(P, Pa_hiper, type="l", lwd=3, col="darkgreen",
      ylab="Probabilidad de aceptación (Pa)",
@@ -508,13 +474,7 @@ legend("topright",
        lwd=3,
        lty=c(1,2,3),
        bty="n")
-# ==============================
-# TABLA COMPARATIVA - N = 2000
-# ==============================
-# Tabla elegante (MISMO ESTILO QUE N=100)
-# ==============================
-# TABLA COMPARATIVA - N = 2000
-# ==============================
+
 
 p_tabla <- c(0.01, 0.03, 0.05, 0.08, 0.10, 0.15)
 
