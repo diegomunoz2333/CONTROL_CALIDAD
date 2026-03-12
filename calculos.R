@@ -49,10 +49,7 @@ tabla_planes <- tribble(
   "Reducida", "III", 80,  5
 )
 
-# 2. Configurar el vector de proporción defectuosa
 pd_vector <- seq(0, 0.20, length.out = 100)
-
-# 3. Calcular los datos para el gráfico
 datos_grafico <- tabla_planes %>%
   group_by(Tipo, Plan) %>%
   do({
@@ -61,15 +58,12 @@ datos_grafico <- tabla_planes %>%
   }) %>%
   ungroup() %>%
   mutate(Etiqueta = paste0(Tipo, " (", Plan, ")"))
-
-# 4. Definir colores específicos (aproximados a la foto)
 colores_manuales <- c(
   "Normal (I)"   = "#2E4053", "Estricta (I)" = "#943126", "Reducida (I)" = "#5D6D7E",
   "Normal (II)"  = "#2874A6", "Estricta (II)"= "#1E8449", "Reducida (II)" = "#A04000",
   "Normal (III)" = "#5499C7", "Estricta (III)"= "#82E0AA", "Reducida (III)"= "#D98880"
 )
 
-# 5. Crear el gráfico con ggplot2 para replicar la estética
 ggplot(datos_grafico, aes(x = pd, y = pa, color = Etiqueta)) +
   geom_line(size = 1) +
   scale_x_continuous(breaks = seq(0, 0.2, 0.02), limits = c(0, 0.2)) +
@@ -90,28 +84,21 @@ ggplot(datos_grafico, aes(x = pd, y = pa, color = Etiqueta)) +
     plot.title = element_text(hjust = 0.5, face = "bold", color = "brown")
   )
 # Calcular AOQ
-# --- SECCIÓN CORREGIDA DE AOQ ---
 
-# 1. Calcular AOQ con el factor de corrección del lote (N)
 datos_aoq <- tabla_planes %>%
   group_by(Tipo, Plan) %>%
   do({
     plan <- OC2c(n = .$n, c = .$c, type = "binomial", pd = pd_vector)
-    
-    # AQUÍ ESTÁ EL CAMBIO: Se incluye (N_lote - n) / N_lote
     aoq_calculado <- plan@paccept * pd_vector * ((N_lote - .$n) / N_lote)
-    
     tibble(pd = pd_vector, aoq = aoq_calculado)
   }) %>%
   ungroup() %>%
   mutate(Etiqueta = factor(paste0(Tipo, " (", Plan, ")"), 
                            levels = names(colores_manuales)))
-
-# 2. Graficar AOQ (el resto del código de ggplot se mantiene igual)
 ggplot(datos_aoq, aes(x = pd, y = aoq, color = Etiqueta)) +
   geom_line(size = 1.1) +
   scale_x_continuous(breaks = seq(0, 0.2, 0.02)) +
-  scale_y_continuous(labels = scales::percent) + # Opcional: mostrar como %
+  scale_y_continuous(labels = scales::percent) + 
   scale_color_manual(values = colores_manuales) +
   labs(title = "Curvas de Calidad de Salida Promedio (AOQ)",
        x = "Proporción de defectuosos (p)",
