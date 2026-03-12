@@ -46,55 +46,133 @@ Primero buuscamos cada uno de los $n$,$c$ y $r$ para cada uno de los planes simp
 
 
 ```{r 1, include=FALSE}
-library(AQLSchemes) 
-
+#library(AQLSchemes) 
 #Plan simple con nivel de inspección Normal
-planS_1<-AASingle('Normal')
-planS_1
-planS_2<-AASingle('Normal')
-planS_2
-planS_3<-AASingle('Normal')
-planS_3
+#planS_1<-AASingle('Normal')
+#planS_1
+#planS_2<-AASingle('Normal')
+#planS_2
+#planS_3<-AASingle('Normal')
+#planS_3
 
 #Plan simple con nivel de inspección Estricto
-planE_1<-AASingle('Tightened')
-planE_1
-planE_2<-AASingle('Tightened')
-planE_2
-planE_3<-AASingle('Tightened')
-planE_3
+#planE_1<-AASingle('Tightened')
+#planE_1
+#planE_2<-AASingle('Tightened')
+#planE_2
+#planE_3<-AASingle('Tightened')
+#planE_3
 
 #Plan simple con nivel de inspección Reducido
-planr_1<-AASingle('Reduced')
-planr_1
-planr_2<-AASingle('Reduced')
-planr_2
-planr_3<-AASingle('Reduced')
-planr_3
+#planr_1<-AASingle('Reduced')
+#planr_1
+#planr_2<-AASingle('Reduced')
+#planr_2
+#planr_3<-AASingle('Reduced')
+#planr_3
 
 ```
 
-La cual nos dara los siguientes resultados:
+La cual nos dara los siguientes resultados para el plan simple:
 ```{r tabla de c, n y r}
-# Crear la tabla con los resultados
-library(tibble)
-
-tabla_planes <- tribble(
-  ~Tipo,        ~Plan, ~n, ~c, ~r,
-  "Normal",     1,     50,   3,  4,
-  "Normal",     2,     125,  7,  8,
-  "Normal",     3,     200,  10, 11,
-  "Estricto",   1,     50,   2,  3,
-  "Estricto",   2,     125,  5,  6,
-  "Estricto",   3,     200,  8,  9,
-  "Reducido",   1,     20,   1,  4,
-  "Reducido",   2,     50,   3,  6,
-  "Reducido",   3,     80,   5,  8
+# Crear el data frame sin columna Plan
+tabla_simple <- data.frame(
+  Nivel = c("I", "II", "III",
+            "I", "II", "III",
+            "I", "II", "III"),
+  n = c(50, 125, 200, 50, 125, 200, 20, 50, 80),
+  c = c(3, 7, 10, 2, 5, 8, 1, 3, 5),
+  r = c(4, 8, 11, 3, 6, 9, 4, 6, 8)
 )
 
-# Ver la tabla
-print(tabla_planes)
+library(knitr)
+library(kableExtra)
+
+tabla_simple %>%
+  kbl(
+    caption = "Planes de muestreo simple según nivel de inspección",
+    col.names = c("Nivel", "n", "c", "r"),
+    align = "c",
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover"),
+    full_width = TRUE,
+    position = "center",
+    font_size = 14
+  ) %>%
+  group_rows("Normal", 1, 3, bold = TRUE, background = "#f0f0f0") %>%
+  group_rows("Estricto", 4, 6, bold = TRUE, background = "#f0f0f0") %>%
+  group_rows("Reducido", 7, 9, bold = TRUE, background = "#f0f0f0") %>%
+  column_spec(1, width = "25%") %>%
+  column_spec(2, width = "25%") %>%
+  column_spec(3, width = "25%") %>%
+  column_spec(4, width = "25%") %>%
+  add_header_above(c(" " = 1, "Parámetros del plan" = 3)) %>%
+  footnote(general = "n: tamaño de muestra; c: número de aceptación; r: número de rechazo")
 ```
 
+opcion 2 
+
+```{r deded}
+# Crear el data frame original, pero cambiando la columna Plan a I, II, III
+tabla_simple <- data.frame(
+  Tipo = c("Normal", "Normal", "Normal",
+           "Estricto", "Estricto", "Estricto",
+           "Reducido", "Reducido", "Reducido"),
+  Plan = factor(c("I", "II", "III", "I", "II", "III", "I", "II", "III"),
+                levels = c("I", "II", "III")),
+  n = c(50, 125, 200, 50, 125, 200, 20, 50, 80),
+  c = c(3, 7, 10, 2, 5, 8, 1, 3, 5),
+  r = c(4, 8, 11, 3, 6, 9, 4, 6, 8)
+)
+
+library(knitr)
+library(kableExtra)
+
+tabla_simple %>%
+  kbl(
+    caption = "Planes de muestreo simple según nivel de inspección",
+    col.names = c("Nivel", "Nivel del plan", "n", "c", "r"),
+    align = "c",
+    booktabs = TRUE
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover"),
+    full_width = FALSE,
+    position = "center",
+    font_size = 14
+  ) %>%
+  # Agrupar por Tipo (Normal, Estricto, Reducido)
+  group_rows("Normal", 1, 3, bold = TRUE, background = "#f0f0f0") %>%
+  group_rows("Estricto", 4, 6, bold = TRUE, background = "#f0f0f0") %>%
+  group_rows("Reducido", 7, 9, bold = TRUE, background = "#f0f0f0") %>%
+  # Resaltar la columna del nivel del plan
+  column_spec(2, bold = TRUE) %>%
+  # Añadir cabecera superior para los parámetros
+  add_header_above(c(" " = 2, "Parámetros del plan" = 3)) %>%
+  footnote(general = "n: tamaño de muestra; c: número de aceptación; r: número de rechazo")
+```
+
+```{r}
+# Crear data frame con los valores definitivos
+tabla_doble_final <- data.frame(
+  Tipo = rep(c("Normal", "Estricto", "Reducido"), each = 6),
+  Plan = rep(rep(1:3, each = 2), times = 3),
+  Etapa = rep(1:2, times = 9),
+  n = c(32, 32, 80, 80, 125, 125,   # Normal
+        32, 32, 80, 80, 125, 125,   # Estricto
+        13, 13, 32, 32, 50, 50),    # Reducido
+  c = c(1, 4, 3, 8, 5, 12,          # Normal
+        0, 3, 2, 6, 3, 11,          # Estricto
+        0, 1, 1, 4, 2, 6),          # Reducido
+  r = c(4, 5, 7, 9, 9, 13,          # Normal
+        3, 4, 5, 7, 7, 12,          # Estricto
+        4, 5, 4, 7, 6, 9)           # Reducido
+)
+
+# Mostrar el data frame
+print(tabla_doble_final)
+```
 
 
