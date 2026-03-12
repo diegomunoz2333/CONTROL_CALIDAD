@@ -30,6 +30,27 @@ knitr::opts_chunk$set(
 )
 ```
 
+
+# Punto 1
+
+## Enunciado
+
+El jefe de compras de una empresa ha exigido un AQL de 2.5% para la característica de un cierto producto que se recibe en lotes de 3000 unidades y se desea obtener un plan de inspección por muestreo usando las normas Militar Standard.  
+
+Por otro lado el departamento de producción no está dispuesto a tolerar ningún lote con más del 10% de unidades defectuosas.
+
+Como un lote se considera bueno si tiene menos del 5%, se tomará un tamaño de muestra $n$ y se aceptará el lote si tiene menos del 5% de unidades defectuosas, por ejemplo:
+
+-   $(n=100, c=5)$\
+-   $(n=80, c=4)$\
+-   $(n=40, c=2)$
+
+## Preguntas
+
+### a. Evalué en cada caso los riesgos del productor y consumidor.
+
+
+
 ```{r 1, include=FALSE}
 library(AQLSchemes) 
 
@@ -56,6 +77,5 @@ planr_2<-AASingle('Reduced')
 planr_2
 planr_3<-AASingle('Reduced')
 planr_3
-
 
 ```

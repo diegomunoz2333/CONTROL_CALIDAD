@@ -1,0 +1,36 @@
+---
+title: "Taller 3  – Curva CO en planes de muestreo"
+author: "Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez 2417038"
+date: "`r format(Sys.Date(), '%d de %B de %Y')`"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+fontsize: 12pt
+geometry: margin=2.5cm
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage{amssymb}
+  - \usepackage{booktabs}
+  - \usepackage{graphicx}
+  - \usepackage{float}
+  - \usepackage{setspace}
+  - \onehalfspacing
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center",
+  fig.width = 6,
+  fig.height = 4
+)
+```
+
+
+
+
+
