@@ -1,6 +1,6 @@
 ---
-title: "Taller 3  – Curva CO en planes de muestreo"
-author: "Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez 2417038"
+title: "Taller 3 – plan de muestreo estándar"
+author: "Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez 2417038, Alejandro Barros Rayo 2415837 "
 date: "`r format(Sys.Date(), '%d de %B de %Y')`"
 output:
   pdf_document:
@@ -31,6 +31,70 @@ knitr::opts_chunk$set(
 ```
 
 
+# Punto 1
+
+## Enunciado
+
+El jefe de compras de una empresa ha exigido un AQL de 2.5% para la característica de un cierto producto que se recibe en lotes de 3000 unidades y se desea obtener un plan de inspección por muestreo usando las normas Militar Standard.  
+
+
+## Preguntas
+
+### a. ¿Cuál es el plan de muestreo simple adecuado bajo los niveles de inspección I, II, III, en los niveles normal, reducido y severo?. Evalué la conveniencia de los planes resultantes.  (OC, AOQ, ATI). 
+
+Primero buuscamos cada uno de los $n$,$c$ y $r$ para cada uno de los planes simples (1,2,3) en cada uno de los niveles por medio de la funcion:
+
+
+```{r 1, include=FALSE}
+library(AQLSchemes) 
+
+#Plan simple con nivel de inspección Normal
+planS_1<-AASingle('Normal')
+planS_1
+planS_2<-AASingle('Normal')
+planS_2
+planS_3<-AASingle('Normal')
+planS_3
+
+#Plan simple con nivel de inspección Estricto
+planE_1<-AASingle('Tightened')
+planE_1
+planE_2<-AASingle('Tightened')
+planE_2
+planE_3<-AASingle('Tightened')
+planE_3
+
+#Plan simple con nivel de inspección Reducido
+planr_1<-AASingle('Reduced')
+planr_1
+planr_2<-AASingle('Reduced')
+planr_2
+planr_3<-AASingle('Reduced')
+planr_3
+
+```
+
+La cual nos dara los siguientes resultados:
+```{r tabla de c, n y r}
+# Crear la tabla con los resultados
+library(tibble)
+
+tabla_planes <- tribble(
+  ~Tipo,        ~Plan, ~n, ~c, ~r,
+  "Normal",     1,     50,   3,  4,
+  "Normal",     2,     125,  7,  8,
+  "Normal",     3,     200,  10, 11,
+  "Estricto",   1,     50,   2,  3,
+  "Estricto",   2,     125,  5,  6,
+  "Estricto",   3,     200,  8,  9,
+  "Reducido",   1,     20,   1,  4,
+  "Reducido",   2,     50,   3,  6,
+  "Reducido",   3,     80,   5,  8
+)
+
+# Ver la tabla
+print(tabla_planes)
+```
 
 
 
