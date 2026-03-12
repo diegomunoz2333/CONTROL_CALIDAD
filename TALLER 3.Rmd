@@ -1,6 +1,6 @@
 ---
-title: "Taller 2 – Curva CO en planes de muestreo"
-author: "Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez 2417038"
+title: "Taller 3 – plan de muestreo estándar"
+author: "Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez 2417038, Alejandro Barros Rayo 2415837 "
 date: "`r format(Sys.Date(), '%d de %B de %Y')`"
 output:
   pdf_document:
@@ -30,3 +30,32 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r 1, include=FALSE}
+library(AQLSchemes) 
+
+#Plan simple con nivel de inspección Normal
+planS_1<-AASingle('Normal')
+planS_1
+planS_2<-AASingle('Normal')
+planS_2
+planS_3<-AASingle('Normal')
+planS_3
+
+#Plan simple con nivel de inspección Estricto
+planE_1<-AASingle('Tightened')
+planE_1
+planE_2<-AASingle('Tightened')
+planE_2
+planE_3<-AASingle('Tightened')
+planE_3
+
+#Plan simple con nivel de inspección Reducido
+planr_1<-AASingle('Reduced')
+planr_1
+planr_2<-AASingle('Reduced')
+planr_2
+planr_3<-AASingle('Reduced')
+planr_3
+
+
+```
