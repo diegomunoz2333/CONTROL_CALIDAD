@@ -1,21 +1,8 @@
-library(AQLSchemes) 
+library(AQLSchemes)
 library(AcceptanceSampling)
-
-planS_1<-AASingle('Normal')
+  
+planS_1 <- AASingle('Normal')
 planS_1
-vectorS_1 <- seq(0, 0.20, by = 0.005)
-planPS_1 <- OC2c(n = 50, c = 3, type = "binomial", pd = vectorS_1)
-print(planPS_1)
-pa_1<-planPS_1@paccept
-pd<-planPS_1@pd
-plot(pd, pa_1, 
-     type = 'l',          
-     col = "blue",         
-     lwd = 2,              
-     xlab = "Proporción defectuosa (pd)",
-     ylab = "P(aceptación)",
-     main = "Curva Característica de Operación (CO)")
-
 
 planS_2<-AASingle('Normal')
 planS_2
@@ -44,3 +31,124 @@ planDN_2<-AADouble('Normal')
 planDN_2
 planDN_3<-AADouble('Normal')
 planDN_3
+
+library(AcceptanceSampling)
+library(tidyverse)
+
+# 1. Definir la tabla de planes (ajustada para que coincida con la lógica de la imagen)
+tabla_planes <- tribble(
+  ~Tipo,      ~Plan, ~n,  ~c,
+  "Normal",   "I",   50,  3,
+  "Estricta", "I",   50,  2,
+  "Reducida", "I",   20,  1,
+  "Normal",   "II",  125, 7,
+  "Estricta", "II",  125, 5,
+  "Reducida", "II",  50,  3,
+  "Normal",   "III", 200, 10,
+  "Estricta", "III", 200, 8,
+  "Reducida", "III", 80,  5
+)
+
+# 2. Configurar el vector de proporción defectuosa
+pd_vector <- seq(0, 0.20, length.out = 100)
+
+# 3. Calcular los datos para el gráfico
+datos_grafico <- tabla_planes %>%
+  group_by(Tipo, Plan) %>%
+  do({
+    plan <- OC2c(n = .$n, c = .$c, type = "binomial", pd = pd_vector)
+    tibble(pd = pd_vector, pa = plan@paccept)
+  }) %>%
+  ungroup() %>%
+  mutate(Etiqueta = paste0(Tipo, " (", Plan, ")"))
+
+# 4. Definir colores específicos (aproximados a la foto)
+colores_manuales <- c(
+  "Normal (I)"   = "#2E4053", "Estricta (I)" = "#943126", "Reducida (I)" = "#5D6D7E",
+  "Normal (II)"  = "#2874A6", "Estricta (II)"= "#1E8449", "Reducida (II)" = "#A04000",
+  "Normal (III)" = "#5499C7", "Estricta (III)"= "#82E0AA", "Reducida (III)"= "#D98880"
+)
+
+# 5. Crear el gráfico con ggplot2 para replicar la estética
+ggplot(datos_grafico, aes(x = pd, y = pa, color = Etiqueta)) +
+  geom_line(size = 1) +
+  scale_x_continuous(breaks = seq(0, 0.2, 0.02), limits = c(0, 0.2)) +
+  scale_y_continuous(breaks = seq(0, 1, 0.1), limits = c(0, 1)) +
+  scale_color_manual(values = colores_manuales) +
+  labs(
+    title = "Curvas de operación (OC)",
+    x = "Proporción de defectuosos",
+    y = "Probabilidad de aceptación",
+    color = NULL
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_line(color = "grey80"),
+    panel.grid.minor = element_line(color = "grey90"),
+    axis.text.x = element_text(angle = 90, vjust = 0.5),
+    legend.position = "right",
+    plot.title = element_text(hjust = 0.5, face = "bold", color = "brown")
+  )
+# Calcular AOQ
+# --- SECCIÓN CORREGIDA DE AOQ ---
+
+# 1. Calcular AOQ con el factor de corrección del lote (N)
+datos_aoq <- tabla_planes %>%
+  group_by(Tipo, Plan) %>%
+  do({
+    plan <- OC2c(n = .$n, c = .$c, type = "binomial", pd = pd_vector)
+    
+    # AQUÍ ESTÁ EL CAMBIO: Se incluye (N_lote - n) / N_lote
+    aoq_calculado <- plan@paccept * pd_vector * ((N_lote - .$n) / N_lote)
+    
+    tibble(pd = pd_vector, aoq = aoq_calculado)
+  }) %>%
+  ungroup() %>%
+  mutate(Etiqueta = factor(paste0(Tipo, " (", Plan, ")"), 
+                           levels = names(colores_manuales)))
+
+# 2. Graficar AOQ (el resto del código de ggplot se mantiene igual)
+ggplot(datos_aoq, aes(x = pd, y = aoq, color = Etiqueta)) +
+  geom_line(size = 1.1) +
+  scale_x_continuous(breaks = seq(0, 0.2, 0.02)) +
+  scale_y_continuous(labels = scales::percent) + # Opcional: mostrar como %
+  scale_color_manual(values = colores_manuales) +
+  labs(title = "Curvas de Calidad de Salida Promedio (AOQ)",
+       x = "Proporción de defectuosos (p)",
+       y = "AOQ (Calidad saliente)",
+       color = "Plan") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90))
+
+#ati
+N_lote <- 3000 
+
+datos_ati <- tabla_planes %>%
+  group_by(Tipo, Plan) %>%
+  do({
+    plan <- OC2c(n = .$n, c = .$c, type = "binomial", pd = pd_vector)
+    ati_val <- .$n + (1 - plan@paccept) * (N_lote - .$n)
+    tibble(pd = pd_vector, ati = ati_val)
+  }) %>%
+  ungroup() %>%
+  mutate(Etiqueta = factor(paste0(Tipo, " (", Plan, ")"), 
+                           levels = names(colores_manuales))) 
+ggplot(datos_ati, aes(x = pd, y = ati, color = Etiqueta)) +
+  geom_line(size = 1.2) +
+  scale_y_continuous(breaks = seq(0, 3000, 500), limits = c(0, 3100)) +
+  scale_x_continuous(breaks = seq(0, 0.20, 0.02)) +
+  scale_color_manual(values = colores_manuales) +
+  labs(
+    title = paste("Inspección Total Promedio (ATI) para N =", N_lote),
+    x = "Proporción de defectuosos (p)",
+    y = "Número de unidades inspeccionadas",
+    color = "Plan de Muestreo"
+  ) +
+  theme_bw() + 
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold", color = "brown"),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, size = 10),
+    panel.grid.major = element_line(color = "grey85"),
+    panel.grid.minor = element_blank(),
+    legend.position = "right"
+  )
