@@ -109,7 +109,7 @@ tabla_simple %>%
 ```
 
 
-```{r Curvas OC 1}
+```{r Curvas OC 1, echo=FALSE}
 
 library(AcceptanceSampling)
 library(tidyverse)
@@ -177,7 +177,7 @@ discrimina mejor. Los planes normales se ubican en un punto intermedio, ofrecien
 balance entre protección al consumidor y costo de inspección.
 
 
-```{r Curvas de salida promedio}
+```{r Curvas de salida promedio, echo=FALSE}
 # Calcular AOQ
 N_lote <- 3000
 datos_aoq <- tabla_planes %>%
@@ -213,7 +213,7 @@ garantizando mejor calidad de salida. Para el AQL exigido de 2.5%, todos los pla
 ofrecen una calidad de salida aceptable en condiciones normales de operación, pero los 
 planes reducidos son más riesgosos cuando la calidad del proveedor se deteriora.
 
-```{r inspeccion total}
+```{r inspeccion total, echo=FALSE}
 #ati
 N_lote <- 3000 
 
