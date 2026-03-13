@@ -83,6 +83,7 @@ ggplot(datos_grafico, aes(x = pd, y = pa, color = Etiqueta)) +
     legend.position = "right",
     plot.title = element_text(hjust = 0.5, face = "bold", color = "brown")
   )
+N_lote <- 3000 
 # Calcular AOQ
 
 datos_aoq <- tabla_planes %>%
@@ -108,7 +109,7 @@ ggplot(datos_aoq, aes(x = pd, y = aoq, color = Etiqueta)) +
   theme(axis.text.x = element_text(angle = 90))
 
 #ati
-N_lote <- 3000 
+
 
 datos_ati <- tabla_planes %>%
   group_by(Tipo, Plan) %>%

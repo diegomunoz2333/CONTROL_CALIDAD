@@ -1,6 +1,6 @@
 ---
 title: "Taller 2 – Curva CO en planes de muestreo"
-author: "Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez 2417038"
+author: "Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez 2417038, Alejandro Barros Rayo 2415837"
 date: "`r format(Sys.Date(), '%d de %B de %Y')`"
 output:
   pdf_document:
