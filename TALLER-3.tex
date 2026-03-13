@@ -1,0 +1,319 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+  12pt,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Taller 3 -- plan de muestreo estándar},
+  pdfauthor={Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez 2417038, Alejandro Barros Rayo 2415837},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Taller 3 -- plan de muestreo estándar}
+\author{Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez
+2417038, Alejandro Barros Rayo 2415837}
+\date{13 de marzo de 2026}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\section{Punto 1}\label{punto-1}
+
+\subsection{Enunciado}\label{enunciado}
+
+El jefe de compras de una empresa ha exigido un AQL de 2.5\% para la
+característica de un cierto producto que se recibe en lotes de 3000
+unidades y se desea obtener un plan de inspección por muestreo usando
+las normas Militar Standard.
+
+Por otro lado el departamento de producción no está dispuesto a tolerar
+ningún lote con más del 10\% de unidades defectuosas.
+
+Como un lote se considera bueno si tiene menos del 5\%, se tomará un
+tamaño de muestra \(n\) y se aceptará el lote si tiene menos del 5\% de
+unidades defectuosas, por ejemplo:
+
+\begin{itemize}
+\tightlist
+\item
+  \((n=100, c=5)\)\\
+\item
+  \((n=80, c=4)\)\\
+\item
+  \((n=40, c=2)\)
+\end{itemize}
+
+\subsection{Preguntas}\label{preguntas}
+
+\subsubsection{a. Evalué en cada caso los riesgos del productor y
+consumidor.}\label{a.-evaluuxe9-en-cada-caso-los-riesgos-del-productor-y-consumidor.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#library(AQLSchemes)}
+\CommentTok{\#library(AcceptanceSampling)}
+  
+\CommentTok{\#planS\_1 \textless{}{-} AASingle(\textquotesingle{}Normal\textquotesingle{})}
+\CommentTok{\#planS\_1}
+
+\CommentTok{\#planS\_2\textless{}{-}AASingle(\textquotesingle{}Normal\textquotesingle{})}
+\CommentTok{\#planS\_2}
+
+
+\CommentTok{\#planS\_3\textless{}{-}AASingle(\textquotesingle{}Normal\textquotesingle{})}
+\CommentTok{\#planS\_3}
+
+\CommentTok{\#planE\_1\textless{}{-}AASingle(\textquotesingle{}Tightened\textquotesingle{})}
+\CommentTok{\#planE\_1}
+\CommentTok{\#planE\_2\textless{}{-}AASingle(\textquotesingle{}Tightened\textquotesingle{})}
+\CommentTok{\#planE\_2}
+\CommentTok{\#planE\_3\textless{}{-}AASingle(\textquotesingle{}Tightened\textquotesingle{})}
+\CommentTok{\#planE\_3}
+
+\CommentTok{\#planr\_1\textless{}{-}AASingle(\textquotesingle{}Reduced\textquotesingle{})}
+\CommentTok{\#planr\_1}
+\CommentTok{\#planr\_2\textless{}{-}AASingle(\textquotesingle{}Reduced\textquotesingle{})}
+\CommentTok{\#planr\_2}
+\CommentTok{\#planr\_3\textless{}{-}AASingle(\textquotesingle{}Reduced\textquotesingle{})}
+\CommentTok{\#planr\_3}
+
+\CommentTok{\#planDN\_1\textless{}{-}AADouble(\textquotesingle{}Normal\textquotesingle{})}
+\CommentTok{\#planDN\_1}
+\CommentTok{\#planDN\_2\textless{}{-}AADouble(\textquotesingle{}Normal\textquotesingle{})}
+\CommentTok{\#planDN\_2}
+\CommentTok{\#planDN\_3\textless{}{-}AADouble(\textquotesingle{}Normal\textquotesingle{})}
+\CommentTok{\#planDN\_3}
+
+\FunctionTok{library}\NormalTok{(AcceptanceSampling)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+
+\CommentTok{\# 1. Definir la tabla de planes (ajustada para que coincida con la lógica de la imagen)}
+\NormalTok{tabla\_planes }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{(}
+  \SpecialCharTok{\textasciitilde{}}\NormalTok{Tipo,      }\SpecialCharTok{\textasciitilde{}}\NormalTok{Plan, }\SpecialCharTok{\textasciitilde{}}\NormalTok{n,  }\SpecialCharTok{\textasciitilde{}}\NormalTok{c,}
+  \StringTok{"Normal"}\NormalTok{,   }\StringTok{"I"}\NormalTok{,   }\DecValTok{50}\NormalTok{,  }\DecValTok{3}\NormalTok{,}
+  \StringTok{"Estricta"}\NormalTok{, }\StringTok{"I"}\NormalTok{,   }\DecValTok{50}\NormalTok{,  }\DecValTok{2}\NormalTok{,}
+  \StringTok{"Reducida"}\NormalTok{, }\StringTok{"I"}\NormalTok{,   }\DecValTok{20}\NormalTok{,  }\DecValTok{1}\NormalTok{,}
+  \StringTok{"Normal"}\NormalTok{,   }\StringTok{"II"}\NormalTok{,  }\DecValTok{125}\NormalTok{, }\DecValTok{7}\NormalTok{,}
+  \StringTok{"Estricta"}\NormalTok{, }\StringTok{"II"}\NormalTok{,  }\DecValTok{125}\NormalTok{, }\DecValTok{5}\NormalTok{,}
+  \StringTok{"Reducida"}\NormalTok{, }\StringTok{"II"}\NormalTok{,  }\DecValTok{50}\NormalTok{,  }\DecValTok{3}\NormalTok{,}
+  \StringTok{"Normal"}\NormalTok{,   }\StringTok{"III"}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{10}\NormalTok{,}
+  \StringTok{"Estricta"}\NormalTok{, }\StringTok{"III"}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{8}\NormalTok{,}
+  \StringTok{"Reducida"}\NormalTok{, }\StringTok{"III"}\NormalTok{, }\DecValTok{80}\NormalTok{,  }\DecValTok{5}
+\NormalTok{)}
+
+\NormalTok{pd\_vector }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.20}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)}
+\NormalTok{datos\_grafico }\OtherTok{\textless{}{-}}\NormalTok{ tabla\_planes }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Tipo, Plan) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{do}\NormalTok{(\{}
+\NormalTok{    plan }\OtherTok{\textless{}{-}} \FunctionTok{OC2c}\NormalTok{(}\AttributeTok{n =}\NormalTok{ .}\SpecialCharTok{$}\NormalTok{n, }\AttributeTok{c =}\NormalTok{ .}\SpecialCharTok{$}\NormalTok{c, }\AttributeTok{type =} \StringTok{"binomial"}\NormalTok{, }\AttributeTok{pd =}\NormalTok{ pd\_vector)}
+    \FunctionTok{tibble}\NormalTok{(}\AttributeTok{pd =}\NormalTok{ pd\_vector, }\AttributeTok{pa =}\NormalTok{ plan}\SpecialCharTok{@}\NormalTok{paccept)}
+\NormalTok{  \}) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Etiqueta =} \FunctionTok{paste0}\NormalTok{(Tipo, }\StringTok{" ("}\NormalTok{, Plan, }\StringTok{")"}\NormalTok{))}
+\NormalTok{colores\_manuales }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+  \StringTok{"Normal (I)"}   \OtherTok{=} \StringTok{"\#2E4053"}\NormalTok{, }\StringTok{"Estricta (I)"} \OtherTok{=} \StringTok{"\#943126"}\NormalTok{, }\StringTok{"Reducida (I)"} \OtherTok{=} \StringTok{"\#5D6D7E"}\NormalTok{,}
+  \StringTok{"Normal (II)"}  \OtherTok{=} \StringTok{"\#2874A6"}\NormalTok{, }\StringTok{"Estricta (II)"}\OtherTok{=} \StringTok{"\#1E8449"}\NormalTok{, }\StringTok{"Reducida (II)"} \OtherTok{=} \StringTok{"\#A04000"}\NormalTok{,}
+  \StringTok{"Normal (III)"} \OtherTok{=} \StringTok{"\#5499C7"}\NormalTok{, }\StringTok{"Estricta (III)"}\OtherTok{=} \StringTok{"\#82E0AA"}\NormalTok{, }\StringTok{"Reducida (III)"}\OtherTok{=} \StringTok{"\#D98880"}
+\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(datos\_grafico, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ pd, }\AttributeTok{y =}\NormalTok{ pa, }\AttributeTok{color =}\NormalTok{ Etiqueta)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.2}\NormalTok{, }\FloatTok{0.02}\NormalTok{), }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.2}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.1}\NormalTok{), }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ colores\_manuales) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Curvas de operación (OC)"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Proporción de defectuosos"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Probabilidad de aceptación"}\NormalTok{,}
+    \AttributeTok{color =} \ConstantTok{NULL}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{panel.grid.major =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"grey80"}\NormalTok{),}
+    \AttributeTok{panel.grid.minor =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"grey90"}\NormalTok{),}
+    \AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{),}
+    \AttributeTok{legend.position =} \StringTok{"right"}\NormalTok{,}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{, }\AttributeTok{color =} \StringTok{"brown"}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{TALLER-3_files/figure-latex/1-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calcular AOQ}
+\NormalTok{N\_lote }\OtherTok{\textless{}{-}} \DecValTok{3000}
+\NormalTok{datos\_aoq }\OtherTok{\textless{}{-}}\NormalTok{ tabla\_planes }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Tipo, Plan) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{do}\NormalTok{(\{}
+\NormalTok{    plan }\OtherTok{\textless{}{-}} \FunctionTok{OC2c}\NormalTok{(}\AttributeTok{n =}\NormalTok{ .}\SpecialCharTok{$}\NormalTok{n, }\AttributeTok{c =}\NormalTok{ .}\SpecialCharTok{$}\NormalTok{c, }\AttributeTok{type =} \StringTok{"binomial"}\NormalTok{, }\AttributeTok{pd =}\NormalTok{ pd\_vector)}
+\NormalTok{    aoq\_calculado }\OtherTok{\textless{}{-}}\NormalTok{ plan}\SpecialCharTok{@}\NormalTok{paccept }\SpecialCharTok{*}\NormalTok{ pd\_vector }\SpecialCharTok{*}\NormalTok{ ((N\_lote }\SpecialCharTok{{-}}\NormalTok{ .}\SpecialCharTok{$}\NormalTok{n) }\SpecialCharTok{/}\NormalTok{ N\_lote)}
+    \FunctionTok{tibble}\NormalTok{(}\AttributeTok{pd =}\NormalTok{ pd\_vector, }\AttributeTok{aoq =}\NormalTok{ aoq\_calculado)}
+\NormalTok{  \}) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Etiqueta =} \FunctionTok{factor}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(Tipo, }\StringTok{" ("}\NormalTok{, Plan, }\StringTok{")"}\NormalTok{), }
+                           \AttributeTok{levels =} \FunctionTok{names}\NormalTok{(colores\_manuales)))}
+\FunctionTok{ggplot}\NormalTok{(datos\_aoq, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ pd, }\AttributeTok{y =}\NormalTok{ aoq, }\AttributeTok{color =}\NormalTok{ Etiqueta)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \FloatTok{1.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.2}\NormalTok{, }\FloatTok{0.02}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\NormalTok{percent) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ colores\_manuales) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Curvas de Calidad de Salida Promedio (AOQ)"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Proporción de defectuosos (p)"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"AOQ (Calidad saliente)"}\NormalTok{,}
+       \AttributeTok{color =} \StringTok{"Plan"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{TALLER-3_files/figure-latex/23-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#ati}
+\NormalTok{N\_lote }\OtherTok{\textless{}{-}} \DecValTok{3000} 
+
+\NormalTok{datos\_ati }\OtherTok{\textless{}{-}}\NormalTok{ tabla\_planes }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Tipo, Plan) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{do}\NormalTok{(\{}
+\NormalTok{    plan }\OtherTok{\textless{}{-}} \FunctionTok{OC2c}\NormalTok{(}\AttributeTok{n =}\NormalTok{ .}\SpecialCharTok{$}\NormalTok{n, }\AttributeTok{c =}\NormalTok{ .}\SpecialCharTok{$}\NormalTok{c, }\AttributeTok{type =} \StringTok{"binomial"}\NormalTok{, }\AttributeTok{pd =}\NormalTok{ pd\_vector)}
+\NormalTok{    ati\_val }\OtherTok{\textless{}{-}}\NormalTok{ .}\SpecialCharTok{$}\NormalTok{n }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ plan}\SpecialCharTok{@}\NormalTok{paccept) }\SpecialCharTok{*}\NormalTok{ (N\_lote }\SpecialCharTok{{-}}\NormalTok{ .}\SpecialCharTok{$}\NormalTok{n)}
+    \FunctionTok{tibble}\NormalTok{(}\AttributeTok{pd =}\NormalTok{ pd\_vector, }\AttributeTok{ati =}\NormalTok{ ati\_val)}
+\NormalTok{  \}) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Etiqueta =} \FunctionTok{factor}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(Tipo, }\StringTok{" ("}\NormalTok{, Plan, }\StringTok{")"}\NormalTok{), }
+                           \AttributeTok{levels =} \FunctionTok{names}\NormalTok{(colores\_manuales))) }
+\FunctionTok{ggplot}\NormalTok{(datos\_ati, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ pd, }\AttributeTok{y =}\NormalTok{ ati, }\AttributeTok{color =}\NormalTok{ Etiqueta)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \FloatTok{1.2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3000}\NormalTok{, }\DecValTok{500}\NormalTok{), }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3100}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.20}\NormalTok{, }\FloatTok{0.02}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ colores\_manuales) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \FunctionTok{paste}\NormalTok{(}\StringTok{"Inspección Total Promedio (ATI) para N ="}\NormalTok{, N\_lote),}
+    \AttributeTok{x =} \StringTok{"Proporción de defectuosos (p)"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Número de unidades inspeccionadas"}\NormalTok{,}
+    \AttributeTok{color =} \StringTok{"Plan de Muestreo"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{size =} \DecValTok{16}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{, }\AttributeTok{color =} \StringTok{"brown"}\NormalTok{),}
+    \AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{size =} \DecValTok{10}\NormalTok{),}
+    \AttributeTok{panel.grid.major =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"grey85"}\NormalTok{),}
+    \AttributeTok{panel.grid.minor =} \FunctionTok{element\_blank}\NormalTok{(),}
+    \AttributeTok{legend.position =} \StringTok{"right"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{TALLER-3_files/figure-latex/24-1} \end{center}
+
+\end{document}
