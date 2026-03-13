@@ -109,3 +109,38 @@ abline(h=max(Pa_NIII_Red*pd), lty=2, col="blue")
 legend("topright", legend=c("Normal","Estricto","Reducido"),
        lty=c(1,2,3), col=c("black","red","blue"))
 grid()
+##############################
+azules <- c("#003f8a", "#0072CF", "#66B2FF")
+rojos  <- c("#8B0000", "#CC0000", "#FF6666")
+verdes <- c("#1a5200", "#2E8B00", "#7FCC00")
+
+# lty: 1=sólida, 2=punteada, 3=punto-raya
+# Nivel I = sólida, Nivel II = punteada, Nivel III = punto-raya
+
+x11()
+plot(pd, Pa_NI_Nor, type='l', lwd=2, lty=1, col=azules[1],
+     main="Curva OC - Planes Dobles",
+     xlab="Proporción defectuosa", ylab="P(aceptación)", ylim=c(0,1))
+
+# Normal
+lines(pd, Pa_NII_Nor,  lwd=2, lty=2, col=azules[2])
+lines(pd, Pa_NIII_Nor, lwd=2, lty=3, col=azules[3])
+
+# Estricto
+lines(pd, Pa_NI_Est,   lwd=2, lty=1, col=rojos[1])
+lines(pd, Pa_NII_Est,  lwd=2, lty=2, col=rojos[2])
+lines(pd, Pa_NIII_Est, lwd=2, lty=3, col=rojos[3])
+
+# Reducido
+lines(pd, Pa_NI_Red,   lwd=2, lty=1, col=verdes[1])
+lines(pd, Pa_NII_Red,  lwd=2, lty=2, col=verdes[2])
+lines(pd, Pa_NIII_Red, lwd=2, lty=3, col=verdes[3])
+
+legend("topright",
+       legend=c("Normal I","Normal II","Normal III",
+                "Estricto I","Estricto II","Estricto III",
+                "Reducido I","Reducido II","Reducido III"),
+       col=c(azules, rojos, verdes),
+       lwd=2, lty=c(1,2,3, 1,2,3, 1,2,3), cex=0.75)
+grid()
+
