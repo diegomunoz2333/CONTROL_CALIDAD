@@ -4,6 +4,7 @@ library(AcceptanceSampling)
 planS_1 <- AASingle('Normal')
 planS_1
 
+
 planS_2<-AASingle('Normal')
 planS_2
 
