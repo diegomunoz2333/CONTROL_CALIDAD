@@ -1,0 +1,102 @@
+---
+title: "Taller 3 – plan de muestreo estándar"
+author: "Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez 2417038, Alejandro Barros Rayo 2415837"
+date: "`r format(Sys.Date(), '%d de %B de %Y')`"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+fontsize: 12pt
+geometry: margin=2.5cm
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage{amssymb}
+  - \usepackage{booktabs}
+  - \usepackage{graphicx}
+  - \usepackage{float}
+  - \usepackage{setspace}
+  - \usepackage{tabu}
+  - \usepackage{longtable}
+  - \onehalfspacing
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo    = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center",
+  fig.width  = 6,
+  fig.height = 4
+)
+```
+
+
+# Punto 1
+
+## Enunciado
+
+El jefe de compras de una empresa ha exigido un AQL de 2.5% para la característica de un cierto producto que se recibe en lotes de 3000 unidades y se desea obtener un plan de inspección por muestreo usando las normas Militar Standard.
+
+## Preguntas
+
+### a. ¿Cuál es el plan de muestreo simple adecuado bajo los niveles de inspección I, II, III, en los niveles normal, reducido y severo? Evalúe la conveniencia de los planes resultantes. (OC, AOQ, ATI).
+
+La cual nos dará los siguientes resultados para el plan simple:
+
+```{r tabla-simple}
+library(knitr)
+library(kableExtra)
+
+tabla_simple <- data.frame(
+  Nivel = c("I", "II", "III",
+            "I", "II", "III",
+            "I", "II", "III"),
+  n = c(50, 125, 200, 50, 125, 200, 20, 50, 80),
+  c = c(3,   7,  10,  2,  5,   8,  1,  3,  5),
+  r = c(4,   8,  11,  3,  6,   9,  4,  6,  8)
+)
+
+tabla_simple %>%
+  kbl(
+    caption   = "Planes de muestreo simple según nivel de inspección",
+    col.names = c("Nivel", "n", "c", "r"),
+    align     = "c",
+    booktabs  = TRUE,
+    format    = "latex"
+  ) %>%
+  kable_styling(
+    latex_options = c("striped", "hold_position"),
+    full_width    = TRUE,
+    font_size     = 11
+  ) %>%
+  group_rows("Normal",   1, 3, bold = TRUE) %>%
+  group_rows("Estricto", 4, 6, bold = TRUE) %>%
+  group_rows("Reducido", 7, 9, bold = TRUE) %>%
+  column_spec(1, width = "3cm") %>%
+  column_spec(2, width = "3cm") %>%
+  column_spec(3, width = "3cm") %>%
+  column_spec(4, width = "3cm") %>%
+  add_header_above(c(" " = 1, "Parámetros del plan" = 3)) %>%
+  footnote(general = "n: tamaño de muestra; c: número de aceptación; r: número de rechazo")
+```
+
+```{r tabla-doble}
+tabla_doble_final <- data.frame(
+  Tipo  = rep(c("Normal", "Estricto", "Reducido"), each = 6),
+  Plan  = rep(rep(1:3, each = 2), times = 3),
+  Etapa = rep(1:2, times = 9),
+  n = c(32, 32, 80,  80, 125, 125,   # Normal
+        32, 32, 80,  80, 125, 125,   # Estricto
+        13, 13, 32,  32,  50,  50),  # Reducido
+  c = c(1, 4,  3,  8,  5, 12,        # Normal
+        0, 3,  2,  6,  3, 11,        # Estricto
+        0, 1,  1,  4,  2,  6),       # Reducido
+  r = c(4, 5,  7,  9,  9, 13,        # Normal
+        3, 4,  5,  7,  7, 12,        # Estricto
+        4, 5,  4,  7,  6,  9)        # Reducido
+)
+
+print(tabla_doble_final)
+```

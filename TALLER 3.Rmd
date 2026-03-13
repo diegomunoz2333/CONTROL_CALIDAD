@@ -7,6 +7,8 @@ output:
     toc: true
     toc_depth: 3
     number_sections: true
+    latex_engine: xelatex 
+    
 fontsize: 12pt
 geometry: margin=2.5cm
 header-includes:
@@ -36,42 +38,30 @@ knitr::opts_chunk$set(
 
 ## Enunciado
 
-El jefe de compras de una empresa ha exigido un AQL de 2.5% para la característica de un cierto producto que se recibe en lotes de 3000 unidades y se desea obtener un plan de inspección por muestreo usando las normas Militar Standard.
+El jefe de compras de una empresa ha exigido un AQL de 2.5% para la característica de un cierto producto que se recibe en lotes de 3000 unidades y se desea obtener un plan de inspección por muestreo usando las normas Militar Standard.  
 
-Por otro lado el departamento de producción no está dispuesto a tolerar ningún lote con más del 10% de unidades defectuosas.
-
-Como un lote se considera bueno si tiene menos del 5%, se tomará un tamaño de muestra $n$ y se aceptará el lote si tiene menos del 5% de unidades defectuosas, por ejemplo:
-
--   $(n=100, c=5)$\
--   $(n=80, c=4)$\
--   $(n=40, c=2)$
 
 ## Preguntas
 
-### a. ¿Cuál es el plan de muestreo simple adecuado bajo los niveles de inspección I, II, III, en los niveles normal, reducido y severo?. Evalúe la conveniencia de los planes resultantes. (OC, AOQ, ATI).
+### a. ¿Cuál es el plan de muestreo simple adecuado bajo los niveles de inspección I, II, III, en los niveles normal, reducido y severo?. Evalué la conveniencia de los planes resultantes.  (OC, AOQ, ATI). 
 
-```{r tabla de c, n y r}
+Primero buuscamos cada uno de los $n$,$c$ y $r$ para cada uno de los planes simples (1,2,3) en cada uno de los niveles por medio de la funcion:
 
+```{r codigo c, n y r}
 #library(AQLSchemes)
 #library(AcceptanceSampling)
-  
 #planS_1 <- AASingle('Normal')
 #planS_1
-
 #planS_2<-AASingle('Normal')
 #planS_2
-
-
 #planS_3<-AASingle('Normal')
 #planS_3
-
 #planE_1<-AASingle('Tightened')
 #planE_1
 #planE_2<-AASingle('Tightened')
 #planE_2
 #planE_3<-AASingle('Tightened')
 #planE_3
-
 #planr_1<-AASingle('Reduced')
 #planr_1
 #planr_2<-AASingle('Reduced')
@@ -79,13 +69,11 @@ Como un lote se considera bueno si tiene menos del 5%, se tomará un tamaño de 
 #planr_3<-AASingle('Reduced')
 #planr_3
 
-#planDN_1<-AADouble('Normal')
-#planDN_1
-#planDN_2<-AADouble('Normal')
-#planDN_2
-#planDN_3<-AADouble('Normal')
-#planDN_3
+```
 
+Representamos los n, r y c segun su clasificación de nivel en la siguente tabla:
+
+```{r tabla de c, n y r, echo=FALSE}
 # Crear el data frame sin columna Plan
 tabla_simple <- data.frame(
   Nivel = c("I", "II", "III",
@@ -120,7 +108,8 @@ tabla_simple %>%
 
 ```
 
-```{r 1}
+
+```{r Curvas OC 1}
 
 library(AcceptanceSampling)
 library(tidyverse)
@@ -176,7 +165,19 @@ ggplot(datos_grafico, aes(x = pd, y = pa, color = Etiqueta)) +
 
 ```
 
-```{r 23}
+#### Análisis de las curvas OC
+
+La curva OC muestra que los planes de **inspección estricta** presentan las caídas 
+más pronunciadas, lo que indica mayor discriminación entre lotes buenos y malos. 
+Por ejemplo, el plan Estricto III (n=200, c=8) alcanza una probabilidad de aceptación 
+cercana a cero antes de p=0.08, mientras que el plan Reducido I (n=20, c=1) mantiene 
+probabilidades de aceptación considerables incluso para p=0.10. Esto es coherente con 
+la teoría: a mayor tamaño de muestra, la curva OC se vuelve más "empinada" y el plan 
+discrimina mejor. Los planes normales se ubican en un punto intermedio, ofreciendo un 
+balance entre protección al consumidor y costo de inspección.
+
+
+```{r Curvas de salida promedio}
 # Calcular AOQ
 N_lote <- 3000
 datos_aoq <- tabla_planes %>%
@@ -202,7 +203,17 @@ ggplot(datos_aoq, aes(x = pd, y = aoq, color = Etiqueta)) +
   theme(axis.text.x = element_text(angle = 90))
 ```
 
-```{r 24}
+#### Análisis de las curvas AOQ
+
+Las curvas AOQ confirman que todos los planes tienen un **AOQL** (calidad de salida 
+máxima) que ocurre alrededor de p ≈ 0.04–0.07. El plan Reducido I presenta el AOQL 
+más alto (~4%), lo que significa que con poca inspección puede dejar pasar más 
+defectuosos. En contraste, los planes Estrictos II y III tienen los AOQL más bajos, 
+garantizando mejor calidad de salida. Para el AQL exigido de 2.5%, todos los planes 
+ofrecen una calidad de salida aceptable en condiciones normales de operación, pero los 
+planes reducidos son más riesgosos cuando la calidad del proveedor se deteriora.
+
+```{r inspeccion total}
 #ati
 N_lote <- 3000 
 
@@ -238,170 +249,115 @@ ggplot(datos_ati, aes(x = pd, y = ati, color = Etiqueta)) +
 
 ```
 
-### b. Ubique ahora los respectivos planes de muestreo doble. Evalúe la conveniencia de los planes resultantes. (OC, AOQ, ATI).
+#### Análisis de las curvas ATI
 
-```{r OC_doble}
-pd <- seq(0, 0.15, 0.001)
+El ATI revela el **costo de inspección** de cada plan. Para proporciones de defectuosos 
+bajas (p < 0.02, zona del AQL), los planes Reducidos inspeccionan muy pocas unidades 
+(ATI cercano a n), lo que los hace económicamente atractivos cuando el proveedor tiene 
+historial de buena calidad. Sin embargo, a medida que p aumenta, el ATI de todos los 
+planes converge hacia N=3000 (inspección 100%), siendo los planes Estrictos los que 
+más rápido alcanzan ese límite. El plan Reducido I es el más eficiente en términos de 
+inspección pero también el de menor protección, lo que justifica su uso solo bajo 
+condiciones históricas favorables del proveedor.
+```{r tabla_comparativa, echo=FALSE}
+library(AcceptanceSampling)
+library(knitr)
+library(kableExtra)
 
-# Función para calcular Pa doble
-Pa_doble <- function(n1, c1, r1, n2, c2, pd) {
-  Pa1 <- pbinom(c1, n1, pd)
-  Pa2 <- numeric(length(pd))
-  for (i in seq_along(pd)) {
-    pa2_i <- 0
-    for (d1 in (c1 + 1):(r1 - 1)) {
-      pa2_i <- pa2_i + dbinom(d1, n1, pd[i]) * pbinom(c2 - d1, n2, pd[i])
-    }
-    Pa2[i] <- pa2_i
-  }
-  return(Pa1 + Pa2)
-}
+N_lote <- 3000
+AQL    <- 0.025
 
-#--------------------------------------#
-# Normal
-#--------------------------------------#
-Pa_NI_Nor   <- Pa_doble(n1=32,  c1=1, r1=4, n2=32,  c2=4,  pd)
-Pa_NII_Nor  <- Pa_doble(n1=80,  c1=3, r1=7, n2=80,  c2=8,  pd)
-Pa_NIII_Nor <- Pa_doble(n1=125, c1=5, r1=9, n2=125, c2=12, pd)
+# Calcular metricas manualmente
+planes <- data.frame(
+  Inspeccion = c(rep("Normal",3), rep("Estricta",3), rep("Reducida",3)),
+  Nivel      = rep(c("I","II","III"), 3),
+  n          = c(50, 125, 200, 50, 125, 200, 20, 50, 80),
+  c          = c(3,  7,   10,  2,  5,   8,   1,  3,  5)
+)
 
-#--------------------------------------#
-# Estricto
-#--------------------------------------#
-Pa_NI_Est   <- Pa_doble(n1=32,  c1=0, r1=3, n2=32,  c2=3,  pd)
-Pa_NII_Est  <- Pa_doble(n1=80,  c1=2, r1=5, n2=80,  c2=6,  pd)
-Pa_NIII_Est <- Pa_doble(n1=125, c1=3, r1=7, n2=125, c2=11, pd)
+planes$Pa_AQL <- sapply(1:nrow(planes), function(i) {
+  OC2c(n = planes$n[i], c = planes$c[i], 
+       type = "binomial", pd = AQL)@paccept
+})
 
-#--------------------------------------#
-# Reducido
-#--------------------------------------#
-Pa_NI_Red   <- Pa_doble(n1=13, c1=0, r1=4, n2=13, c2=1, pd)
-Pa_NII_Red  <- Pa_doble(n1=32, c1=1, r1=4, n2=32, c2=4, pd)
-Pa_NIII_Red <- Pa_doble(n1=50, c1=2, r1=6, n2=50, c2=6, pd)
+planes$AOQL <- sapply(1:nrow(planes), function(i) {
+  pv   <- seq(0, 0.20, length.out = 500)
+  pa_v <- OC2c(n = planes$n[i], c = planes$c[i], 
+               type = "binomial", pd = pv)@paccept
+  max(pa_v * pv * (N_lote - planes$n[i]) / N_lote)
+})
 
-azules <- c("#003f8a", "#0072CF", "#66B2FF")
-rojos  <- c("#8B0000", "#CC0000", "#FF6666")
-verdes <- c("#1a5200", "#2E8B00", "#7FCC00")
+planes$ATI_AQL <- planes$n + (1 - planes$Pa_AQL) * (N_lote - planes$n)
 
-plot(pd, Pa_NI_Nor, type='l', lwd=2, lty=1, col=azules[1],
-     main="Curva OC - Planes Dobles",
-     xlab="Proporción defectuosa", ylab="P(aceptación)", ylim=c(0,1))
+planes$Conveniencia <- c(
+  "Balance costo-proteccion",
+  "Balance costo-proteccion",
+  "Balance costo-proteccion",
+  "Alta proteccion, mayor costo",
+  "Alta proteccion, mayor costo",
+  "Alta proteccion, mayor costo",
+  "Economico, historial confiable",
+  "Economico, historial confiable",
+  "Economico, historial confiable"
+)
 
-# Normal
-lines(pd, Pa_NII_Nor,  lwd=2, lty=2, col=azules[2])
-lines(pd, Pa_NIII_Nor, lwd=2, lty=3, col=azules[3])
+# Formatear columnas
+planes$Pa_AQL  <- paste0(round(planes$Pa_AQL * 100, 1), "%")
+planes$AOQL    <- paste0(round(as.numeric(planes$AOQL) * 100, 2), "%")
+planes$ATI_AQL <- round(planes$ATI_AQL, 0)
 
-# Estricto
-lines(pd, Pa_NI_Est,   lwd=2, lty=1, col=rojos[1])
-lines(pd, Pa_NII_Est,  lwd=2, lty=2, col=rojos[2])
-lines(pd, Pa_NIII_Est, lwd=2, lty=3, col=rojos[3])
-
-# Reducido
-lines(pd, Pa_NI_Red,   lwd=2, lty=1, col=verdes[1])
-lines(pd, Pa_NII_Red,  lwd=2, lty=2, col=verdes[2])
-lines(pd, Pa_NIII_Red, lwd=2, lty=3, col=verdes[3])
-
-legend("topright",
-       legend=c("Normal I","Normal II","Normal III",
-                "Estricto I","Estricto II","Estricto III",
-                "Reducido I","Reducido II","Reducido III"),
-       col=c(azules, rojos, verdes),
-       lwd=2, lty=c(1,2,3, 1,2,3, 1,2,3), cex=0.75)
-grid()
+kbl(planes,
+    caption   = "Tabla comparativa de planes simples (AQL = 2.5%, N = 3000)",
+    col.names = c("Inspeccion", "Nivel", "n", "c",
+                  "Pa (p=AQL)", "AOQL", "ATI (p=AQL)", "Conveniencia"),
+    align     = c("l","c","c","c","c","c","c","l"),
+    booktabs  = TRUE,
+    row.names = FALSE) %>%
+  kable_styling(
+    font_size     = 10,
+    latex_options = c("hold_position", "scale_down")
+  ) %>%
+  pack_rows("Normal",   1, 3) %>%
+  pack_rows("Estricta", 4, 6) %>%
+  pack_rows("Reducida", 7, 9)
 ```
 
-```{r AOQ_doble}
-pd <- seq(0, 0.15, 0.001)
 
-# Función para calcular Pa doble
-Pa_doble <- function(n1, c1, r1, n2, c2, pd) {
-  Pa1 <- pbinom(c1, n1, pd)
-  Pa2 <- numeric(length(pd))
-  for (i in seq_along(pd)) {
-    pa2_i <- 0
-    for (d1 in (c1 + 1):(r1 - 1)) {
-      pa2_i <- pa2_i + dbinom(d1, n1, pd[i]) * pbinom(c2 - d1, n2, pd[i])
-    }
-    Pa2[i] <- pa2_i
-  }
-  return(Pa1 + Pa2)
-}
+#### Conveniencia de los planes
 
-#--------------------------------------#
-# Normal
-#--------------------------------------#
-Pa_NI_Nor   <- Pa_doble(n1=32,  c1=1, r1=4, n2=32,  c2=4,  pd)
-Pa_NII_Nor  <- Pa_doble(n1=80,  c1=3, r1=7, n2=80,  c2=8,  pd)
-Pa_NIII_Nor <- Pa_doble(n1=125, c1=5, r1=9, n2=125, c2=12, pd)
+Considerando el AQL de 2.5% y lotes de N=3000:
 
-#--------------------------------------#
-# Estricto
-#--------------------------------------#
-Pa_NI_Est   <- Pa_doble(n1=32,  c1=0, r1=3, n2=32,  c2=3,  pd)
-Pa_NII_Est  <- Pa_doble(n1=80,  c1=2, r1=5, n2=80,  c2=6,  pd)
-Pa_NIII_Est <- Pa_doble(n1=125, c1=3, r1=7, n2=125, c2=11, pd)
+- **Nivel I Normal** (n=50, c=3): conveniente cuando el costo de inspección es alto y 
+  el proveedor tiene historial confiable. Bajo costo pero menor discriminación.
+- **Nivel II Normal** (n=125, c=7): el plan de referencia según MIL-STD-105E; ofrece 
+  el mejor balance entre protección y costo de inspección.
+- **Nivel III Normal** (n=200, c=10): recomendable cuando las consecuencias de aceptar 
+  un lote defectuoso son graves. Mayor costo pero mayor protección.
+- **Planes Estrictos**: se activan cuando el proveedor ha tenido lotes rechazados 
+  consecutivos. Protegen mejor al consumidor pero incrementan el ATI.
+- **Planes Reducidos**: solo aplicables con historial comprobado de buena calidad. 
+  Reducen costos pero exponen al riesgo de mayor calidad de salida defectuosa (AOQL alto).
+### b. Ubique ahora los respectivos planes de muestreo doble. Evalúe la conveniencia de los planes resultantes. (OC, AOQ, ATI).
 
-#--------------------------------------#
-# Reducido
-#--------------------------------------#
-Pa_NI_Red   <- Pa_doble(n1=13, c1=0, r1=4, n2=13, c2=1, pd)
-Pa_NII_Red  <- Pa_doble(n1=32, c1=1, r1=4, n2=32, c2=4, pd)
-Pa_NIII_Red <- Pa_doble(n1=50, c1=2, r1=6, n2=50, c2=6, pd)
+Realizamos:
 
-# Calcular los AOQL
-AOQL_NI_Nor   <- max(Pa_NI_Nor*pd)
-AOQL_NII_Nor  <- max(Pa_NII_Nor*pd)
-AOQL_NIII_Nor <- max(Pa_NIII_Nor*pd)
-AOQL_NI_Est   <- max(Pa_NI_Est*pd)
-AOQL_NII_Est  <- max(Pa_NII_Est*pd)
-AOQL_NIII_Est <- max(Pa_NIII_Est*pd)
-AOQL_NI_Red   <- max(Pa_NI_Red*pd)
-AOQL_NII_Red  <- max(Pa_NII_Red*pd)
-AOQL_NIII_Red <- max(Pa_NIII_Red*pd)
-
-aoql_vals <- c(AOQL_NI_Nor, AOQL_NII_Nor, AOQL_NIII_Nor,
-               AOQL_NI_Est, AOQL_NII_Est, AOQL_NIII_Est,
-               AOQL_NI_Red, AOQL_NII_Red, AOQL_NIII_Red)
-
-plot(pd, Pa_NI_Nor*pd, type='l', lwd=2, lty=1, col=azules[1],
-     main="Curva AOQ - Planes Dobles",
-     xlab="Proporción defectuosa", ylab="AOQ",
-     ylim=c(0, max(aoql_vals)*1.2),
-     yaxt="n")  # Desactiva el eje Y automático
-
-# Eje Y con los valores AOQL incluidos
-eje_y <- sort(unique(c(seq(0, max(aoql_vals)*1.2, length.out=5), aoql_vals)))
-axis(2, at=round(eje_y, 4), labels=round(eje_y, 4), las=2, cex.axis=0.6)
-
-# Normal
-lines(pd, Pa_NII_Nor*pd,  lwd=2, lty=2, col=azules[2])
-lines(pd, Pa_NIII_Nor*pd, lwd=2, lty=3, col=azules[3])
-
-# Estricto
-lines(pd, Pa_NI_Est*pd,   lwd=2, lty=1, col=rojos[1])
-lines(pd, Pa_NII_Est*pd,  lwd=2, lty=2, col=rojos[2])
-lines(pd, Pa_NIII_Est*pd, lwd=2, lty=3, col=rojos[3])
-
-# Reducido
-lines(pd, Pa_NI_Red*pd,   lwd=2, lty=1, col=verdes[1])
-lines(pd, Pa_NII_Red*pd,  lwd=2, lty=2, col=verdes[2])
-lines(pd, Pa_NIII_Red*pd, lwd=2, lty=3, col=verdes[3])
-
-# AOQL
-abline(h=AOQL_NI_Nor,   lty=1, col=azules[1])
-abline(h=AOQL_NII_Nor,  lty=2, col=azules[2])
-abline(h=AOQL_NIII_Nor, lty=3, col=azules[3])
-abline(h=AOQL_NI_Est,   lty=1, col=rojos[1])
-abline(h=AOQL_NII_Est,  lty=2, col=rojos[2])
-abline(h=AOQL_NIII_Est, lty=3, col=rojos[3])
-abline(h=AOQL_NI_Red,   lty=1, col=verdes[1])
-abline(h=AOQL_NII_Red,  lty=2, col=verdes[2])
-abline(h=AOQL_NIII_Red, lty=3, col=verdes[3])
-
-legend("topright",
-       legend=c("Normal I","Normal II","Normal III",
-                "Estricto I","Estricto II","Estricto III",
-                "Reducido I","Reducido II","Reducido III"),
-       col=c(azules, rojos, verdes),
-       lwd=2, lty=c(1,2,3, 1,2,3, 1,2,3), cex=0.75)
-grid()
+```{r}
+#planDN_1<-AADouble('Normal')
+#planDN_1
+#planDN_2<-AADouble('Normal')
+#planDN_2
+#planDN_3<-AADouble('Normal')
+#planDN_3
+#planDE_1<-AADouble('Tightened')
+#planDE_1
+#planDE_2<-AADouble('Tightened')
+#planDE_2
+#planDE_3<-AADouble('Tightened')
+#planDE_3
+#planDr_1<-AADouble('Reduced')
+#planDr_1
+#planDr_2<-AADouble('Reduced')
+#planDr_2
+#planDr_3<-AADouble('Reduced')
+#planDr_3
 ```

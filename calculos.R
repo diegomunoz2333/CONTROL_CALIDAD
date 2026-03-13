@@ -141,3 +141,4 @@ ggplot(datos_ati, aes(x = pd, y = ati, color = Etiqueta)) +
     panel.grid.minor = element_blank(),
     legend.position = "right"
   )
+install.packages("AcceptanceSampling")

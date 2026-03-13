@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.13)  13 MAR 2026 02:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.13)  13 MAR 2026 02:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -234,51 +234,83 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@floatcapt=\box58
 ) (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
+) (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tabu/tabu.sty
+Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
+(c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+\col@sep=\dimen185
+\ar@mcellbox=\box59
+\extrarowheight=\dimen186
+\NC@list=\toks28
+\extratabsurround=\skip55
+\backup@length=\skip56
+\ar@cellbox=\box60
+) (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box61
+\sift@deathcycles=\count306
+\@vwid@loff=\dimen187
+\@vwid@roff=\dimen188
+)
+==> First Aid for varwidth.sty applied!
+\c@taburow=\count307
+\tabu@nbcols=\count308
+\tabu@cnt=\count309
+\tabu@Xcol=\count310
+\tabu@alloc=\count311
+\tabu@nested=\count312
+\tabu@target=\dimen189
+\tabu@spreadtarget=\dimen190
+\tabu@naturalX=\dimen191
+\tabucolX=\dimen192
+\tabu@Xsum=\dimen193
+\extrarowdepth=\dimen194
+\abovetabulinesep=\dimen195
+\belowtabulinesep=\dimen196
+\tabustrutrule=\dimen197
+\tabu@thebody=\toks29
+\tabu@footnotes=\toks30
+\tabu@box=\box62
+\tabu@arstrutbox=\box63
+\tabu@hleads=\box64
+\tabu@vleads=\box65
+\tabu@cellskip=\skip57
 ) (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
-\LTleft=\skip55
-\LTright=\skip56
-\LTpre=\skip57
-\LTpost=\skip58
-\LTchunksize=\count306
-\LTcapwidth=\dimen185
-\LT@head=\box59
-\LT@firsthead=\box60
-\LT@foot=\box61
-\LT@lastfoot=\box62
-\LT@gbox=\box63
-\LT@cols=\count307
-\LT@rows=\count308
-\c@LT@tables=\count309
-\c@LT@chunks=\count310
-\LT@p@ftn=\toks28
-) (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
-Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
-\col@sep=\dimen186
-\ar@mcellbox=\box64
-\extrarowheight=\dimen187
-\NC@list=\toks29
-\extratabsurround=\skip59
-\backup@length=\skip60
-\ar@cellbox=\box65
+\LTleft=\skip58
+\LTright=\skip59
+\LTpre=\skip60
+\LTpost=\skip61
+\LTchunksize=\count313
+\LTcapwidth=\dimen198
+\LT@head=\box66
+\LT@firsthead=\box67
+\LT@foot=\box68
+\LT@lastfoot=\box69
+\LT@gbox=\box70
+\LT@cols=\count314
+\LT@rows=\count315
+\c@LT@tables=\count316
+\c@LT@chunks=\count317
+\LT@p@ftn=\toks31
 ) (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
-\multirow@colwidth=\skip61
-\multirow@cntb=\count311
-\multirow@dima=\skip62
-\bigstrutjot=\dimen188
+\multirow@colwidth=\skip62
+\multirow@cntb=\count318
+\multirow@dima=\skip63
+\bigstrutjot=\dimen199
 ) (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.sty
-\wrapoverhang=\dimen189
-\WF@size=\dimen190
-\c@WF@wrappedlines=\count312
-\WF@box=\box66
-\WF@everypar=\toks30
+\wrapoverhang=\dimen256
+\WF@size=\dimen257
+\c@WF@wrappedlines=\count319
+\WF@box=\box71
+\WF@everypar=\toks32
 Package: wrapfig 2003/01/31  v 3.6
 ) (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2024/10/29 v1.0k Color table columns (DPC)
-\everycr=\toks31
-\minrowclearance=\skip63
-\rownum=\count313
+\everycr=\toks33
+\minrowclearance=\skip64
+\rownum=\count320
 ) (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2025-06-23 v0.14 Display of landscape pages in PDF
 (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
@@ -287,39 +319,7 @@ Package: pdflscape-nometadata 2025-06-23 v0.14 Display of landscape pages in PDF
 Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
-)) (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tabu/tabu.sty
-Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
-(c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.sty
-Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box67
-\sift@deathcycles=\count314
-\@vwid@loff=\dimen191
-\@vwid@roff=\dimen192
-)
-==> First Aid for varwidth.sty applied!
-\c@taburow=\count315
-\tabu@nbcols=\count316
-\tabu@cnt=\count317
-\tabu@Xcol=\count318
-\tabu@alloc=\count319
-\tabu@nested=\count320
-\tabu@target=\dimen193
-\tabu@spreadtarget=\dimen194
-\tabu@naturalX=\dimen195
-\tabucolX=\dimen196
-\tabu@Xsum=\dimen197
-\extrarowdepth=\dimen198
-\abovetabulinesep=\dimen199
-\belowtabulinesep=\dimen256
-\tabustrutrule=\dimen257
-\tabu@thebody=\toks32
-\tabu@footnotes=\toks33
-\tabu@box=\box68
-\tabu@arstrutbox=\box69
-\tabu@hleads=\box70
-\tabu@vleads=\box71
-\tabu@cellskip=\skip64
-) (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttable/threeparttable.sty
+)) (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttable/threeparttable.sty
 Package: threeparttable 2003/06/13  v 3.0
 \@tempboxb=\box72
 ) (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttablex/threeparttablex.sty
@@ -451,34 +451,33 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO)
 \BKM@id=\count335
 ))
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 135.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 137.
 (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count336
-)
-No file copia-valer-taller-3.aux.
+) (./copia-valer-taller-3.aux)
 \openout1 = `copia-valer-taller-3.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
 (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -519,79 +518,90 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 135.
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 137.
+Package hyperref Info: Link coloring OFF on input line 137.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 139.
 (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 137.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 139.
 (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 137.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 139.
 (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 137.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 139.
 (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 137.
+(Font)              <14.4> on input line 139.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 137.
+(Font)              <10> on input line 139.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 137.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 137.
+(Font)              <7> on input line 139.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 139.
 (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 137.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 139.
 (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (179.40813pt too wide) in paragraph at lines 137--137
+Overfull \hbox (179.40813pt too wide) in paragraph at lines 139--139
  [][] 
  []
 
-No file copia-valer-taller-3.toc.
+(./copia-valer-taller-3.toc
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 2.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 2.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 2.
+)
 \tf@toc=\write4
 \openout4 = `copia-valer-taller-3.toc'.
 
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 158.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 158.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 158.
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 165.
+[1
+
+{c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 163.
 (c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 167.
-[1
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 164.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 206.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <11> on input line 206.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7.69997> on input line 206.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5.5> on input line 206.
 
-{c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}])
-Runaway argument?
-{>{\centering \arraybackslash }p{25\toprule \multicolumn {1}{c}{ } & \ETC.
-! File ended while scanning use of \tabu@tabu@.
-<inserted text> 
-                \par 
-<*> copia-valer-taller-3.tex
-                            
-I suspect you have forgotten a `}', causing me
-to read past where you wanted me to stop.
-I'll try to recover; but if the error is serious,
-you'd better type `E' or `X' now and fix your file.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
- 
+[2] [3] [4] (./copia-valer-taller-3.aux)
+ ***********
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
+ ***********
+ ) 
 Here is how much of TeX's memory you used:
- 13270 strings out of 469514
- 206924 string characters out of 5468009
- 628621 words of memory out of 5000000
- 41688 multiletter control sequences out of 15000+600000
- 678174 words of font info for 85 fonts, out of 8000000 for 9000
+ 13352 strings out of 469514
+ 208292 string characters out of 5468009
+ 635105 words of memory out of 5000000
+ 41758 multiletter control sequences out of 15000+600000
+ 697480 words of font info for 102 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 89i,7n,93p,382b,484s stack positions out of 10000i,1000n,20000p,200000b,200000s
-!  ==> Fatal error occurred, no output PDF file produced!
+ 89i,15n,93p,2368b,638s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb><c:/Users/Usuario/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
+Output written on copia-valer-taller-3.pdf (4 pages, 175103 bytes).
+PDF statistics:
+ 88 PDF objects out of 1000 (max. 8388607)
+ 67 compressed objects within 1 object stream
+ 11 named destinations out of 1000 (max. 500000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+
