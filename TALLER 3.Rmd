@@ -32,12 +32,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> b11f4852e363468752a5e5672abd9c8b11a1b6ac
 # Punto 1
 
 ## Enunciado
@@ -54,14 +48,10 @@ Como un lote se considera bueno si tiene menos del 5%, se tomará un tamaño de 
 
 ## Preguntas
 
-### a. Evalué en cada caso los riesgos del productor y consumidor.
-
-<<<<<<< HEAD
-```{r 1}
-=======
+### a. ¿Cuál es el plan de muestreo simple adecuado bajo los niveles de inspección I, II, III, en los niveles normal, reducido y severo?. Evalúe la conveniencia de los planes resultantes. (OC, AOQ, ATI).
 
 ```{r tabla de c, n y r}
->>>>>>> b11f4852e363468752a5e5672abd9c8b11a1b6ac
+
 #library(AQLSchemes)
 #library(AcceptanceSampling)
   
@@ -246,4 +236,98 @@ ggplot(datos_ati, aes(x = pd, y = ati, color = Etiqueta)) +
     legend.position = "right"
   )
 
+```
+
+### b. Ubique ahora los respectivos planes de muestreo doble. Evalúe la conveniencia de los planes resultantes. (OC, AOQ, ATI).
+
+```{r OC_doble}
+azules <- c("#003f8a", "#0072CF", "#66B2FF")
+rojos  <- c("#8B0000", "#CC0000", "#FF6666")
+verdes <- c("#1a5200", "#2E8B00", "#7FCC00")
+
+plot(pd, Pa_NI_Nor, type='l', lwd=2, lty=1, col=azules[1],
+     main="Curva OC - Planes Dobles",
+     xlab="Proporción defectuosa", ylab="P(aceptación)", ylim=c(0,1))
+
+# Normal
+lines(pd, Pa_NII_Nor,  lwd=2, lty=2, col=azules[2])
+lines(pd, Pa_NIII_Nor, lwd=2, lty=3, col=azules[3])
+
+# Estricto
+lines(pd, Pa_NI_Est,   lwd=2, lty=1, col=rojos[1])
+lines(pd, Pa_NII_Est,  lwd=2, lty=2, col=rojos[2])
+lines(pd, Pa_NIII_Est, lwd=2, lty=3, col=rojos[3])
+
+# Reducido
+lines(pd, Pa_NI_Red,   lwd=2, lty=1, col=verdes[1])
+lines(pd, Pa_NII_Red,  lwd=2, lty=2, col=verdes[2])
+lines(pd, Pa_NIII_Red, lwd=2, lty=3, col=verdes[3])
+
+legend("topright",
+       legend=c("Normal I","Normal II","Normal III",
+                "Estricto I","Estricto II","Estricto III",
+                "Reducido I","Reducido II","Reducido III"),
+       col=c(azules, rojos, verdes),
+       lwd=2, lty=c(1,2,3, 1,2,3, 1,2,3), cex=0.75)
+grid()
+```
+
+```{r AOQ_doble}
+# Calcular los AOQL
+AOQL_NI_Nor   <- max(Pa_NI_Nor*pd)
+AOQL_NII_Nor  <- max(Pa_NII_Nor*pd)
+AOQL_NIII_Nor <- max(Pa_NIII_Nor*pd)
+AOQL_NI_Est   <- max(Pa_NI_Est*pd)
+AOQL_NII_Est  <- max(Pa_NII_Est*pd)
+AOQL_NIII_Est <- max(Pa_NIII_Est*pd)
+AOQL_NI_Red   <- max(Pa_NI_Red*pd)
+AOQL_NII_Red  <- max(Pa_NII_Red*pd)
+AOQL_NIII_Red <- max(Pa_NIII_Red*pd)
+
+aoql_vals <- c(AOQL_NI_Nor, AOQL_NII_Nor, AOQL_NIII_Nor,
+               AOQL_NI_Est, AOQL_NII_Est, AOQL_NIII_Est,
+               AOQL_NI_Red, AOQL_NII_Red, AOQL_NIII_Red)
+
+plot(pd, Pa_NI_Nor*pd, type='l', lwd=2, lty=1, col=azules[1],
+     main="Curva AOQ - Planes Dobles",
+     xlab="Proporción defectuosa", ylab="AOQ",
+     ylim=c(0, max(aoql_vals)*1.2),
+     yaxt="n")  # Desactiva el eje Y automático
+
+# Eje Y con los valores AOQL incluidos
+eje_y <- sort(unique(c(seq(0, max(aoql_vals)*1.2, length.out=5), aoql_vals)))
+axis(2, at=round(eje_y, 4), labels=round(eje_y, 4), las=2, cex.axis=0.6)
+
+# Normal
+lines(pd, Pa_NII_Nor*pd,  lwd=2, lty=2, col=azules[2])
+lines(pd, Pa_NIII_Nor*pd, lwd=2, lty=3, col=azules[3])
+
+# Estricto
+lines(pd, Pa_NI_Est*pd,   lwd=2, lty=1, col=rojos[1])
+lines(pd, Pa_NII_Est*pd,  lwd=2, lty=2, col=rojos[2])
+lines(pd, Pa_NIII_Est*pd, lwd=2, lty=3, col=rojos[3])
+
+# Reducido
+lines(pd, Pa_NI_Red*pd,   lwd=2, lty=1, col=verdes[1])
+lines(pd, Pa_NII_Red*pd,  lwd=2, lty=2, col=verdes[2])
+lines(pd, Pa_NIII_Red*pd, lwd=2, lty=3, col=verdes[3])
+
+# AOQL
+abline(h=AOQL_NI_Nor,   lty=1, col=azules[1])
+abline(h=AOQL_NII_Nor,  lty=2, col=azules[2])
+abline(h=AOQL_NIII_Nor, lty=3, col=azules[3])
+abline(h=AOQL_NI_Est,   lty=1, col=rojos[1])
+abline(h=AOQL_NII_Est,  lty=2, col=rojos[2])
+abline(h=AOQL_NIII_Est, lty=3, col=rojos[3])
+abline(h=AOQL_NI_Red,   lty=1, col=verdes[1])
+abline(h=AOQL_NII_Red,  lty=2, col=verdes[2])
+abline(h=AOQL_NIII_Red, lty=3, col=verdes[3])
+
+legend("topright",
+       legend=c("Normal I","Normal II","Normal III",
+                "Estricto I","Estricto II","Estricto III",
+                "Reducido I","Reducido II","Reducido III"),
+       col=c(azules, rojos, verdes),
+       lwd=2, lty=c(1,2,3, 1,2,3, 1,2,3), cex=0.75)
+grid()
 ```
