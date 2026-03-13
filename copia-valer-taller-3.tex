@@ -1,0 +1,354 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+  12pt,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Taller 3 -- plan de muestreo estándar},
+  pdfauthor={Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez 2417038, Alejandro Barros Rayo 2415837},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Taller 3 -- plan de muestreo estándar}
+\author{Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez
+2417038, Alejandro Barros Rayo 2415837}
+\date{13 de marzo de 2026}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\section{Punto 1}\label{punto-1}
+
+\subsection{Enunciado}\label{enunciado}
+
+El jefe de compras de una empresa ha exigido un AQL de 2.5\% para la
+característica de un cierto producto que se recibe en lotes de 3000
+unidades y se desea obtener un plan de inspección por muestreo usando
+las normas Militar Standard.
+
+\subsection{Preguntas}\label{preguntas}
+
+\subsubsection{a. ¿Cuál es el plan de muestreo simple adecuado bajo los
+niveles de inspección I, II, III, en los niveles normal, reducido y
+severo?. Evalué la conveniencia de los planes resultantes. (OC, AOQ,
+ATI).}\label{a.-cuuxe1l-es-el-plan-de-muestreo-simple-adecuado-bajo-los-niveles-de-inspecciuxf3n-i-ii-iii-en-los-niveles-normal-reducido-y-severo.-evaluuxe9-la-conveniencia-de-los-planes-resultantes.-oc-aoq-ati.}
+
+Primero buuscamos cada uno de los \(n\),\(c\) y \(r\) para cada uno de
+los planes simples (1,2,3) en cada uno de los niveles por medio de la
+funcion:
+
+La cual nos dara los siguientes resultados para el plan simple:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Crear el data frame sin columna Plan}
+\NormalTok{tabla\_simple }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Nivel =} \FunctionTok{c}\NormalTok{(}\StringTok{"I"}\NormalTok{, }\StringTok{"II"}\NormalTok{, }\StringTok{"III"}\NormalTok{,}
+            \StringTok{"I"}\NormalTok{, }\StringTok{"II"}\NormalTok{, }\StringTok{"III"}\NormalTok{,}
+            \StringTok{"I"}\NormalTok{, }\StringTok{"II"}\NormalTok{, }\StringTok{"III"}\NormalTok{),}
+  \AttributeTok{n =} \FunctionTok{c}\NormalTok{(}\DecValTok{50}\NormalTok{, }\DecValTok{125}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{125}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{80}\NormalTok{),}
+  \AttributeTok{c =} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{),}
+  \AttributeTok{r =} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{11}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{8}\NormalTok{)}
+\NormalTok{)}
+
+\FunctionTok{library}\NormalTok{(knitr)}
+\FunctionTok{library}\NormalTok{(kableExtra)}
+
+\NormalTok{tabla\_simple }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kbl}\NormalTok{(}
+    \AttributeTok{caption =} \StringTok{"Planes de muestreo simple según nivel de inspección"}\NormalTok{,}
+    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Nivel"}\NormalTok{, }\StringTok{"n"}\NormalTok{, }\StringTok{"c"}\NormalTok{, }\StringTok{"r"}\NormalTok{),}
+    \AttributeTok{align =} \StringTok{"c"}\NormalTok{,}
+    \AttributeTok{booktabs =} \ConstantTok{TRUE}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}
+  \AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hold\_position"}\NormalTok{),}
+  \AttributeTok{position =} \StringTok{"center"}\NormalTok{,}
+  \AttributeTok{font\_size =} \DecValTok{12}
+\NormalTok{)}\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{background =} \StringTok{"\#f0f0f0"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_rows}\NormalTok{(}\StringTok{"Estricto"}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{, }\AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{background =} \StringTok{"\#f0f0f0"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_rows}\NormalTok{(}\StringTok{"Reducido"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{9}\NormalTok{, }\AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{background =} \StringTok{"\#f0f0f0"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{width =} \StringTok{"25\%"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{2}\NormalTok{, }\AttributeTok{width =} \StringTok{"25\%"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{3}\NormalTok{, }\AttributeTok{width =} \StringTok{"25\%"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{4}\NormalTok{, }\AttributeTok{width =} \StringTok{"25\%"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{1}\NormalTok{, }\StringTok{"Parámetros del plan"} \OtherTok{=} \DecValTok{3}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"n: tamaño de muestra; c: número de aceptación; r: número de rechazo"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:tabla de c, n y r}Planes de muestreo simple según nivel de inspección}
+\centering
+\fontsize{12}{14}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{25%}>{\centering\arraybackslash}p{25%}>{\centering\arraybackslash}p{25%}>{\centering\arraybackslash}p{25%}}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{3}{c}{Parámetros del plan} \\
+\cmidrule(l{3pt}r{3pt}){2-4}
+Nivel & n & c & r\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{4}{l}{\cellcolor[HTML]{f0f0f0}{\textbf{Normal}}}\\
+\hspace{1em}\cellcolor{gray!10}{I} & \cellcolor{gray!10}{50} & \cellcolor{gray!10}{3} & \cellcolor{gray!10}{4}\\
+\hspace{1em}II & 125 & 7 & 8\\
+\hspace{1em}\cellcolor{gray!10}{III} & \cellcolor{gray!10}{200} & \cellcolor{gray!10}{10} & \cellcolor{gray!10}{11}\\
+\addlinespace[0.3em]
+\multicolumn{4}{l}{\cellcolor[HTML]{f0f0f0}{\textbf{Estricto}}}\\
+\hspace{1em}I & 50 & 2 & 3\\
+\hspace{1em}\cellcolor{gray!10}{II} & \cellcolor{gray!10}{125} & \cellcolor{gray!10}{5} & \cellcolor{gray!10}{6}\\
+\hspace{1em}III & 200 & 8 & 9\\
+\addlinespace[0.3em]
+\multicolumn{4}{l}{\cellcolor[HTML]{f0f0f0}{\textbf{Reducido}}}\\
+\hspace{1em}\cellcolor{gray!10}{I} & \cellcolor{gray!10}{20} & \cellcolor{gray!10}{1} & \cellcolor{gray!10}{4}\\
+\hspace{1em}II & 50 & 3 & 6\\
+\hspace{1em}\cellcolor{gray!10}{III} & \cellcolor{gray!10}{80} & \cellcolor{gray!10}{5} & \cellcolor{gray!10}{8}\\
+\bottomrule
+\multicolumn{4}{l}{\rule{0pt}{1em}\textit{Note: }}\\
+\multicolumn{4}{l}{\rule{0pt}{1em}n: tamaño de muestra; c: número de aceptación; r: número de rechazo}\\
+\end{tabular}
+\end{table}
+
+opcion 2
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Crear el data frame original, pero cambiando la columna Plan a I, II, III}
+\NormalTok{tabla\_simple }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Tipo =} \FunctionTok{c}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\StringTok{"Normal"}\NormalTok{, }\StringTok{"Normal"}\NormalTok{,}
+           \StringTok{"Estricto"}\NormalTok{, }\StringTok{"Estricto"}\NormalTok{, }\StringTok{"Estricto"}\NormalTok{,}
+           \StringTok{"Reducido"}\NormalTok{, }\StringTok{"Reducido"}\NormalTok{, }\StringTok{"Reducido"}\NormalTok{),}
+  \AttributeTok{Plan =} \FunctionTok{factor}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"I"}\NormalTok{, }\StringTok{"II"}\NormalTok{, }\StringTok{"III"}\NormalTok{, }\StringTok{"I"}\NormalTok{, }\StringTok{"II"}\NormalTok{, }\StringTok{"III"}\NormalTok{, }\StringTok{"I"}\NormalTok{, }\StringTok{"II"}\NormalTok{, }\StringTok{"III"}\NormalTok{),}
+                \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"I"}\NormalTok{, }\StringTok{"II"}\NormalTok{, }\StringTok{"III"}\NormalTok{)),}
+  \AttributeTok{n =} \FunctionTok{c}\NormalTok{(}\DecValTok{50}\NormalTok{, }\DecValTok{125}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{125}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{80}\NormalTok{),}
+  \AttributeTok{c =} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{),}
+  \AttributeTok{r =} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{11}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{8}\NormalTok{)}
+\NormalTok{)}
+
+\FunctionTok{library}\NormalTok{(knitr)}
+\FunctionTok{library}\NormalTok{(kableExtra)}
+
+\NormalTok{tabla\_simple }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kbl}\NormalTok{(}
+    \AttributeTok{caption =} \StringTok{"Planes de muestreo simple según nivel de inspección"}\NormalTok{,}
+    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Nivel"}\NormalTok{, }\StringTok{"Nivel del plan"}\NormalTok{, }\StringTok{"n"}\NormalTok{, }\StringTok{"c"}\NormalTok{, }\StringTok{"r"}\NormalTok{),}
+    \AttributeTok{align =} \StringTok{"c"}\NormalTok{,}
+    \AttributeTok{booktabs =} \ConstantTok{TRUE}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}
+  \AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hold\_position"}\NormalTok{),}
+  \AttributeTok{position =} \StringTok{"center"}\NormalTok{,}
+  \AttributeTok{font\_size =} \DecValTok{12}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# Agrupar por Tipo (Normal, Estricto, Reducido)}
+  \FunctionTok{group\_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{background =} \StringTok{"\#f0f0f0"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_rows}\NormalTok{(}\StringTok{"Estricto"}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{, }\AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{background =} \StringTok{"\#f0f0f0"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_rows}\NormalTok{(}\StringTok{"Reducido"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{9}\NormalTok{, }\AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{background =} \StringTok{"\#f0f0f0"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# Resaltar la columna del nivel del plan}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{2}\NormalTok{, }\AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# Añadir cabecera superior para los parámetros}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{2}\NormalTok{, }\StringTok{"Parámetros del plan"} \OtherTok{=} \DecValTok{3}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"n: tamaño de muestra; c: número de aceptación; r: número de rechazo"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:deded}Planes de muestreo simple según nivel de inspección}
+\centering
+\fontsize{12}{14}\selectfont
+\begin{tabular}[t]{c>{}cccc}
+\toprule
+\multicolumn{2}{c}{ } & \multicolumn{3}{c}{Parámetros del plan} \\
+\cmidrule(l{3pt}r{3pt}){3-5}
+Nivel & Nivel del plan & n & c & r\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{5}{l}{\cellcolor[HTML]{f0f0f0}{\textbf{Normal}}}\\
+\hspace{1em}\cellcolor{gray!10}{Normal} & \textbf{\cellcolor{gray!10}{I}} & \cellcolor{gray!10}{50} & \cellcolor{gray!10}{3} & \cellcolor{gray!10}{4}\\
+\hspace{1em}Normal & \textbf{II} & 125 & 7 & 8\\
+\hspace{1em}\cellcolor{gray!10}{Normal} & \textbf{\cellcolor{gray!10}{III}} & \cellcolor{gray!10}{200} & \cellcolor{gray!10}{10} & \cellcolor{gray!10}{11}\\
+\addlinespace[0.3em]
+\multicolumn{5}{l}{\cellcolor[HTML]{f0f0f0}{\textbf{Estricto}}}\\
+\hspace{1em}Estricto & \textbf{I} & 50 & 2 & 3\\
+\hspace{1em}\cellcolor{gray!10}{Estricto} & \textbf{\cellcolor{gray!10}{II}} & \cellcolor{gray!10}{125} & \cellcolor{gray!10}{5} & \cellcolor{gray!10}{6}\\
+\hspace{1em}Estricto & \textbf{III} & 200 & 8 & 9\\
+\addlinespace[0.3em]
+\multicolumn{5}{l}{\cellcolor[HTML]{f0f0f0}{\textbf{Reducido}}}\\
+\hspace{1em}\cellcolor{gray!10}{Reducido} & \textbf{\cellcolor{gray!10}{I}} & \cellcolor{gray!10}{20} & \cellcolor{gray!10}{1} & \cellcolor{gray!10}{4}\\
+\hspace{1em}Reducido & \textbf{II} & 50 & 3 & 6\\
+\hspace{1em}\cellcolor{gray!10}{Reducido} & \textbf{\cellcolor{gray!10}{III}} & \cellcolor{gray!10}{80} & \cellcolor{gray!10}{5} & \cellcolor{gray!10}{8}\\
+\bottomrule
+\multicolumn{5}{l}{\rule{0pt}{1em}\textit{Note: }}\\
+\multicolumn{5}{l}{\rule{0pt}{1em}n: tamaño de muestra; c: número de aceptación; r: número de rechazo}\\
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Crear data frame con los valores definitivos}
+\NormalTok{tabla\_doble\_final }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Tipo =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\StringTok{"Estricto"}\NormalTok{, }\StringTok{"Reducido"}\NormalTok{), }\AttributeTok{each =} \DecValTok{6}\NormalTok{),}
+  \AttributeTok{Plan =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, }\AttributeTok{each =} \DecValTok{2}\NormalTok{), }\AttributeTok{times =} \DecValTok{3}\NormalTok{),}
+  \AttributeTok{Etapa =} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{, }\AttributeTok{times =} \DecValTok{9}\NormalTok{),}
+  \AttributeTok{n =} \FunctionTok{c}\NormalTok{(}\DecValTok{32}\NormalTok{, }\DecValTok{32}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{125}\NormalTok{, }\DecValTok{125}\NormalTok{,   }\CommentTok{\# Normal}
+        \DecValTok{32}\NormalTok{, }\DecValTok{32}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{125}\NormalTok{, }\DecValTok{125}\NormalTok{,   }\CommentTok{\# Estricto}
+        \DecValTok{13}\NormalTok{, }\DecValTok{13}\NormalTok{, }\DecValTok{32}\NormalTok{, }\DecValTok{32}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{50}\NormalTok{),    }\CommentTok{\# Reducido}
+  \AttributeTok{c =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{12}\NormalTok{,          }\CommentTok{\# Normal}
+        \DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{11}\NormalTok{,          }\CommentTok{\# Estricto}
+        \DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{6}\NormalTok{),          }\CommentTok{\# Reducido}
+  \AttributeTok{r =} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{13}\NormalTok{,          }\CommentTok{\# Normal}
+        \DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{12}\NormalTok{,          }\CommentTok{\# Estricto}
+        \DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{9}\NormalTok{)           }\CommentTok{\# Reducido}
+\NormalTok{)}
+
+\CommentTok{\# Mostrar el data frame}
+\FunctionTok{print}\NormalTok{(tabla\_doble\_final)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        Tipo Plan Etapa   n  c  r
+## 1    Normal    1     1  32  1  4
+## 2    Normal    1     2  32  4  5
+## 3    Normal    2     1  80  3  7
+## 4    Normal    2     2  80  8  9
+## 5    Normal    3     1 125  5  9
+## 6    Normal    3     2 125 12 13
+## 7  Estricto    1     1  32  0  3
+## 8  Estricto    1     2  32  3  4
+## 9  Estricto    2     1  80  2  5
+## 10 Estricto    2     2  80  6  7
+## 11 Estricto    3     1 125  3  7
+## 12 Estricto    3     2 125 11 12
+## 13 Reducido    1     1  13  0  4
+## 14 Reducido    1     2  13  1  5
+## 15 Reducido    2     1  32  1  4
+## 16 Reducido    2     2  32  4  7
+## 17 Reducido    3     1  50  2  6
+## 18 Reducido    3     2  50  6  9
+\end{verbatim}
+
+\end{document}
