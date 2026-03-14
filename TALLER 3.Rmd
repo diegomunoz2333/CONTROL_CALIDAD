@@ -185,7 +185,7 @@ ggplot(datos_grafico,
   )+
 
   labs(
-    title="Curvas OC - Planes de Muestreo",
+    title="Curvas OC",
     x="Proporción defectuosa",
     y="P(aceptación)",
     color="Tipo de inspección",
@@ -257,7 +257,7 @@ ggplot(datos_aoq,
   ) +
 
   labs(
-    title = "Curvas AOQ - Calidad de Salida Promedio",
+    title = "Curvas AOQ ",
     x = "Proporcion defectuosa",
     y = "AOQ",
     color = "Tipo de inspeccion",
@@ -329,7 +329,7 @@ ggplot(datos_ati,
   ) +
 
   labs(
-    title = paste("Curvas ATI - Inspeccion Total Promedio (N =", N_lote, ")"),
+    title = paste("Curvas ATI"),
     x = "Proporcion defectuosa",
     y = "Unidades inspeccionadas",
     color = "Tipo de inspeccion",
