@@ -54,7 +54,7 @@ Primero buuscamos cada uno de los $n$,$c$ y $r$ para cada uno de los
 planes simples (1,2,3) en cada uno de los niveles por medio de la
 funcion:
 
-```{r codigo c, n y r}
+```{r codigo c, echo=FALSE}
 #library(AQLSchemes)
 #library(AcceptanceSampling)
 #planS_1 <- AASingle('Normal')
