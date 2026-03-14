@@ -519,7 +519,7 @@ dudosa, los planes reducidos minimizan el esfuerzo de inspección cuando
 existe confianza en el proceso productivo, y los planes normales ofrecen
 un punto de equilibrio entre control de calidad y eficiencia operativa.
 
-```{r tabla_comparativa, echo=FALSE}
+```{r tabla_comparativa, echo=FALSE, results='asis'}
 library(AcceptanceSampling)
 library(knitr)
 library(kableExtra)
@@ -890,7 +890,7 @@ comparar son:
         $n_2 = 80$, $c_2 = 8$, $r_2 = 9$
 \end{itemize}
 
-```{r nose}
+```{r nose, echo=FALSE}
 library(AcceptanceSampling)
 library(tidyverse)
 
@@ -951,7 +951,7 @@ cols <- c("Simple" = "#185FA5", "Doble" = "#3B6D11",
           "Simple (n fijo)" = "#185FA5", "Doble (ASN)" = "#3B6D11")
 ```
 
-```{r grafica oc c }
+```{r grafica oc c, echo=FALSE }
 ggplot(df_oc, aes(x = pd, y = Pa, color = Plan, linetype = Plan)) +
   geom_line(size = 1.1) +
   geom_vline(xintercept = 0.025, linetype = "dotted",
@@ -984,7 +984,7 @@ la cual es similar, sino en cómo se distribuye el esfuerzo de muestreo
 para lograr esa discriminación, aspecto que se revela con mayor claridad
 en la curva ASN.
 
-```{r grafica aoq c}
+```{r grafica aoq c, echo=FALSE}
 ggplot(df_aoq, aes(x = pd, y = AOQ, color = Plan, linetype = Plan)) +
   geom_line(size = 1.1) +
   geom_vline(xintercept = 0.025, linetype = "dotted",
@@ -1016,7 +1016,7 @@ marginalmente más defectuosos escapen sin ser detectados. En la práctica
 esta diferencia es pequeña y operativamente insignificante para el rango
 de calidad esperado cerca del AQL.
 
-```{r grafica asn}
+```{r grafica asn, echo=FALSE}
 ggplot(df_asn, aes(x = pd, y = Muestra, color = Plan, linetype = Plan)) +
   geom_line(size = 1.1) +
   geom_vline(xintercept = 0.025, linetype = "dotted",
@@ -1061,7 +1061,7 @@ proveedor con proceso estable cerca del AQL, el ASN del doble ronda las
 90--100 unidades, lo que representa un ahorro de aproximadamente 20%
 frente al plan simple.
 
-```{r tabla comparativa c}
+```{r tabla comparativa c, echo=FALSE}
 library(knitr)
 library(kableExtra)
 
