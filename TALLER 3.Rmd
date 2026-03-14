@@ -13,6 +13,7 @@ fontsize: 12pt
 geometry: margin=2.5cm
 header-includes:
   - \usepackage{tabu}
+  - \raggedright
   - \usepackage{longtable}
   - \usepackage{amsmath}
   - \usepackage{amssymb}
@@ -203,16 +204,17 @@ ggplot(datos_grafico,
 
 #### Análisis de las curvas OC
 
-La curva OC muestra que los planes de **inspección estricta** presentan
-las caídas más pronunciadas, lo que indica mayor discriminación entre
-lotes buenos y malos. Por ejemplo, el plan Estricto III (n=200, c=8)
-alcanza una probabilidad de aceptación cercana a cero antes de p=0.08,
-mientras que el plan Reducido I (n=20, c=1) mantiene probabilidades de
-aceptación considerables incluso para p=0.10. Esto es coherente con la
-teoría: a mayor tamaño de muestra, la curva OC se vuelve más "empinada"
-y el plan discrimina mejor. Los planes normales se ubican en un punto
-intermedio, ofreciendo un balance entre protección al consumidor y costo
-de inspección.
+La curva OC permite visualizar el comportamiento de los nueve planes de muestreo simple obtenidos a partir de los parámetros mostrados en la tabla para distintos niveles de inspección (estricto, normal y reducido) y tres niveles de plan (I, II y III). En la gráfica se observa claramente cómo la probabilidad de aceptación disminuye a medida que aumenta la proporción defectuosa del lote, lo cual es consistente con la lógica del muestreo de aceptación: cuanto peor es la calidad del lote, menor es la probabilidad de que sea aceptado. Sin embargo, la rapidez con la que disminuye esta probabilidad depende del tipo de inspección y del tamaño de la muestra utilizado en cada plan.
+
+Los planes estrictos (representados en rojo) muestran las pendientes más pronunciadas dentro de la gráfica. Esto significa que, a medida que la proporción de defectuosos aumenta ligeramente, la probabilidad de aceptación cae rápidamente. Este comportamiento se explica porque los valores de aceptación 
+𝑐
+c son más pequeños que en los otros tipos de inspección, lo que hace que el criterio para aceptar un lote sea más exigente. En consecuencia, estos planes protegen principalmente al consumidor, ya que reducen la posibilidad de aceptar lotes con niveles de defectos relativamente altos. No obstante, esta mayor exigencia también implica un mayor riesgo para el productor, puesto que incluso pequeñas variaciones en la calidad del proceso pueden conducir al rechazo del lote.
+
+En contraste, los planes de inspección reducida (representados en verde) presentan curvas más suaves y extendidas. En estos planes la probabilidad de aceptación se mantiene relativamente alta incluso cuando la proporción de defectos empieza a aumentar. Esto ocurre porque el tamaño de muestra es menor y los números de aceptación son relativamente más permisivos en comparación con los planes estrictos. Como resultado, estos planes favorecen al productor, ya que disminuyen la probabilidad de rechazo de sus lotes cuando la calidad del proceso es estable. Sin embargo, esta ventaja implica que el consumidor puede estar más expuesto a recibir lotes con niveles de defectos superiores al deseado, razón por la cual este tipo de inspección generalmente se aplica únicamente cuando el proveedor ha demostrado un desempeño de calidad consistente.
+
+Por su parte, los planes de inspección normal (representados en azul) se ubican en una posición intermedia entre los planes estrictos y los reducidos. Sus curvas muestran un equilibrio entre la rapidez de rechazo y la probabilidad de aceptación, lo que refleja el propósito de este tipo de inspección como el esquema estándar utilizado en condiciones normales de producción. Además, dentro de cada tipo de inspección se observa que al pasar del plan I al plan III las curvas se vuelven más empinadas. Esto se debe al incremento en el tamaño de la muestra (n), que proporciona mayor información sobre la calidad del lote y aumenta la capacidad del plan para distinguir entre lotes aceptables y no aceptables.
+
+En conjunto, la gráfica OC refleja claramente la lógica de los planes de muestreo simple: los planes estrictos priorizan la protección del consumidor, los planes reducidos favorecen la eficiencia para el productor cuando existe confianza en la calidad del proceso, y los planes normales mantienen un balance entre ambos intereses. Asimismo, el aumento en el nivel del plan implica un mayor tamaño de muestra y, por lo tanto, una mayor capacidad para discriminar entre diferentes niveles de calidad en los lotes inspeccionados.
 
 ```{r Curvas de salida promedio, echo=FALSE}
 # Calcular AOQ
@@ -276,15 +278,17 @@ ggplot(datos_aoq,
 
 #### Análisis de las curvas AOQ
 
-Las curvas AOQ confirman que todos los planes tienen un **AOQL**
-(calidad de salida máxima) que ocurre alrededor de p ≈ 0.04–0.07. El
-plan Reducido I presenta el AOQL más alto (\~4%), lo que significa que
-con poca inspección puede dejar pasar más defectuosos. En contraste, los
-planes Estrictos II y III tienen los AOQL más bajos, garantizando mejor
-calidad de salida. Para el AQL exigido de 2.5%, todos los planes ofrecen
-una calidad de salida aceptable en condiciones normales de operación,
-pero los planes reducidos son más riesgosos cuando la calidad del
-proveedor se deteriora.
+La curva AOQ (Average Outgoing Quality) permite analizar la calidad promedio de salida de los lotes después del proceso de inspección con rectificación, considerando los nueve planes de muestreo simple mostrados en la gráfica. En el eje horizontal se representa la proporción defectuosa original del lote, mientras que en el eje vertical se muestra la calidad promedio de salida (AOQ), es decir, el porcentaje esperado de defectos que finalmente llega al cliente después de aplicar el plan de muestreo. La forma característica de estas curvas muestra que la calidad de salida primero aumenta, alcanza un máximo y luego disminuye, debido a que cuando la proporción de defectos en el lote se vuelve muy alta, los lotes tienden a ser rechazados con mayor frecuencia y, al rectificarse, los defectos se eliminan antes de que el lote sea enviado.
+
+En la gráfica se observa que los planes de inspección estricta (rojos) presentan valores máximos de AOQ más bajos y curvas que alcanzan su punto máximo más rápidamente. Esto significa que la peor calidad promedio que podría llegar al consumidor es relativamente pequeña, ya que estos planes rechazan con mayor facilidad los lotes defectuosos. Como consecuencia, los planes estrictos limitan el AOQ máximo (AOQL) y brindan una mayor protección al consumidor. Sin embargo, esta misma característica implica que los productores enfrentan una mayor probabilidad de rechazo, lo que puede aumentar costos operativos debido a inspecciones adicionales o reprocesamiento.
+
+Por otro lado, los planes de inspección reducida (verdes) muestran los valores más altos de AOQ y curvas más amplias. En estos casos, la calidad promedio de salida puede alcanzar niveles más altos antes de comenzar a disminuir, lo que indica que una mayor proporción de defectos puede llegar al cliente antes de que los lotes sean rechazados sistemáticamente. Esto ocurre porque los tamaños de muestra son menores y el sistema de aceptación es más permisivo. En consecuencia, estos planes favorecen al productor, ya que reducen la probabilidad de rechazo del lote, pero implican un mayor riesgo potencial para el consumidor si la calidad del proceso se deteriora.
+
+Los planes de inspección normal (azules) nuevamente ocupan una posición intermedia entre los planes estrictos y los reducidos. Sus curvas AOQ alcanzan valores máximos moderados, reflejando un equilibrio entre la protección al consumidor y la eficiencia para el productor. Este comportamiento es consistente con el papel de la inspección normal como el esquema estándar de control de calidad cuando no existen señales de problemas significativos ni evidencia suficiente para aplicar inspección estricta o reducida.
+
+Asimismo, dentro de cada tipo de inspección se aprecia que al pasar del plan I al plan III las curvas tienden a reducir ligeramente su AOQ máximo y a concentrarse más cerca del origen. Esto se debe al aumento en el tamaño de muestra, lo que mejora la capacidad del plan para detectar lotes defectuosos y reducir la cantidad de defectos que finalmente llegan al consumidor. Por tanto, los planes con mayor tamaño de muestra ofrecen un mayor control sobre la calidad promedio de salida.
+
+En conjunto, la gráfica AOQ complementa la interpretación de las curvas OC, mostrando no solo la probabilidad de aceptar un lote, sino también el nivel de calidad promedio que finalmente llega al cliente después del proceso de inspección. Así, los planes estrictos minimizan la peor calidad posible de salida, los planes reducidos privilegian la eficiencia del productor cuando el proceso es confiable, y los planes normales mantienen un equilibrio entre ambos enfoques dentro del sistema de muestreo de aceptación.
 
 ```{r inspeccion total, echo=FALSE}
 # ATI
@@ -349,16 +353,17 @@ ggplot(datos_ati,
 
 #### Análisis de las curvas ATI
 
-El ATI revela el **costo de inspección** de cada plan. Para proporciones
-de defectuosos bajas (p \< 0.02, zona del AQL), los planes Reducidos
-inspeccionan muy pocas unidades (ATI cercano a n), lo que los hace
-económicamente atractivos cuando el proveedor tiene historial de buena
-calidad. Sin embargo, a medida que p aumenta, el ATI de todos los planes
-converge hacia N=3000 (inspección 100%), siendo los planes Estrictos los
-que más rápido alcanzan ese límite. El plan Reducido I es el más
-eficiente en términos de inspección pero también el de menor protección,
-lo que justifica su uso solo bajo condiciones históricas favorables del
-proveedor.
+La curva ATI (Average Total Inspection) permite analizar el número promedio de unidades inspeccionadas bajo los nueve planes de muestreo simple considerados, teniendo en cuenta que cuando un lote es rechazado se realiza inspección total con rectificación. En el eje horizontal se representa la proporción defectuosa del lote, mientras que en el eje vertical se muestra el número promedio de unidades inspeccionadas. La gráfica evidencia que, a medida que aumenta la proporción de defectos, el número promedio de unidades inspeccionadas también crece, hasta aproximarse al tamaño total del lote. Esto ocurre porque los lotes con mayor cantidad de defectos tienen una probabilidad más alta de ser rechazados, lo que obliga a realizar una inspección completa para eliminar las unidades defectuosas.
+
+En la gráfica se observa que los planes de inspección estricta (rojos) presentan un incremento más rápido en el ATI. Esto significa que incluso para proporciones defectuosas relativamente pequeñas, estos planes tienden a rechazar los lotes con mayor frecuencia, lo que conduce a inspecciones más extensas. Como consecuencia, el número promedio de unidades inspeccionadas se acerca rápidamente al tamaño total del lote. Este comportamiento refleja nuevamente el carácter más exigente de la inspección estricta, que busca proteger al consumidor al detectar con mayor rapidez los lotes de calidad dudosa, aunque esto implique un mayor esfuerzo de inspección para el productor.
+
+Por el contrario, los planes de inspección reducida (verdes) muestran curvas más graduales, lo que indica que el número promedio de unidades inspeccionadas aumenta de forma más lenta conforme crece la proporción defectuosa. Esto se debe a que estos planes aceptan los lotes con mayor facilidad, por lo que en muchos casos solo se inspecciona la muestra inicial y no se requiere realizar inspección completa del lote. En consecuencia, estos planes reducen significativamente el esfuerzo de inspección, lo que resulta ventajoso para el productor en términos de costos y tiempo, aunque también implica una menor capacidad de detección temprana de problemas de calidad.
+
+Los planes de inspección normal (azules) nuevamente ocupan una posición intermedia entre los estrictos y los reducidos. Sus curvas muestran un crecimiento moderado del ATI, reflejando un equilibrio entre la probabilidad de rechazo y el esfuerzo de inspección requerido. Este comportamiento es coherente con el propósito de la inspección normal como el esquema estándar utilizado cuando no existen evidencias claras para aplicar reglas más severas o más permisivas.
+
+Además, dentro de cada tipo de inspección se aprecia que al pasar del plan I al plan III el ATI aumenta más rápidamente. Esto se debe al incremento en el tamaño de muestra, lo que implica que incluso cuando el lote es aceptado se inspecciona una mayor cantidad de unidades. Por lo tanto, los planes con niveles más altos proporcionan una mayor información sobre la calidad del lote, pero también requieren un mayor esfuerzo de inspección.
+
+En conjunto, la gráfica ATI complementa la interpretación de las curvas OC y AOQ al mostrar el costo operativo del sistema de inspección en términos del número de unidades inspeccionadas. Los planes estrictos implican mayores niveles de inspección cuando la calidad del lote es dudosa, los planes reducidos minimizan el esfuerzo de inspección cuando existe confianza en el proceso productivo, y los planes normales ofrecen un punto de equilibrio entre control de calidad y eficiencia operativa.
 
 ```{r tabla_comparativa, echo=FALSE}
 library(AcceptanceSampling)
@@ -446,6 +451,9 @@ Considerando el AQL de 2.5% y lotes de N=3000:
 5.  **Planes Reducidos**: solo aplicables con historial comprobado de
     buena calidad. Reducen costos pero exponen al riesgo de mayor
     calidad de salida defectuosa (AOQL alto).
+    
+### Conclusión sobre los planes simples
+El plan de muestreo propuesto para el jefe de compras concluye que:El Nivel II Normal es el punto de equilibrio óptimo: Ofrece una protección estadística suficiente sin elevar los costos de inspección ($n=125$) a niveles innecesarios para un inicio de relación comercial.El Sistema es Preventivo, no solo Detectivo: La verdadera utilidad de estas curvas es incentivar al proveedor a mantener la calidad. El aumento del costo de inspección (ATI) y el endurecimiento de los criterios (Estricta) sirven como penalización económica y técnica para el proveedor que no cumple con el $AQL$.Decisión Estratégica: Si el producto es crítico para la seguridad o tiene un alto costo de falla, se debe optar por el Nivel III, aceptando un mayor costo de inspección inicial a cambio de una protección superior del consumidor
 
     ### b. Ubique ahora los respectivos planes de muestreo doble. Evalúe la conveniencia de los planes resultantes. (OC, AOQ, ATI).
 
@@ -660,7 +668,7 @@ riguroso para mantener la AOQ bajo control. La gráfica AOQ permite, por
 tanto, cuantificar esa diferencia y elegir el plan más adecuado según el
 nivel de exigencia deseado.
 
-### Conclusión sobre los planes dobles
+###Conclusión sobre los planes dobles
 
 En síntesis, los planes de muestreo doble analizados ofrecen muchas
 opciones que se adaptan a diferentes escenarios y necesidades. Los
