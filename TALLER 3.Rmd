@@ -60,10 +60,10 @@ las normas Militar Standard.
 
 ## Preguntas
 
-### a. ¿Cuál es el plan de muestreo simple adecuado bajo los niveles de inspección I, II, III, en los niveles normal, reducido y severo?. Evalué la conveniencia de los planes resultantes. (OC, AOQ, ATI).
+### a. ¿Cuál es el plan de muestreo simple adecuado bajo los niveles de inspección I, II, III, en los niveles normal, reducido y severo?. Evalúe la conveniencia de los planes resultantes. (OC, AOQ, ATI).
 
-Primero buuscamos cada uno de los $n$,$c$ y $r$ para cada uno de los
-planes simples (1,2,3) en cada uno de los niveles por medio de la
+Primero buscamos cada uno de los $n$,$c$ y $r$ para cada uno de los
+planes simples (1,2,3) en cada uno de los niveles, por medio de la
 funcion:
 
 ```{r codigo c, echo=FALSE}
@@ -90,7 +90,7 @@ funcion:
 
 ```
 
-Representamos los n, r y c segun su clasificación de nivel en la
+Representamos los n, r y c según su clasificación de nivel en la
 siguente tabla:
 
 ```{r tabla de c, n y r, echo=FALSE}
@@ -221,7 +221,7 @@ tabla para distintos niveles de inspección (estricto, normal y reducido)
 y tres niveles de plan (I, II y III). En la gráfica se observa
 claramente cómo la probabilidad de aceptación disminuye a medida que
 aumenta la proporción defectuosa del lote, lo cual es consistente con la
-lógica del muestreo de aceptación: cuanto peor es la calidad del lote,
+lógica del muestreo de aceptación, cuanto peor es la calidad del lote,
 menor es la probabilidad de que sea aceptado. Sin embargo, la rapidez
 con la que disminuye esta probabilidad depende del tipo de inspección y
 del tamaño de la muestra utilizado en cada plan.
@@ -265,13 +265,13 @@ capacidad del plan para distinguir entre lotes aceptables y no
 aceptables.
 
 En conjunto, la gráfica OC refleja claramente la lógica de los planes de
-muestreo simple: los planes estrictos priorizan la protección del
-consumidor, los planes reducidos favorecen la eficiencia para el
-productor cuando existe confianza en la calidad del proceso, y los
-planes normales mantienen un balance entre ambos intereses. Asimismo, el
-aumento en el nivel del plan implica un mayor tamaño de muestra y, por
-lo tanto, una mayor capacidad para discriminar entre diferentes niveles
-de calidad en los lotes inspeccionados.
+muestreo simple, la cual es que los planes estrictos priorizan la
+protección del consumidor, los planes reducidos favorecen la eficiencia
+para el productor cuando existe confianza en la calidad del proceso, y
+los planes normales mantienen un balance entre ambos intereses.
+Asimismo, el aumento en el nivel del plan implica un mayor tamaño de
+muestra y, por lo tanto, una mayor capacidad para discriminar entre
+diferentes niveles de calidad en los lotes inspeccionados.
 
 ```{r Curvas de salida promedio, echo=FALSE}
 # Calcular AOQ
@@ -717,8 +717,6 @@ Pa_NIII_Red <- Pa_doble_b(50, 3, 6, 50, 7, 8, pd_b)
 
 ```
 
-
-
 ```{r grafica OC, echo=FALSE}
 #
 colores_b <- c("Normal" = "#003f8a", 
@@ -981,10 +979,10 @@ Las curvas OC de ambos planes son prácticamente equivalentes en la zona
 del AQL (p = 2.5%), donde ambos alcanzan una probabilidad de aceptación
 superior al 98%. Esto confirma que los dos planes ofrecen la misma
 protección nominal al productor en condiciones de proceso controladas.
-La diferencia entre ellos no radica en la capacidad de discriminación
-—que es similar— sino en cómo se distribuye el esfuerzo de muestreo para
-lograr esa discriminación, aspecto que se revela con mayor claridad en
-la curva ASN.
+La diferencia entre ellos no radica en la capacidad de discriminación,
+la cual es similar, sino en cómo se distribuye el esfuerzo de muestreo
+para lograr esa discriminación, aspecto que se revela con mayor claridad
+en la curva ASN.
 
 ```{r grafica aoq c}
 ggplot(df_aoq, aes(x = pd, y = AOQ, color = Plan, linetype = Plan)) +
