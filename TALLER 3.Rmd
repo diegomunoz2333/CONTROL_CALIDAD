@@ -384,7 +384,8 @@ Realizamos:
 #planDr_3
 ```
 
-Dado lo anterior, para este caso específico de inspección reducida, trabajen con los siguientes planes identificados en las tablas (PDF)
+Dado lo anterior, para este caso específico de inspección reducida,
+trabajen con los siguientes planes identificados en las tablas (PDF)
 
 ```{r tabla_comparativa_doble, echo=FALSE}
 library(knitr)
@@ -415,7 +416,6 @@ kbl(planes_d[, c("Inspeccion","Nivel","n1","c1","r1","n2","c2","r2")],
   pack_rows("Estricta", 4, 6) %>%
   pack_rows("Reducida", 7, 9)
 ```
-
 
 ```{r grafica OC, echo=FALSE}
 pd <- seq(0, 0.15, 0.001)
@@ -478,9 +478,40 @@ grid()
 
 ```
 
+#### Análisis de las curvas OC
 
+La curva OC permite visualizar el comportamiento de los nueve planes de
+muestreo doble obtenidos de las tablas MIL-STD-105E para un lote de 3000
+unidades con AQL = 2.5%. En ella se observa claramente cómo la
+probabilidad de aceptación disminuye a medida que aumenta la proporción
+de defectuosos en el lote, pero la velocidad de esa caída varía
+notablemente según el tipo de inspección. Los planes estrictos (rojos)
+son los que presentan una pendiente más pronunciada, lo que significa
+que rechazan rápidamente los lotes con calidad dudosa. Esta
+característica beneficia directamente al consumidor, ya que minimiza su
+riesgo de aceptar lotes defectuosos (riesgo β), pero representa un
+desafío para el productor, cuyos lotes tienen menos margen si su proceso
+no es impecable.
 
-La gráfica OC de los planes dobles evidencia que la probabilidad de aceptación disminuye conforme aumenta la proporción de defectuosos en el lote. Los planes estrictos muestran descensos más rápidos, lo que se traduce en una mayor capacidad para rechazar lotes defectuosos y, en consecuencia, una protección más fuerte para el consumidor. Los planes normales se sitúan en un punto intermedio, ofreciendo un balance razonable entre el rigor de la inspección y el costo asociado. Por otro lado, los planes reducidos presentan curvas más suaves y permisivas, lo que favorece al productor al reducir la carga de inspección, aunque con el riesgo de aceptar lotes con mayor proporción de defectos. En general, a medida que se avanza del Nivel I al Nivel III, las curvas se vuelven más empinadas y discriminativas, lo que permite distinguir con mayor claridad entre lotes conformes y no conformes.
+En el extremo opuesto, los planes reducidos (verdes) muestran curvas
+mucho más tendidas, manteniendo probabilidades de aceptación altas
+incluso cuando la proporción de defectos supera el AQL pactado. Esto
+favorece claramente al productor, reduciendo su riesgo de rechazo
+injustificado (riesgo α), pero a costa de exponer al consumidor a una
+mayor probabilidad de recibir lotes de mala calidad. Por esta razón, la
+norma MIL-STD-105E solo permite la inspección reducida cuando el
+proveedor ha demostrado un historial de calidad consistente y confiable
+a lo largo del tiempo.
+
+Los planes normales (azules) ocupan una posición intermedia,
+equilibrando los intereses de ambas partes. A medida que se pasa del
+nivel I al III, las curvas se vuelven más empinadas. Esto se debe al
+aumento en el tamaño de muestra, lo que otorga mayor poder
+discriminativo al plan y permite diferenciar con más claridad entre
+lotes aceptables y rechazables. Así, la gráfica OC refleja fielmente la
+filosofía del estándar, planes estrictos para proteger al consumidor
+cuando hay dudas, reducidos para premiar al productor cuando hay
+confianza, y normales como punto de partida equilibrado.
 
 ```{r grafica AOQ, echo=FALSE}
 plot(pd, Pa_NI_Nor*pd, type='l', lwd=2, lty=1, col=azules[1],
@@ -507,3 +538,58 @@ grid()
 
 
 ```
+
+#### Análisis de las curvas AOQ
+
+La curva AOQ muestra la calidad promedio que finalmente llega al
+consumidor después de aplicar la inspección rectificadora, es decir,
+asumiendo que los lotes rechazados se inspeccionan al 100% y se
+reemplazan las unidades defectuosas. Su forma característica de campana
+invertida revela un punto máximo, conocido como AOQL, que representa la
+peor calidad de salida que puede esperarse bajo ese plan,
+independientemente de la calidad de entrada. En esta gráfica se observa
+que los planes estrictos (rojos) alcanzan los valores más bajos de AOQL,
+lo que garantiza una protección sólida al consumidor incluso en las
+condiciones más desfavorables.
+
+Los planes normales (azules) presentan AOQL moderados, ofreciendo un
+equilibrio razonable entre la calidad de salida y el esfuerzo de
+inspección. Son la opción más adecuada cuando no se tiene información
+concluyente sobre la confiabilidad del proveedor, ya que aseguran que la
+calidad promedio no se dispare sin incurrir en costos excesivos. Por su
+parte, los planes reducidos (verdes), especialmente en el nivel I,
+exhiben los AOQL más altos. Esto implica que, bajo este esquema, se
+permite que una mayor proporción de defectuosos pueda escapar a la
+inspección y llegar al consumidor.
+
+Este comportamiento es coherente con la lógica del estándar, la
+inspección reducida solo debe aplicarse cuando existe evidencia sólida
+de que el proveedor entrega calidad superior de manera consistente,
+porque relaja los controles justamente cuando el riesgo de encontrar
+defectos es bajo. En cambio, cuando se sospecha que la calidad puede
+haberse deteriorado, los planes estrictos actúan como un filtro más
+riguroso para mantener la AOQ bajo control. La gráfica AOQ permite, por
+tanto, cuantificar esa diferencia y elegir el plan más adecuado según el
+nivel de exigencia deseado.
+
+### Conclusión sobre los planes dobles
+
+En síntesis, los planes de muestreo doble analizados ofrecen muchas
+opciones que se adaptan a diferentes escenarios y necesidades. Los
+planes estrictos son la herramienta más eficaz para proteger al
+consumidor cuando la confianza en el proveedor es limitada o cuando las
+consecuencias de aceptar lotes defectuosos son graves, aunque esto
+implique un mayor costo de inspección. Los planes reducidos, en cambio,
+reducen drásticamente la carga de trabajo y los costos, pero solo son
+recomendables cuando el proveedor ha demostrado un desempeño
+sobresaliente y se puede asumir un mayor riesgo en la calidad de salida.
+
+Los planes normales, y en particular el nivel II, representan el punto
+de equilibrio clásico que la norma MIL-STD-105E propone como estándar.
+Combinan una capacidad de discriminación aceptable con un esfuerzo de
+inspección moderado, lo que los convierte en la opción más versátil y
+utilizada en la práctica. En definitiva, la elección entre uno u otro
+tipo de plan dependerá del balance que se quiera lograr entre la
+protección al consumidor, los costos de inspección y la confianza
+depositada en el proveedor, siendo las curvas OC y AOQ herramientas
+fundamentales para tomar esa decisión con criterio técnico.
