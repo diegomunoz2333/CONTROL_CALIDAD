@@ -120,8 +120,17 @@ tabla_simple %>%
 
 library(AcceptanceSampling)
 library(tidyverse)
-
-# 1. Definir la tabla de planes (ajustada para que coincida con la lógica de la imagen)
+colores_manuales <- c(
+"Normal (I)"="#003f8a",
+"Normal (II)"="#0072CF",
+"Normal (III)"="#66B2FF",
+"Estricta (I)"="#8B0000",
+"Estricta (II)"="#CC0000",
+"Estricta (III)"="#FF6666",
+"Reducida (I)"="#1a5200",
+"Reducida (II)"="#2E8B00",
+"Reducida (III)"="#7FCC00"
+)
 tabla_planes <- tribble(
   ~Tipo,      ~Plan, ~n,  ~c,
   "Normal",   "I",   50,  3,
@@ -135,41 +144,61 @@ tabla_planes <- tribble(
   "Reducida", "III", 80,  5
 )
 
-pd_vector <- seq(0, 0.20, length.out = 100)
+pd_vector <- seq(0,0.20,length.out=100)
+
 datos_grafico <- tabla_planes %>%
-  group_by(Tipo, Plan) %>%
+  group_by(Tipo,Plan) %>%
   do({
-    plan <- OC2c(n = .$n, c = .$c, type = "binomial", pd = pd_vector)
-    tibble(pd = pd_vector, pa = plan@paccept)
+    plan <- OC2c(n=.$n,c=.$c,type="binomial",pd=pd_vector)
+    tibble(pd=pd_vector, pa=plan@paccept)
   }) %>%
-  ungroup() %>%
-  mutate(Etiqueta = paste0(Tipo, " (", Plan, ")"))
-colores_manuales <- c(
-  "Normal (I)"   = "#2E4053", "Estricta (I)" = "#943126", "Reducida (I)" = "#5D6D7E",
-  "Normal (II)"  = "#2874A6", "Estricta (II)"= "#1E8449", "Reducida (II)" = "#A04000",
-  "Normal (III)" = "#5499C7", "Estricta (III)"= "#82E0AA", "Reducida (III)"= "#D98880"
+  ungroup()
+
+# colores estilo gráfico base
+colores <- c(
+  "Normal"="#003f8a",
+  "Estricta"="#CC0000",
+  "Reducida"="#2E8B00"
 )
 
-ggplot(datos_grafico, aes(x = pd, y = pa, color = Etiqueta)) +
-  geom_line(size = 1) +
-  scale_x_continuous(breaks = seq(0, 0.2, 0.02), limits = c(0, 0.2)) +
-  scale_y_continuous(breaks = seq(0, 1, 0.1), limits = c(0, 1)) +
-  scale_color_manual(values = colores_manuales) +
-  labs(
-    title = "Curvas de operación (OC)",
-    x = "Proporción de defectuosos",
-    y = "Probabilidad de aceptación",
-    color = NULL
-  ) +
-  theme_minimal() +
-  theme(
-    panel.grid.major = element_line(color = "grey80"),
-    panel.grid.minor = element_line(color = "grey90"),
-    axis.text.x = element_text(angle = 90, vjust = 0.5),
-    legend.position = "right",
-    plot.title = element_text(hjust = 0.5, face = "bold", color = "brown")
-  )
+ggplot(datos_grafico,
+       aes(x=pd,y=pa,color=Tipo,linetype=Plan))+
 
+  geom_line(linewidth=1.2)+
+
+  scale_color_manual(values=colores)+
+
+  scale_linetype_manual(values=c(
+    "I"="solid",
+    "II"="dashed",
+    "III"="dotted"
+  ))+
+
+  scale_x_continuous(
+    breaks=seq(0,0.2,0.02),
+    limits=c(0,0.2)
+  )+
+
+  scale_y_continuous(
+    breaks=seq(0,1,0.1),
+    limits=c(0,1)
+  )+
+
+  labs(
+    title="Curvas OC - Planes de Muestreo",
+    x="Proporción defectuosa",
+    y="P(aceptación)",
+    color="Tipo de inspección",
+    linetype="Plan"
+  )+
+
+  theme_minimal(base_size=13)+
+  theme(
+    panel.grid.major=element_line(color="grey80"),
+    panel.grid.minor=element_line(color="grey90"),
+    axis.text.x=element_text(angle=90,vjust=0.5),
+    plot.title=element_text(hjust=0.5,face="bold")
+  )
 ```
 
 #### Análisis de las curvas OC
@@ -188,6 +217,7 @@ de inspección.
 ```{r Curvas de salida promedio, echo=FALSE}
 # Calcular AOQ
 N_lote <- 3000
+
 datos_aoq <- tabla_planes %>%
   group_by(Tipo, Plan) %>%
   do({
@@ -195,20 +225,53 @@ datos_aoq <- tabla_planes %>%
     aoq_calculado <- plan@paccept * pd_vector * ((N_lote - .$n) / N_lote)
     tibble(pd = pd_vector, aoq = aoq_calculado)
   }) %>%
-  ungroup() %>%
-  mutate(Etiqueta = factor(paste0(Tipo, " (", Plan, ")"), 
-                           levels = names(colores_manuales)))
-ggplot(datos_aoq, aes(x = pd, y = aoq, color = Etiqueta)) +
-  geom_line(size = 1.1) +
-  scale_x_continuous(breaks = seq(0, 0.2, 0.02)) +
-  scale_y_continuous(labels = scales::percent) + 
-  scale_color_manual(values = colores_manuales) +
-  labs(title = "Curvas de Calidad de Salida Promedio (AOQ)",
-       x = "Proporción de defectuosos (p)",
-       y = "AOQ (Calidad saliente)",
-       color = "Plan") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 90))
+  ungroup()
+
+colores <- c(
+  "Normal"="#003f8a",
+  "Estricta"="#CC0000",
+  "Reducida"="#2E8B00"
+)
+
+ggplot(datos_aoq,
+       aes(x = pd, y = aoq, color = Tipo, linetype = Plan)) +
+
+  geom_line(linewidth = 1.2) +
+
+  scale_color_manual(values = colores) +
+
+  scale_linetype_manual(values = c(
+    "I" = "solid",
+    "II" = "dashed",
+    "III" = "dotted"
+  )) +
+
+  scale_x_continuous(
+    breaks = seq(0, 0.2, 0.02),
+    limits = c(0, 0.2)
+  ) +
+
+  scale_y_continuous(
+    labels = scales::percent,
+    limits = c(0, max(datos_aoq$aoq))
+  ) +
+
+  labs(
+    title = "Curvas AOQ - Calidad de Salida Promedio",
+    x = "Proporcion defectuosa",
+    y = "AOQ",
+    color = "Tipo de inspeccion",
+    linetype = "Plan"
+  ) +
+
+  theme_minimal(base_size = 13) +
+
+  theme(
+    panel.grid.major = element_line(color = "grey80"),
+    panel.grid.minor = element_line(color = "grey90"),
+    axis.text.x = element_text(angle = 90, vjust = 0.5),
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  )
 ```
 
 #### Análisis de las curvas AOQ
@@ -224,7 +287,7 @@ pero los planes reducidos son más riesgosos cuando la calidad del
 proveedor se deteriora.
 
 ```{r inspeccion total, echo=FALSE}
-#ati
+# ATI
 N_lote <- 3000 
 
 datos_ati <- tabla_planes %>%
@@ -234,27 +297,52 @@ datos_ati <- tabla_planes %>%
     ati_val <- .$n + (1 - plan@paccept) * (N_lote - .$n)
     tibble(pd = pd_vector, ati = ati_val)
   }) %>%
-  ungroup() %>%
-  mutate(Etiqueta = factor(paste0(Tipo, " (", Plan, ")"), 
-                           levels = names(colores_manuales))) 
-ggplot(datos_ati, aes(x = pd, y = ati, color = Etiqueta)) +
-  geom_line(size = 1.2) +
-  scale_y_continuous(breaks = seq(0, 3000, 500), limits = c(0, 3100)) +
-  scale_x_continuous(breaks = seq(0, 0.20, 0.02)) +
-  scale_color_manual(values = colores_manuales) +
-  labs(
-    title = paste("Inspección Total Promedio (ATI) para N =", N_lote),
-    x = "Proporción de defectuosos (p)",
-    y = "Número de unidades inspeccionadas",
-    color = "Plan de Muestreo"
+  ungroup()
+
+colores <- c(
+  "Normal"="#003f8a",
+  "Estricta"="#CC0000",
+  "Reducida"="#2E8B00"
+)
+
+ggplot(datos_ati,
+       aes(x = pd, y = ati, color = Tipo, linetype = Plan)) +
+
+  geom_line(linewidth = 1.2) +
+
+  scale_color_manual(values = colores) +
+
+  scale_linetype_manual(values = c(
+    "I" = "solid",
+    "II" = "dashed",
+    "III" = "dotted"
+  )) +
+
+  scale_x_continuous(
+    breaks = seq(0, 0.20, 0.02),
+    limits = c(0, 0.20)
   ) +
-  theme_bw() + 
+
+  scale_y_continuous(
+    breaks = seq(0, 3000, 500),
+    limits = c(0, 3100)
+  ) +
+
+  labs(
+    title = paste("Curvas ATI - Inspeccion Total Promedio (N =", N_lote, ")"),
+    x = "Proporcion defectuosa",
+    y = "Unidades inspeccionadas",
+    color = "Tipo de inspeccion",
+    linetype = "Plan"
+  ) +
+
+  theme_minimal(base_size = 13) +
+
   theme(
-    plot.title = element_text(hjust = 0.5, size = 16, face = "bold", color = "brown"),
-    axis.text.x = element_text(angle = 90, vjust = 0.5, size = 10),
-    panel.grid.major = element_line(color = "grey85"),
-    panel.grid.minor = element_blank(),
-    legend.position = "right"
+    panel.grid.major = element_line(color = "grey80"),
+    panel.grid.minor = element_line(color = "grey90"),
+    axis.text.x = element_text(angle = 90, vjust = 0.5),
+    plot.title = element_text(hjust = 0.5, face = "bold")
   )
 
 ```
@@ -363,7 +451,7 @@ Considerando el AQL de 2.5% y lotes de N=3000:
 
 Realizamos:
 
-```{r}
+```{r echo=FALSE}
 #planDN_1<-AADouble('Normal')
 #planDN_1
 #planDN_2<-AADouble('Normal')
