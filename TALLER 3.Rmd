@@ -1,6 +1,9 @@
 ---
 title: "Taller 3 – plan de muestreo estándar"
-author: "Diego Fernando Muñoz Portela 2415620, Valery Rivera Lopez 2417038, Alejandro Barros Rayo 2415837 "
+author: 
+  - "Diego Fernando Muñoz Portela 2415620,"
+  - "Valery Rivera Lopez 2417038,"
+  - "Alejandro Barros Rayo 2415837"
 date: "`r format(Sys.Date(), '%d de %B de %Y')`"
 output:
   pdf_document:
