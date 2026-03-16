@@ -25,7 +25,7 @@ header-includes:
   - \usepackage{setspace}
   - \usepackage{ragged2e}
   - \onehalfspacing
-  - \justifying
+  - \AtBeginDocument{\justifying}
 editor_options: 
   markdown: 
     wrap: 72
@@ -645,7 +645,11 @@ protección superior del consumidor
 #planDr_3
 ```
 
-Se replicará la metodología del plan de muestreo simple para este esquema de muestreo doble. Los valores han sido calculados mediante las funciones correspondientes, con excepción del plan doble reducido, cuyos parámetros se han predefinido para los fines académicos de este ejercicio:
+Se replicará la metodología del plan de muestreo simple para este
+esquema de muestreo doble. Los valores han sido calculados mediante las
+funciones correspondientes, con excepción del plan doble reducido, cuyos
+parámetros se han predefinido para los fines académicos de este
+ejercicio:
 
 ```{r tabla_comparativa_doble, echo=FALSE}
 library(knitr)
@@ -853,15 +857,16 @@ riguroso para mantener la AOQ bajo control. La gráfica AOQ permite, por
 tanto, cuantificar esa diferencia y elegir el plan más adecuado según el
 nivel de exigencia deseado.
 
-En síntesis, los planes normales, y en particular el nivel II, representan el punto
-de equilibrio clásico que la norma MIL-STD-105E propone como estándar.
-Combinan una capacidad de discriminación aceptable con un esfuerzo de
-inspección moderado, lo que los convierte en la opción más versátil y
-utilizada en la práctica. En definitiva, la elección entre uno u otro
-tipo de plan dependerá del balance que se quiera lograr entre la
-protección al consumidor, los costos de inspección y la confianza
-depositada en el proveedor, siendo las curvas OC y AOQ herramientas
-fundamentales para tomar esa decisión con criterio técnico.
+En síntesis, los planes normales, y en particular el nivel II,
+representan el punto de equilibrio clásico que la norma MIL-STD-105E
+propone como estándar. Combinan una capacidad de discriminación
+aceptable con un esfuerzo de inspección moderado, lo que los convierte
+en la opción más versátil y utilizada en la práctica. En definitiva, la
+elección entre uno u otro tipo de plan dependerá del balance que se
+quiera lograr entre la protección al consumidor, los costos de
+inspección y la confianza depositada en el proveedor, siendo las curvas
+OC y AOQ herramientas fundamentales para tomar esa decisión con criterio
+técnico.
 
 ## c. Comparación del mejor plan simple vs. el mejor plan doble
 
@@ -1004,6 +1009,19 @@ de calidad esperado cerca del AQL.
 
 **Análisis ATI** :
 
-Respecto al número promedio total inspeccionado (ATI), el plan de muestreo doble puede resultar más eficiente en ciertos casos, ya que permite tomar decisiones tempranas después de la primera muestra cuando la calidad del lote es claramente buena o claramente mala. Esto puede reducir el esfuerzo total de inspección en comparación con el plan simple.
+Respecto al número promedio total inspeccionado (ATI), el plan de
+muestreo doble puede resultar más eficiente en ciertos casos, ya que
+permite tomar decisiones tempranas después de la primera muestra cuando
+la calidad del lote es claramente buena o claramente mala. Esto puede
+reducir el esfuerzo total de inspección en comparación con el plan
+simple.
 
-En conclusión, ambos planes presentan comportamientos estadísticos similares en términos de OC y AOQ, lo que indica niveles de protección comparables frente a la calidad del lote. No obstante, el plan doble puede ofrecer una ventaja en términos de eficiencia de inspección debido a la posibilidad de tomar decisiones con una primera muestra. Por otro lado, el plan simple presenta una aplicación operativa más directa al requerir siempre el mismo tamaño de muestra. Por lo tanto, la elección entre ambos dependerá del equilibrio deseado entre simplicidad operativa y eficiencia en el esfuerzo de inspección.
+En conclusión, ambos planes presentan comportamientos estadísticos
+similares en términos de OC y AOQ, lo que indica niveles de protección
+comparables frente a la calidad del lote. No obstante, el plan doble
+puede ofrecer una ventaja en términos de eficiencia de inspección debido
+a la posibilidad de tomar decisiones con una primera muestra. Por otro
+lado, el plan simple presenta una aplicación operativa más directa al
+requerir siempre el mismo tamaño de muestra. Por lo tanto, la elección
+entre ambos dependerá del equilibrio deseado entre simplicidad operativa
+y eficiencia en el esfuerzo de inspección.
