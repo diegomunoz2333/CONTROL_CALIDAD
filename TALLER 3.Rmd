@@ -67,9 +67,9 @@ las normas Militar Standard.
 
 Primero buscamos cada uno de los $n$,$c$ y $r$ para cada uno de los
 planes simples (1,2,3) en cada uno de los niveles, por medio de la
-funcion:
+función trabajada en clase:
 
-```{r codigo c, echo=FALSE}
+```{r codigo c}
 #library(AQLSchemes)
 #library(AcceptanceSampling)
 #planS_1 <- AASingle('Normal')
@@ -94,7 +94,7 @@ funcion:
 ```
 
 Representamos los n, r y c según su clasificación de nivel en la
-siguente tabla:
+siguente tabla (Table 1).
 
 ```{r tabla de c, n y r, echo=FALSE}
 # Crear el data frame sin columna Plan
@@ -233,7 +233,7 @@ Los planes estrictos (representados en rojo) muestran las pendientes más
 pronunciadas dentro de la gráfica. Esto significa que, a medida que la
 proporción de defectuosos aumenta ligeramente, la probabilidad de
 aceptación cae rápidamente. Este comportamiento se explica porque los
-valores de aceptación 𝑐 c son más pequeños que en los otros tipos de
+valores de aceptación 𝑐 son más pequeños que en los otros tipos de
 inspección, lo que hace que el criterio para aceptar un lote sea más
 exigente. En consecuencia, estos planes protegen principalmente al
 consumidor, ya que reducen la posibilidad de aceptar lotes con niveles
@@ -609,8 +609,6 @@ Considerando el AQL de 2.5% y lotes de N=3000:
     buena calidad. Reducen costos pero exponen al riesgo de mayor
     calidad de salida defectuosa (AOQL alto).
 
-#### Conclusión sobre los planes simples
-
 El plan de muestreo propuesto para el jefe de compras concluye que:El
 Nivel II Normal es el punto de equilibrio óptimo: Ofrece una protección
 estadística suficiente sin elevar los costos de inspección ($n=125$) a
@@ -625,8 +623,6 @@ III, aceptando un mayor costo de inspección inicial a cambio de una
 protección superior del consumidor
 
 ### b. Ubique ahora los respectivos planes de muestreo doble. Evalúe la conveniencia de los planes resultantes. (OC, AOQ, ATI).
-
-Realizamos:
 
 ```{r echo=FALSE}
 #planDN_1<-AADouble('Normal')
@@ -649,8 +645,7 @@ Realizamos:
 #planDr_3
 ```
 
-Dado lo anterior, para este caso específico de inspección reducida,
-trabajen con los siguientes planes identificados en las tablas (PDF)
+Se replicará la metodología del plan de muestreo simple para este esquema de muestreo doble. Los valores han sido calculados mediante las funciones correspondientes, con excepción del plan doble reducido, cuyos parámetros se han predefinido para los fines académicos de este ejercicio:
 
 ```{r tabla_comparativa_doble, echo=FALSE}
 library(knitr)
@@ -858,19 +853,7 @@ riguroso para mantener la AOQ bajo control. La gráfica AOQ permite, por
 tanto, cuantificar esa diferencia y elegir el plan más adecuado según el
 nivel de exigencia deseado.
 
-#### Conclusión sobre los planes dobles
-
-En síntesis, los planes de muestreo doble analizados ofrecen muchas
-opciones que se adaptan a diferentes escenarios y necesidades. Los
-planes estrictos son la herramienta más eficaz para proteger al
-consumidor cuando la confianza en el proveedor es limitada o cuando las
-consecuencias de aceptar lotes defectuosos son graves, aunque esto
-implique un mayor costo de inspección. Los planes reducidos, en cambio,
-reducen drásticamente la carga de trabajo y los costos, pero solo son
-recomendables cuando el proveedor ha demostrado un desempeño
-sobresaliente y se puede asumir un mayor riesgo en la calidad de salida.
-
-Los planes normales, y en particular el nivel II, representan el punto
+En síntesis, los planes normales, y en particular el nivel II, representan el punto
 de equilibrio clásico que la norma MIL-STD-105E propone como estándar.
 Combinan una capacidad de discriminación aceptable con un esfuerzo de
 inspección moderado, lo que los convierte en la opción más versátil y
@@ -1019,111 +1002,8 @@ marginalmente más defectuosos escapen sin ser detectados. En la práctica
 esta diferencia es pequeña y operativamente insignificante para el rango
 de calidad esperado cerca del AQL.
 
-```{r grafica asn, echo=FALSE}
-ggplot(df_asn, aes(x = pd, y = Muestra, color = Plan, linetype = Plan)) +
-  geom_line(size = 1.1) +
-  geom_vline(xintercept = 0.025, linetype = "dotted",
-             color = "#BA7517", size = 0.8) +
-  scale_color_manual(values = cols) +
-  scale_linetype_manual(values = c("Simple (n fijo)" = "solid",
-                                   "Doble (ASN)"     = "dashed")) +
-  scale_x_continuous(labels = scales::percent) +
-  labs(title = "Tamaño de muestra promedio (ASN) – Simple vs. Doble",
-       x = "Proporción defectuosa (p)",
-       y = "Unidades inspeccionadas en promedio",
-       color = "Plan", linetype = "Plan") +
-  theme_minimal() +
-  theme(plot.title = element_text(hjust = 0.5, face = "bold", color = "brown"),
-        legend.position = "bottom")
-```
+**Análisis ATI** :
 
-------------------------------------------------------------------------
+Respecto al número promedio total inspeccionado (ATI), el plan de muestreo doble puede resultar más eficiente en ciertos casos, ya que permite tomar decisiones tempranas después de la primera muestra cuando la calidad del lote es claramente buena o claramente mala. Esto puede reducir el esfuerzo total de inspección en comparación con el plan simple.
 
-**Análisis ASN** :
-
-Esta gráfica es la clave de la comparación. El plan simple inspecciona
-siempre $n = 125$ unidades, sin importar qué tan bueno o malo sea el
-lote. El plan doble, en cambio, tiene un tamaño de muestra esperado
-(ASN) variable:
-
-\begin{itemize}
-  \item Cuando $p$ es baja (lote claramente bueno), la primera muestra de 
-        $n_1 = 80$ unidades suele ser suficiente para aceptar, y el ASN se 
-        aproxima a 80.
-  \item Cuando $p$ es alta (lote claramente malo), la primera muestra también 
-        basta para rechazar, y el ASN nuevamente se acerca a 80.
-  \item En la zona de incertidumbre (alrededor de $p \approx 0.04$--$0.06$), 
-        se requiere la segunda muestra con frecuencia, y el ASN puede llegar 
-        hasta 160 unidades.
-\end{itemize}
-
-Esto implica que el plan doble es más eficiente que el simple cuando el
-proceso opera en los extremos (muy buena o muy mala calidad), pero puede
-requerir más inspección que el simple en la zona intermedia. Para un
-proveedor con proceso estable cerca del AQL, el ASN del doble ronda las
-90--100 unidades, lo que representa un ahorro de aproximadamente 20%
-frente al plan simple.
-
-```{r tabla comparativa c, echo=FALSE}
-library(knitr)
-library(kableExtra)
-
-# Precalcular valores antes del data.frame
-pa_aql_simple <- round(OC2c(125, 7, type = "binomial", 
-                             pd = 0.025)@paccept * 100, 1)
-pa_aql_doble  <- round(Pa_doble(80, 3, 7, 80, 8, 0.025) * 100, 1)
-aoql_simple   <- round(max(aoq_simple) * 100, 2)
-aoql_doble    <- round(max(aoq_doble) * 100, 2)
-asn_aql       <- round(ASN_doble(80, 3, 7, 80, 0.025), 0)
-
-tabla_c <- data.frame(
-  Criterio = c("Tamaño de muestra", 
-               "Pa en AQL (p=2.5%)",
-               "AOQL", 
-               "ASN en AQL", 
-               "Complejidad operativa",
-               "Psicología del proveedor",
-               "Recomendado cuando..."),
-  Simple = c("Fijo: n=125",
-             paste0(pa_aql_simple, "%"),
-             paste0(aoql_simple, "%"),
-             "125 (siempre)",
-             "Baja — una sola decisión",
-             "Neutral",
-             "Proceso variable o errático"),
-  Doble  = c("Variable: 80–160",
-             paste0(pa_aql_doble, "%"),
-             paste0(aoql_doble, "%"),
-             paste0("~", asn_aql),
-             "Media — dos etapas posibles",
-             "Favorable (segunda oportunidad)",
-             "Proceso estable, costo inspección alto")
-)
-
-kbl(tabla_c,
-    caption   = "Comparación del mejor plan simple vs. el mejor plan doble (Normal Nivel II)",
-    col.names = c("Criterio", "Simple (n=125, c=7)", "Doble (n1=80, c1=3)"),
-    align     = c("l","c","c"),
-    booktabs  = TRUE) %>%
-  kable_styling(font_size = 10,
-                latex_options = c("hold_position", "scale_down"))
-```
-
-------------------------------------------------------------------------
-
-**Conclusión final del punto c:** En síntesis, ambos planes ofrecen una
-protección equivalente al consumidor en términos de curva OC y AOQL. La
-diferencia determinante es el esfuerzo de inspección: el plan doble
-permite reducir el tamaño de muestra esperado cuando el proceso del
-proveedor es estable, a cambio de una mayor complejidad administrativa.
-
-El \textbf{plan simple Normal II} es preferible cuando el proceso del
-proveedor es errático o cuando la simplicidad operativa es prioritaria,
-ya que su tamaño de muestra fijo garantiza decisiones consistentes sin
-importar el estado del lote.
-
-El \textbf{plan doble Normal II} es preferible cuando el costo unitario
-de inspección es significativo y el proveedor tiene un historial de
-calidad demostrado, pues su ASN promedio cercano al AQL puede ser hasta
-un 20% menor que el del plan simple, traduciendo ese ahorro directamente
-en reducción de costos operativos sin sacrificar la protección exigida.
+En conclusión, ambos planes presentan comportamientos estadísticos similares en términos de OC y AOQ, lo que indica niveles de protección comparables frente a la calidad del lote. No obstante, el plan doble puede ofrecer una ventaja en términos de eficiencia de inspección debido a la posibilidad de tomar decisiones con una primera muestra. Por otro lado, el plan simple presenta una aplicación operativa más directa al requerir siempre el mismo tamaño de muestra. Por lo tanto, la elección entre ambos dependerá del equilibrio deseado entre simplicidad operativa y eficiencia en el esfuerzo de inspección.
